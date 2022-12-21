@@ -118,6 +118,35 @@ function Join() {
         setUserJoin({ ...userJoin, [name]: value });
     }
 
+    // 비밀번호 입력할 때마다 일치, 불일치 확인하기
+    const comparePassword = () => {
+        let password = document.getElementById("password").value;
+        let confpassword = document.getElementById("repw").value;
+
+        if (password == '' || confpassword == '') {
+            document.getElementById("pwTrue").setAttribute("style", "display:none; color: blue;")
+            document.getElementById("pwFalse").setAttribute("style", "display:none; color: red;")
+        }
+        else if (password === confpassword) {
+            console.log("비밀번호 일치")
+            document.getElementById("pwTrue").setAttribute("style", "display:show; color: blue;")
+            document.getElementById("pwFalse").setAttribute("style", "display:none; color: red;")
+        } else {
+            console.log("비밀번호 불일치")
+            document.getElementById("pwTrue").setAttribute("style", "display:none; color: blue;")
+            document.getElementById("pwFalse").setAttribute("style", "display:show; color: red;")
+        }
+    }
+
+    const setPwInfo = (e) => {
+        setRepw(e.target.value)
+        comparePassword()
+    }
+
+    const passChange = (e) => {
+        setInfo(e);
+        comparePassword();
+    }
 
     const submit = () => {
         //e.preventDefault();
@@ -169,11 +198,11 @@ function Join() {
 
                         {/* 비밀번호 */}
                         <label>비밀번호</label><br />
-                        <input className="inputStyle" type="password" name="password" id="password" placeholder="password" value={userJoin.password} required></input>
+                        <input className="inputStyle" type="password" name="password" id="password" placeholder="password" value={userJoin.password} onChange={passChange} required></input>
                         <br /><br />
 
                         <label>비밀번호 재확인</label><br />
-                        <input className="inputStyle" type="password" name="repw" id="repw" value={repw} required></input>
+                        <input className="inputStyle" type="password" name="repw" id="repw" value={repw} onChange={setPwInfo} required></input>
                         <p>
                             <span id="pwTrue" style={{ display: "none" }}><b>비밀번호 일치</b></span>
                             <span id="pwFalse" style={{ display: "none" }}><b>비밀번호 불일치</b></span>
