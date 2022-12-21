@@ -37,7 +37,6 @@ function Join() {
             document.getElementById("regFalse").setAttribute("style", "display:show; color: red;")
             document.getElementById("regTrue").setAttribute("style", "display:none; color: blue;")
         }
-
     }
 
     // 닉네임 정규표현식 일지하는지 검사
@@ -57,7 +56,6 @@ function Join() {
             document.getElementById("regnnFalse").setAttribute("style", "display:show; color: red;")
             document.getElementById("regnnTrue").setAttribute("style", "display:none; color: blue;")
         }
-
     }
 
     // 사용자가 입력할 때마다 정규표현식 확인하기
@@ -141,7 +139,6 @@ function Join() {
                     console.log("error")
                 })
         }
-
     }
 
     return (
