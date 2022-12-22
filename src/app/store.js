@@ -11,7 +11,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
-import rootReducers from "../rootReducers";
+import rootReducers from "./rootReducers";
 
 const isDev = process.env.NODE_ENV === "development";
 
