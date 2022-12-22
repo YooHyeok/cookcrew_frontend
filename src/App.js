@@ -18,6 +18,7 @@ import RecipeWrite from './component/recipe/RecipeWrite';
 import RecipeDetail from './component/recipe/RecipeDetail';
 import RecipeModify from './component/recipe/RecipeModify';
 import Join from './component/user/Join';
+import Login from './component/user/Login';
 
 
 /* 컴포넌트 테스트 */
@@ -44,7 +45,8 @@ function App() {
         <Route exact path='/recipeWrite' element={<RecipeWrite />} />{/* 레시피 등록 */}
         <Route exact path='/recipedetail' element={<RecipeDetail />} />{/* 레시피 상세 */}
         <Route exact path='/recipemodify' element={<RecipeModify />} />{/* 레시피 수정 */}
-        <Route exact path='/join' element={<Join />} />{/* 레시피 수정 */}
+        <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
+        <Route exact path='/login' element={<Login />} />{/* 로그인 */}
       </Routes>
       <Footer />
     </div>
