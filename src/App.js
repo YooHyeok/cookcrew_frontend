@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 // import './fullcalendar.css';
 import './component_test/diet/fullcalendar.css';
 import './component/diet/fullcalendar.css';
-import { Routes, Route } from 'react-router-dom';
 
 /* 컴포넌트 */
 import Header from './component/info/Header';
@@ -29,26 +28,42 @@ import Login from './component/user/Login';
 // import RecipeDetail from './component_test/recipe/RecipeDetail';
 // import RecipeModify from './component_test/recipe/RecipeModify';
 
+/* 라우터 */
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+/* 리덕스 처리 */
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
+import store from '.component/redux_jwt/persist-store';
+
+let persistor = persistStore(store);
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<Main />} />
-        <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
-        <Route exact path='/AllRecipe' element={<AllRecipe />} />{/* 전체 레시피 */}
-        <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
-        <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
-        <Route exact path='/chalengeRank' />{/* 챌린지 랭킹 */}
-        <Route exact path='/MyRecipe' element={<MyRecipe />} />{/* 나의 레시피 */}
-        <Route exact path='/recipeWrite' element={<RecipeWrite />} />{/* 레시피 등록 */}
-        <Route exact path='/recipedetail' element={<RecipeDetail />} />{/* 레시피 상세 */}
-        <Route exact path='/recipemodify' element={<RecipeModify />} />{/* 레시피 수정 */}
-        <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
-        <Route exact path='/login' element={<Login />} />{/* 로그인 */}
-      </Routes>
-      <Footer />
+      <Provider store={store}>
+        <PersistGate persistor={persistor}>
+          <BrowserRouter>
+            <Header />
+            <Routes>
+              <Route exact path='/' element={<Main />} />
+              <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
+              <Route exact path='/AllRecipe' element={<AllRecipe />} />{/* 전체 레시피 */}
+              <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
+              <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
+              <Route exact path='/chalengeRank' />{/* 챌린지 랭킹 */}
+              <Route exact path='/MyRecipe' element={<MyRecipe />} />{/* 나의 레시피 */}
+              <Route exact path='/recipeWrite' element={<RecipeWrite />} />{/* 레시피 등록 */}
+              <Route exact path='/recipedetail' element={<RecipeDetail />} />{/* 레시피 상세 */}
+              <Route exact path='/recipemodify' element={<RecipeModify />} />{/* 레시피 수정 */}
+              <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
+              <Route exact path='/login' element={<Login />} />{/* 로그인 */}
+            </Routes>
+            <Footer />
+          </BrowserRouter>
+        </PersistGate>
+      </Provider>
     </div>
   );
 }
