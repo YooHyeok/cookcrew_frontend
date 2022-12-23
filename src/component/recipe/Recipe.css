@@ -1,0 +1,80 @@
+
+ #create_table {
+    margin: auto;  
+} 
+
+#td_left {
+    text-align: left;
+}
+
+#td_right {
+    text-align: right;
+}
+
+#editor_margin{
+
+    width: 1000px;
+}
+
+img{
+    width: auto;
+
+    object-fit: none;
+}
+
+/* #s_p{
+    width: 516px;
+    height: 644px;
+
+    background-image: url('https://recipe1.ezmember.co.kr/cache/recipe/2016/10/07/f43063e718c49d85ddce4880e4a41fcd1.jpg');
+    background-repeat : no-repeat;
+        background-size: 516px;
+        background-position: center;
+
+} */
+
+#thumb_container{
+    height: 644px;
+    width: 535px;
+    
+}
+
+#detail_container{
+    height: 644px;
+    width: 535px;
+}
+
+#icons_group{
+    height: 43px;
+    text-align: left;
+}
+
+#explain_recipe{
+    padding-top: 35px;
+    text-align: left;
+}
+
+#exp_s_title{
+    margin-top: 9px;
+}
+
+#exp_text{
+    margin-top: 50px;
+}
+
+#explain_mat{
+    padding-top: 37px;
+    text-align: left;
+}
+
+#exp_mat{
+    margin-top: 20px;
+}
+
+#exp_source{
+    margin-top: 20px;
+}
+
+
+
+

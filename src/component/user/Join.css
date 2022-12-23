@@ -1,0 +1,27 @@
+
+.join_wrap{
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+  }
+  
+.join_cl {
+    border: 5mm solid #ff9e56;
+    border-radius: 50px;
+    width: 600px;
+    padding: 5% 18%;
+    text-align: justify;
+  }
+
+.CheckBtn{
+      margin-left:2%;
+      margin-top: -4px;
+  }
+  
+.inputStyle{
+      width:250px;
+  }
+    
+.joinus{
+    padding: 3% 0%;
+  }
