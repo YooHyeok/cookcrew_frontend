@@ -8,7 +8,7 @@ export default function Footer() {
     }
     return(
     <div style={style}>
-            <ul style = {{height:"140px"}} className="footer-items" >
+            <ul style = {{height:"140px"}} className="footer-items " >
                 <li className="footer-item">
                     <Link to={'/'} id="logo">Cook<b>Crew</b><img width={30} src={require('../../resources/img/A_test.png')} alt=''/></Link>
                 </li>

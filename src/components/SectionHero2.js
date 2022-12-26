@@ -11,23 +11,23 @@ import useBoolean from "react-use/lib/useBoolean";
 
 const DATA = [
         {
-        image: "http://www.foodsafetykorea.go.kr/uploadimg/20190408/20190408010349_1554696229438.jpg",
+        image: "/img/boong.jpg",
         heading:  "COOKCREW",
         subHeading: "레시피검색과 식단관리를 한번에,🔥",
         btnText: "",
         btnLink: "",
       },
         {
-        image: "http://www.foodsafetykorea.go.kr/uploadimg/20190408/20190408111442_1554689682742.jpg",
+        image: "/img/curry.jpg",
         heading: "다이어트 식단 🔥",
         subHeading: "건강한 식단을 만들고 체크하세요",
         btnText: "식단 만들러가기",
         btnLink: "/",
       },
       {
-        image: "http://www.foodsafetykorea.go.kr/uploadimg/20190408/20190408112127_1554690087850.jpg",
-        heading: "가장 인기있는 다이어트 레시피",
-        subHeading: "많은 사람들이 맘에 들어한 레시피🔥",
+        image: "/img/ginsengchickensoup.jpg",
+        heading: "다이어트 레시피",
+        subHeading: "많은 사람들이 마음에 들어한 레시피🔥",
         btnText: "더 보러가기",
         btnLink: "/",
       },
@@ -95,7 +95,7 @@ const SectionHero2 = () => {
         }
         const slideButton = () => {
             if(!item.btnText){
-                return;
+                return (<div className="w-5 h-6 ml-2.5" viewBox="0 0 24 24" fill="none"></div>);
             }else {
                  return (
                 <ButtonPrimary 
@@ -127,11 +127,11 @@ const SectionHero2 = () => {
         }
         return (
             <div
-              className={`nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden`}
+              className={`nc-SectionHero2Item nc-SectionHero2Item--animation flex flex-col-reverse lg:flex-col relative overflow-hidden mt-20 pt-10 pb-20`}
               key={index}
             >
                 
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex justify-center">
+              <div className="absolute bottom-1 left-1/2 -translate-x-1/2 z-20 flex justify-center">
                 {DATA.map((_, index) => {
                   const isActive = indexActive === index;
                   return (
@@ -188,15 +188,16 @@ const SectionHero2 = () => {
                   className={`relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
                 >
                   <div className="space-y-5 sm:space-y-6">
-                    <span className="nc-SectionHero2Item__subheading block text-base md:text-xl text-slate-700 font-medium">
+                    <span className="nc-SectionHero2Item__subheading block text-base text-left md:text-xl text-slate-700 font-medium">
                       {item.subHeading}
                     </span>
-                    <h2 className="nc-SectionHero2Item__heading font-semibold text-3xl sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
+                    <h2 className="nc-SectionHero2Item__heading font-semibold text-3xl text-left sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl !leading-[114%] text-slate-900">
                       {item.heading}
                     </h2>
                   </div>
-                 
+                  <div style={{'textAlign': 'left'}} className='align-left'>
                   {slideButton()}
+                  </div>
                   {/* <ButtonPrimary
                     className="nc-SectionHero2Item__button dark:bg-slate-900"
                     sizeClass="py-3 px-6 sm:py-5 sm:px-9"
@@ -224,8 +225,8 @@ const SectionHero2 = () => {
                   </ButtonPrimary> */}
                 </div>
                 <div className="mt-10 lg:mt-0 lg:absolute right-0 bottom-0 top-0 w-full max-w-2xl xl:max-w-3xl 2xl:max-w-4xl">
-                  <img
-                    className="w-full h-full object-contain object-right-bottom nc-SectionHero2Item__image"
+                  <img style={{'padding-top' : '30px'}}
+                    className="w-full h-full object-contain object-right-bottom nc-SectionHero2Item__image align-right"
                     src={item.image}
                     alt={item.heading}
                   />

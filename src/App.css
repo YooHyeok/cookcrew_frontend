@@ -54,6 +54,7 @@
 .footer-items {
   list-style: none;
   margin: 0px auto;
+  margin-top: 48px;
 }
 .footer-item {
   display: inline-block;
