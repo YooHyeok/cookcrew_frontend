@@ -25,3 +25,8 @@
 .joinus{
     padding: 3% 0%;
   }
+  
+.forget_btn{
+  display: flex;
+  justify-content: space-between;
+}

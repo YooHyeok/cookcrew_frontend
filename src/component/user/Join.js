@@ -3,17 +3,39 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import './Join.css';
-
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import DaumPostcode from 'react-daum-postcode';
 
 function Join() {
+
+
+
+
     const [userJoin, setUserJoin] = useState({
-        nickname: '', id: '', password: '', address: '', detailaddress: '', email: '', checked: ''
+        // nickname: '', id: '', password: '', address: '', detailaddress: '', email: '', checked: ''
+        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: ''
     });
+
+    const [modalShow, setModalShow] = useState(false);
+    const modalToggle = () => {
+        setModalShow(!modalShow)
+    }
+
+    const addressHandle = {
+        selectAddress: (data) => {
+            setUserJoin({ ...userJoin, address: data.address, postcode: data.zonecode });
+            setModalShow(false)
+        }
+    }
+
 
     //정규식
     const [validId, setValidId] = useState(false);
     const [validNN, setValidNN] = useState(false);
 
+    //중복확인
+    const [existId, setExistId] = useState(false);
+    const [existNm, setExistNm] = useState(false);
     //비밀번호 일치, 불일치
     const [repw, setRepw] = useState('')
 
@@ -79,9 +101,12 @@ function Join() {
             .then((res) => {
                 if (res.data === false) {
                     alert("사용 가능합니다.");
+                    setExistId(true)
                 }
                 else if (res.data === true) {
                     alert("중복되는 아이디입니다.")
+                    setExistId(false)
+
                 }
             }).catch((error) => {
                 // alert("중복되는 아이디 입니다.")
@@ -99,9 +124,11 @@ function Join() {
             .then((res) => {
                 if (res.data === false) {
                     alert("사용 가능합니다.");
+                    setExistNm(true)
                 }
                 else if (res.data === true) {
                     alert("중복되는 닉네임입니다.")
+                    setExistNm(false)
                 }
             }).catch((error) => {
                 // alert("중복되는 아이디 입니다.")
@@ -148,94 +175,117 @@ function Join() {
         comparePassword();
     }
 
-    const submit = () => {
-        //e.preventDefault();
-        const formData = new FormData();
-        formData.append('nickname', userJoin.nickname);
-        formData.append('id', userJoin.id);
-        formData.append('password', userJoin.password);
-        formData.append('address', userJoin.address);
-        formData.append('detailaddress', userJoin.detailaddress);
-        formData.append('email', userJoin.email);
-        formData.append('checked', userJoin.checked);
+    const formData = new FormData();
+    const submit = (e) => {
+        e.preventDefault();
+        // formData.append('nickname', userJoin.nickname);
+        // formData.append('id', userJoin.id);
+        // formData.append('password', userJoin.password);
+        // formData.append('postcode', userJoin.postcode);
+        // formData.append('address', userJoin.address);
+        // formData.append('detailaddress', userJoin.detailaddress);
+        // formData.append('email', userJoin.email);
+        // formData.append('checked', userJoin.checked);
+        console.log(formData)
+        console.log(userJoin)
 
-        if (validId && validNN) {
-            axios.post('/join', formData)
+        if (validId && validNN && existId && existNm) {
+            // axios.post('/join', formData)
+            console.log(userJoin)
+            axios.post('/join', userJoin)
                 .then((res) => {
                     alert("회원 가입을 축하합니다.")
 
                 }).catch((error) => {
                     console.log("error")
                 })
+        } else {
+            alert("입력한 정보가 올바르지 않습니다.");
         }
     }
 
     return (
-        <form className="join_wrap">
-            <div className='joinus'><h1><b>회원가입</b></h1><br />
-                <section className="join_cl" >
-                    <div style={{ width: "400px", margin: "0 auto" }} >
-                        {/* 닉네임 */}
-                        <label >Nickname</label><br />
-                        <input className="inputStyle" type="text" name="nickname" id="nickname" placeholder="nickname" value={userJoin.nickname} onChange={setNnInfo} required></input>
-                        <Button color="warning" className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
-                        <p>
-                            <span id="regnnTrue" style={{ display: "none" }}><b>사용 가능한 닉네임입니다.</b></span>
-                            <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
-                        </p>
-
-
-                        {/* 아이디 */}
-                        <div>
-                            <label htmlFor="id">ID</label><br />
-                            <input className="inputStyle" type="text" name="id" id="id" placeholder="id" value={userJoin.id} onChange={setIdInfo} required />
-                            <Button color="warning" className="CheckBtn" onClick={CheckId}>중복 확인</Button>
+        <div>
+            <form className="join_wrap">
+                <div className='joinus'><h1><b>회원가입</b></h1><br />
+                    <section className="join_cl" >
+                        <div style={{ width: "400px", margin: "0 auto" }} >
+                            {/* 닉네임 */}
+                            <label >Nickname</label><br />
+                            <input className="inputStyle" type="text" name="nickname" id="nickname" placeholder="nickname" value={userJoin.nickname} onChange={setNnInfo} required></input>
+                            <Button color="warning" className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
                             <p>
-                                <span id="regTrue" style={{ display: "none" }}><b>사용 가능한 아이디 입니다.</b></span>
-                                <span id="regFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                                <span id="regnnTrue" style={{ display: "none" }}><b>사용 가능한 닉네임입니다.</b></span>
+                                <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
                             </p>
-                        </div>
 
-                        {/* 비밀번호 */}
-                        <label>비밀번호</label><br />
-                        <input className="inputStyle" type="password" name="password" id="password" placeholder="password" value={userJoin.password} onChange={passChange} required></input>
-                        <br /><br />
 
-                        <label>비밀번호 재확인</label><br />
-                        <input className="inputStyle" type="password" name="repw" id="repw" value={repw} onChange={setPwInfo} required></input>
-                        <p>
-                            <span id="pwTrue" style={{ display: "none" }}><b>비밀번호 일치</b></span>
-                            <span id="pwFalse" style={{ display: "none" }}><b>비밀번호 불일치</b></span>
-                        </p>
+                            {/* 아이디 */}
+                            <div>
+                                <label htmlFor="id">ID</label><br />
+                                <input className="inputStyle" type="text" name="id" id="id" placeholder="id" value={userJoin.id} onChange={setIdInfo} required />
+                                <Button color="warning" className="CheckBtn" onClick={CheckId}>중복 확인</Button>
+                                <p>
+                                    <span id="regTrue" style={{ display: "none" }}><b>사용 가능한 아이디 입니다.</b></span>
+                                    <span id="regFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                                </p>
+                            </div>
 
-                        <label>주소</label><br />
-                        <input className="inputStyle" type="text" name="address" id="address" value={userJoin.address} onChange={setInfo} required />
-                        <Button color="warning" className="CheckBtn">주소 찾기</Button>
-                        <br /><br />
-
-                        <label>상세 주소</label><br />
-                        <input className="inputStyle" type="text" name="detailaddress" id="detailaddress" value={userJoin.detailaddress} onChange={setInfo} required />
-                        <br /><br />
-
-                        <div>
-                            <label>e-mail</label><br />
-                            <input className="inputStyle" type="email" name="email" id="email" value={userJoin.email} onChange={setInfo} required />
-                            <Button color="warning" className="CheckBtn">인증 번호</Button>
+                            {/* 비밀번호 */}
+                            <label>비밀번호</label><br />
+                            <input className="inputStyle" type="password" name="password" id="password" placeholder="password" value={userJoin.password} onChange={passChange} required></input>
                             <br /><br />
-                        </div>
 
-                        <label>인증 번호 </label><br />
+                            <label>비밀번호 재확인</label><br />
+                            <input className="inputStyle" type="password" name="repw" id="repw" value={repw} onChange={setPwInfo} required></input>
+                            <p>
+                                <span id="pwTrue" style={{ display: "none" }}><b>비밀번호 일치</b></span>
+                                <span id="pwFalse" style={{ display: "none" }}><b>비밀번호 불일치</b></span>
+                            </p>
+                            {/* 주소 */}
+                            <label>우편번호</label><br />
+                            <input className="inputStyle" type="text" name="postcode" id="postcode" value={userJoin.postcode} onClick={modalToggle} readOnly />
+                            <Button color="warning" className="CheckBtn" onClick={modalToggle}>주소 찾기</Button>
+                            <br /><br />
+
+                            <label>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label><br />
+                            <input className="inputStyle" type="text" name="address" id="address" value={userJoin.address} readOnly />
+                            <br /><br />
+
+                            <label>상세 주소</label><br />
+                            <input className="inputStyle" type="text" name="addrDetail" id="addrDetail" value={userJoin.addrDetail} onChange={setInfo} required />
+                            <br /><br />
+
+                            <div>
+                                <label>e-mail</label><br />
+                                <input className="inputStyle" type="email" name="email" id="email" value={userJoin.email} onChange={setInfo} required />
+                                {/* <Button color="warning" className="CheckBtn">인증 번호</Button> */}
+                                <br /><br />
+                            </div>
+
+                            {/* <label>인증 번호 </label><br />
                         <input className="inputStyle" type="text" name="checked" id="checked" value={userJoin.checked} onChange={setInfo} required />
-                        <br /><br />
+                        <br /><br /> */}
 
-                        <div>
-                            <Button type='submit' color="warning" onClick={submit} style={{ width: "355px", height: "50px" }}>회 원 가 입</Button>
+                            <div>
+                                <Button type='submit' color="warning" onClick={submit} style={{ width: "355px", height: "50px" }}>회 원 가 입</Button>
+                            </div>
                         </div>
-                    </div>
 
-                </section>
-            </div>
-        </form>
+                    </section>
+                </div>
+            </form>
+            {/* 우편번호 검색 모달 */}
+            <Modal isOpen={modalShow} fade={true} toggle={modalToggle} style={{ witop: "100px", left: "28%" }}>
+                <ModalHeader toggle={modalToggle}>주소 검색</ModalHeader>
+                <ModalBody>
+                    <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} defaultQuery='가산디지털1로 2' />
+                </ModalBody>
+                <ModalFooter color="secondary" onClick={modalToggle}>
+                    {/* <Button color='secondary'>닫기</Button> */}
+                </ModalFooter>
+            </Modal>
+        </div>
     )
 };
 
