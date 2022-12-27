@@ -9,6 +9,8 @@ import './component/diet/fullcalendar.css';
 import Header from './component/info/Header';
 import Footer from './component/info/Footer';
 import Main from './component/main/Main';
+
+
 import DietScheduler from './component/diet/DietScheduler';
 // import AllRecipe from './component/recipe/AllRecipe';
 // import PopRecipe from './component/recipe/PopRecipe';
@@ -25,8 +27,14 @@ import MyPage from './component/user/MyPage';
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
 import PopRecipe from './component_test/recipe/PopRecipe';
-import MyRecipe from './component_test/recipe/MyRecipe';
+import Join from './component_test/user/Join';
+import Login from './component_test/user/Login';
+import Mypage from './component_test/user/Mypage';
 
+// import MyRecipe from './component_test/recipe/MyRecipe';
+// import RecipeWrite from './component_test/recipe/RecipeWrite';
+// import RecipeDetail from './component_test/recipe/RecipeDetail';
+// import RecipeModify from './component_test/recipe/RecipeModify';
 
 /* 라우터 */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';

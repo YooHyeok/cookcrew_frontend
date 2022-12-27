@@ -27,6 +27,7 @@
     "react-bootstrap-icons": "^1.10.2",
     "react-cookie": "^4.1.1",
     "react-create-context": "^1.0.2",
+    "react-daum-postcode": "^3.1.1",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-redux": "^8.0.5",
@@ -36,7 +37,10 @@
     "reactstrap": "^9.1.5",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
+<<<<<<< HEAD
     "save": "^2.9.0",
+=======
+>>>>>>> 38d65d09c3003e86397aae8af086da1a063aa3d2
     "tui-editor": "^1.4.10",
     "web-vitals": "^2.1.4"
   },
