@@ -10,7 +10,7 @@ import HeaderDropDownLogout from "./HeaderDropDownLogout";
 export const HeaderDropDownContext = createContext();
 export default function Header() {
     const style = {
-        background: "linear-gradient( 45deg, white, #ff4500 )",
+        background: "linear-gradient(45deg, white, #ff4500 )",
         backgroundColor: '#ff4500',
         width: '100%',
         position: 'fixed',
@@ -46,7 +46,8 @@ export default function Header() {
             <div style={style}>
                 <ul className="nav-items1" >
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b></Link>
+                        {/* 로고 영역 */}
+                        {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img width={30} src={require('../../resources/img/A_test.png')} alt=''/></Link> */}
                     </li>
                 </ul>
                 <ul className="nav-items2">

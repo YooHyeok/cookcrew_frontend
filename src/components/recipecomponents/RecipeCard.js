@@ -3,7 +3,8 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
-import RECIPES from '../../data/data';
+
+
 
 
 const RecipeCard = ({ RECIPES }) => {

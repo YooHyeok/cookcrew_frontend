@@ -48,29 +48,9 @@ const Recipes = () => {
 
     
 
-    const submit = () => {
-        const formData = new FormData();
-        formData.append('likerId', 'testId3');
-        formData.append('likedRno', 6);
-
-        axios.post('http://localhost:8080/addlike', formData)
-            .then((response) => {
-                alert (response.data);
-                
-            })
-        const formData1 = new FormData();
-        formData.append('likerId', 'testId5');  
-        formData.append('likedRno', 2);
-
-        axios.post('http://localhost:8080/addlike', formData1)
-            .then((response) => {
-                alert (response.data);
-                
-            })
-
-    }
+    
     useEffect(() => {
-        axios.get('http://localhost:8080/recipelist')
+        axios.get('/recipelist')
             .then((response) => {
                 setRecipes(response.data)
             }) 
@@ -106,9 +86,9 @@ const Recipes = () => {
 
     return (
         <>
-        <div
+        <div className='py-10 pl-10' 
             style = {{
-               
+                
                 width: "768px",
                 display: "grid",
                 gridTemplateRows: "1fr",
@@ -123,13 +103,13 @@ const Recipes = () => {
                       fontSize: '1.125rem',
                       cursor: 'pointer',
                       padding: '0.5rem',
-                      margin: '0 auto',
+                      margin: '1rem',
                     }}
                   >
                     <Link to = {`/recipes/${c.rno}`}>
                     <img
                       alt="Sample"
-                      src={c.thumbPath}
+                      src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
                     />
                     </Link>
                     
@@ -157,7 +137,7 @@ const Recipes = () => {
                       <div style={{height:"80px"}}>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
-                        <Button onClick={()=>{submit()}}>버튼</Button>
+                        <Button>버튼</Button>
                         <span style={{float:"right"}}>별점: 5점</span>
                       </div>
                     </CardBody>

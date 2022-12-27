@@ -15,7 +15,7 @@ function PageHome() {
             </Helmet>
 
             <SectionHero2/>
-            <hr className="my-20"/>
+            {/* <hr className="my-20"/> */}
             <MainNewst/>
             <MainHottest/>
             <MainBestChef/>
