@@ -2,9 +2,10 @@ import {Link} from 'react-router-dom';
 
 export default function Footer() {
     const style = {
-        height:"140px",
+        backgroundColor:"#dde0ea",
+        width:'100%',
+        height:"180px",
         marginTop:"auto",
-        backgroundColor:"#dde0ea"
     }
     return(
     <div style={style}>
