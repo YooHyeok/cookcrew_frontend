@@ -37,10 +37,6 @@
     "reactstrap": "^9.1.5",
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
-<<<<<<< HEAD
-    "save": "^2.9.0",
-=======
->>>>>>> 38d65d09c3003e86397aae8af086da1a063aa3d2
     "tui-editor": "^1.4.10",
     "web-vitals": "^2.1.4"
   },
