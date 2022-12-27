@@ -2,8 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import storage from "redux-persist/lib/storage/session";
 import { persistReducer } from "redux-persist";
 
-// 1. npm install —save redux-persist
-// 2. npm install —save @reduxjs/toolkit
+// 1. npm install —-save redux-persist
+// 2. npm install —-save @reduxjs/toolkit
 
 const persistConfig = {
     key: "root",
