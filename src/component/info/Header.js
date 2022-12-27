@@ -46,10 +46,6 @@ export default function Header() {
             <div style={style}>
                 <ul className="nav-items1" >
                     <li className="nav-item">
-<<<<<<< HEAD
-=======
-                        {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link> */}
->>>>>>> 38d65d09c3003e86397aae8af086da1a063aa3d2
                         <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/A_test.png')} alt='' /></Link>
                     </li>
                 </ul>
