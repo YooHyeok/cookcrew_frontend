@@ -31,7 +31,7 @@ export default function ToastViewer() {
  
   
     return (
-      <div style={{width:"400px"}}>
+      <div>
         {/* <Viewer initialValue={markdown}/> */}
 
         {show && <Viewer initialValue={content} />}

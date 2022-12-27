@@ -47,7 +47,7 @@ export default function RecipeCreate() {
         formData.append('sTitle', rcps.sTitle);
         formData.append('mat', rcps.mat);
         formData.append('source', rcps.source);
-        console.log(formData)
+        // console.log(formData.data)
 
         axios.post('/rcpreg', formData)
             .then((response) => {

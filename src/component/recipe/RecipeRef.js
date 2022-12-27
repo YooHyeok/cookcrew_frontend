@@ -34,12 +34,14 @@ export default function RecipeRef() {
     const [ratingValue, setRatingValue] = useState(0)
     const [reportCd, setReportCd] = useState('')
     const id = 'user1';
-
+    
+    // 별점주기 눌렀을 때, 별점의값을 세팅
     useEffect(() => {
         // console.log(ratingValue);
     }, [ratingValue])
 
 
+    // 신고하기를 눌렀을 때, 신고코드의 값을 세팅
     useEffect(() => {
         // console.log(reportCd);
     }, [reportCd])

@@ -46,7 +46,7 @@ export default function Header() {
             <div style={style}>
                 <ul className="nav-items1" >
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link>
+                        <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/A_test.png')} alt='' /></Link>
                     </li>
                 </ul>
                 <ul className="nav-items2">
