@@ -10,6 +10,8 @@ import { Routes, Route} from 'react-router-dom';
 import Header from './component/info/Header';
 import Footer from './component/info/Footer';
 import Main from './component/main/Main';
+
+
 import DietScheduler from './component/diet/DietScheduler';
 import AllRecipe from './component/recipe/AllRecipe';
 import PopRecipe from './component/recipe/PopRecipe';
@@ -20,6 +22,9 @@ import RecipeModify from './component/recipe/RecipeModify';
 
 
 /* 컴포넌트 테스트 */
+import Join from './component_test/user/Join';
+import Login from './component_test/user/Login';
+import Mypage from './component_test/user/Mypage';
 // import AllRecipe from './component_test/recipe/AllRecipe';
 // import PopRecipe from './component_test/recipe/PopRecipe';
 // import MyRecipe from './component_test/recipe/MyRecipe';
@@ -34,6 +39,9 @@ function App() {
       <Header/>
       <Routes>
         <Route exact path='/' element={<Main/>}/>
+        <Route exact path='/join' element={<Join/>}/>
+        <Route exact path='/login' element={<Login/>}/>
+        <Route exact path='/mypage' element={<Mypage/>}/>
         <Route exact path='/dietScheduler' element={<DietScheduler/>}/>{/* 식단표 관리 */}
         <Route exact path='/AllRecipe' element={<AllRecipe/>}/>{/* 전체 레시피 */}
         <Route exact path='/popRecipe' element={<PopRecipe/>}/>{/* 인기 레시피 */}
