@@ -51,6 +51,7 @@ let persistor = persistStore(store);
 function App() {
   return (
     <div className="App">
+
       <Provider store={store}>
         <PersistGate persistor={persistor}>
           <BrowserRouter>
@@ -75,6 +76,7 @@ function App() {
           </BrowserRouter>
         </PersistGate>
       </Provider>
+
     </div>
   );
 }

@@ -20,6 +20,8 @@ export default function Tumbnail() {
     const [mat, setMat] = useState([]);
     const [source, setSource] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
+    const [cnt, setCnt] = useState('0');
+    // const [like, setLike] = useState()
 
     const [ratingValue, setRatingValue] = useState(0);
 
@@ -30,8 +32,8 @@ export default function Tumbnail() {
         axios.get(`/rcpref/${rNo}`)
         .then((response) => {
             const rcp = response.data;
-            console.log(response.data);
-            console.log(rcp.sTitle)
+            // console.log(response.data);
+            // console.log(rcp.sTitle)
             setRegId(rcp.regId)
             setTitle(rcp.title)
             setStitle(rcp.stitle)
@@ -39,7 +41,7 @@ export default function Tumbnail() {
             setMat(rcp.mat)
             setSource(rcp.source)
             setImageUrl('/img/' + rcp.thumbPath);
-            console.log(title);
+            // console.log(title);
         })
         .catch((error) => {
             console.log(error);
@@ -50,7 +52,7 @@ export default function Tumbnail() {
         axios.get(`/ratingvalue/${rNo}`)
         .then((response)=> {
             const view = response.data;
-            console.log(response.data);
+            // console.log(response.data);
 
             const sumRate = view.reduce(function add(sum,currValue){
                 return sum + currValue;
@@ -60,6 +62,17 @@ export default function Tumbnail() {
             // console.log(avgRate);
             setRatingValue(avgRate);
 
+        })
+        .catch((error)=> {
+            console.log(error);
+        })
+    },[])
+
+    useEffect(()=> {
+        axios.get(`/cnt/${rNo}`)
+        .then((response)=> {
+            const incrementCnt = response.data;
+            setCnt(incrementCnt);
         })
         .catch((error)=> {
             console.log(error);
@@ -83,7 +96,7 @@ export default function Tumbnail() {
                     <Container fixed id='detail_container'>
                         <div id='icons_group'>
                             {/* 조회수, 별점, 찜갯수 들어가는 곳 */}
-                            <span><BsFillEyeFill />&nbsp;0</span>&nbsp;&nbsp;
+                            <span><BsFillEyeFill />&nbsp;{cnt}</span>&nbsp;&nbsp;
                             <span><BsFillStarFill />&nbsp;{ratingValue}</span>&nbsp;&nbsp;
                             <span><BsHeartFill />&nbsp;17</span>&nbsp;&nbsp;
                         </div><hr />

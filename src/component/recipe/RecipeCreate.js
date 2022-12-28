@@ -12,7 +12,7 @@ export const Toast = createContext();
 
 
 export default function RecipeCreate() {
-    const [rcps, setRcps] = useState({ title: '', regId: '',sTitle: '', mat: '', source: ''  })
+    const [rcps, setRcps] = useState({ title: '', regId: '',sTitle: '', mat: '', source: '', kcal:''  })
     const [toastHtml, setToastHtml] = useState('');
     const [toastMarkdown, setMarkdown] = useState('');
     const [files, setFiles] = useState({});
@@ -47,7 +47,8 @@ export default function RecipeCreate() {
         formData.append('sTitle', rcps.sTitle);
         formData.append('mat', rcps.mat);
         formData.append('source', rcps.source);
-        console.log(formData)
+        formData.append('kcal', rcps.kcal);
+        // console.log(formData.data)
 
         axios.post('/rcpreg', formData)
             .then((response) => {
@@ -89,14 +90,22 @@ export default function RecipeCreate() {
                                     </div>
                                 </tr>
                                 <br/>
-                                <tr>
-                                    <div class="input-group input-group -lg">
+                                <div>
+                                    <tr>                             
+                                    <div class="input-group input-group -lg" float="left" style={{width:'750px' ,float:'left'}}>
                                         {/* 양념 입력란 */}
                                         <span class="input-group-text" id='source' for='source' style={{ width: '112px' }}>양념</span>
                                         <input type="text" name='source' class="form-control" id='source' value={rcps.source} onChange={change}
                                          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
                                     </div>
-                                </tr>
+                                    <div class="input-group input-group -lg" style={{width:'250px' ,float:'right'}}>
+                                        {/* kcal입력란 */}
+                                        <span class="input-group-text" id='kcal' for='kcal' style={{ width: '112px' }}>kcal</span>
+                                        <input type="text" name='kcal' class="form-control" id='kcal' value={rcps.kcal} onChange={change}
+                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                                    </div>
+                                    </tr>  
+                                </div>
                                 <br/>
                                 <tr>
                                     <div class="input-group input-group -lg" >
