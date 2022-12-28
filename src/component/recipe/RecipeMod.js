@@ -3,21 +3,21 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import { Label } from 'reactstrap';
 import { useEffect, useRef, useState, createContext } from 'react';
 import axios from 'axios';
-import Toasteditor from './ToastEditor';
 import "./Recipe.css";
 import { Button } from 'bootstrap';
+import { useParams } from 'react-router-dom';
+import ModToastEditor from './ModToastEditor';
 
-//현재 레시피 등록과 코드가 완전히 같음. 추 후에 데이터베이스에 저장되어있던 정보를 기본값으로 뿌려주도록 변경할 예정.
-
-export const Toast = createContext();
+export const Toastmod = createContext();
 
 export default function RecipeMod() {
-
-    const [rcps, setRcps] = useState({ title: '', regId: '',sTitle: '', mat: '', source: '' })
+    const {rNo} = useParams();
+    const [rcps, setRcps] = useState({ rno: rNo, title: '', regId: '',stitle: '', mat: '', source: '', regDate:'', modDate:'',kcal:'', rating:0, thumbPath:'', cnt:0})
     const [toastHtml, setToastHtml] = useState('');
     const [toastMarkdown, setMarkdown] = useState('');
     const [files, setFiles] = useState({});
     
+
 
     const context = {
         setToastHtml: setToastHtml.bind(this),
@@ -37,24 +37,42 @@ export default function RecipeMod() {
         setFiles({ file: e.target.file[0] })
     }
 
+    useEffect(()=> {
+        axios.get(`/rcpref/${rNo}`)
+        .then((response)=> {
+            console.log(response.data);
+            setRcps(response.data);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    },[])
+
     const submit = (e) => {
         e.preventDefault();
-
+        console.log(rcps);
         const formData = new FormData();
-        formData.append('title', rcps.title);
-        formData.append('reg_id', rcps.regId);
-        formData.append('toastHtml', toastHtml);
-        formData.append('toastMarkdown', toastMarkdown);
         formData.append('file', files.file);
-        formData.append('sTitle', rcps.sTitle);
+        formData.append('rno', rNo);
+        formData.append('regId', rcps.regId);
+        formData.append('title', rcps.title);
+        formData.append('content', toastHtml);
+        //formData.append('toastMarkdown', toastMarkdown);
+        formData.append('stitle', rcps.stitle);
         formData.append('mat', rcps.mat);
+        formData.append('regDate', rcps.regDate);
+        formData.append('modDate', rcps.modDate);
         formData.append('source', rcps.source);
+        formData.append('kcal', rcps.kcal);
+        //formData.append('rating', rcps.rating);
+        formData.append('cnt', rcps.cnt);
+        console.log(formData);
 
-
-        axios.post('http://localhost:8090/rcpreg', formData)
+        axios.post('/rcpmodreg', formData)
             .then((response) => {
                 console.log(response.data);
                 alert(response.data);
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -63,7 +81,7 @@ export default function RecipeMod() {
     }
 
     return (
-        <Toast.Provider value={context} >
+        <Toastmod.Provider value={context} >
             <div>
                 <br />
                 <div>
@@ -84,8 +102,8 @@ export default function RecipeMod() {
                                 <tr>
                                     <div class="input-group input-group -lg" >
                                         {/* 부제목 입력란 */}
-                                        <span class="input-group-text" id='sTitle' for='sTitle' style={{ width: '112px' }}>간략한 설명</span>
-                                        <textarea class="form-control" name='sTitle' id="sTitle" value={rcps.sTitle} onChange={change} />
+                                        <span class="input-group-text" id='stitle' for='stitle' style={{ width: '112px' }}>간략한 설명</span>
+                                        <textarea class="form-control" name='stitle' id="stitle" value={rcps.stitle} onChange={change} />
                                     </div>
                                 </tr>
                                 <br/>
@@ -98,28 +116,35 @@ export default function RecipeMod() {
                                     </div>
                                 </tr>
                                 <br/>
-                                <tr>
-                                    <div class="input-group input-group -lg">
+                                <div>
+                                    <tr>                             
+                                    <div class="input-group input-group -lg" float="left" style={{width:'750px' ,float:'left'}}>
                                         {/* 양념 입력란 */}
                                         <span class="input-group-text" id='source' for='source' style={{ width: '112px' }}>양념</span>
                                         <input type="text" name='source' class="form-control" id='source' value={rcps.source} onChange={change}
                                          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
                                     </div>
-                                </tr>
+                                    <div class="input-group input-group -lg" style={{width:'250px' ,float:'right'}}>
+                                        {/* kcal입력란 */}
+                                        <span class="input-group-text" id='kcal' for='kcal' style={{ width: '112px' }}>kcal</span>
+                                        <input type="text" name='kcal' class="form-control" id='kcal' value={rcps.kcal} onChange={change}
+                                         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                                    </div>
+                                    </tr>  
+                                </div>
                                 <br/>
                                 <tr>
                                     <div>
                                     <span class="input-group-text" style={{width:'112px'}}>내용</span>
                                         <center>
-                                            <Toasteditor />
+                                            <ModToastEditor />
                                         </center>
                                     </div>
                                 </tr>
                                 <tr>
                                     <div class="input-group mb-3" style={{ width: '350px' }}>
                                         <label class="input-group-text" for="'board_file">썸네일</label>
-                                        <input type="file" class="form-control" name='file' id='board_file' accept='image/*'
-                                            onChange={fileChange} />
+                                        <input type="file" class="form-control" name='file' id='board_file' accept='image/*'                                             onChange={fileChange} />
                                     </div>
                                 </tr>
                             </table>
@@ -132,6 +157,6 @@ export default function RecipeMod() {
                 </section>
                 <br /><br />
             </div>
-        </Toast.Provider>
+        </Toastmod.Provider>
     )
 }

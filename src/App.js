@@ -45,7 +45,7 @@ function App() {
         {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
         <Route exact path='/recipecreate' element={<RecipeCreate />} />{/* 레시피 등록 */}
         <Route exact path='/reciperef/:rNo' element={<RecipeRef />} />{/* 레시피 상세 */}
-        <Route exact path='/recipemod' element={<RecipeMod />} />{/* 레시피 수정 */}
+        <Route exact path='/recipemod/:rNo' element={<RecipeMod />} />{/* 레시피 수정 */}
         <Route exact path='/join' element={<Join />} />{/* 레시피 수정 */}
       </Routes>
       <Footer />

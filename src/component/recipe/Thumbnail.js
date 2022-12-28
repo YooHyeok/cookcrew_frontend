@@ -21,6 +21,7 @@ export default function Tumbnail() {
     const [source, setSource] = useState([]);
     const [imageUrl, setImageUrl] = useState('');
     const [cnt, setCnt] = useState('0');
+    // const [like, setLike] = useState()
 
     const [ratingValue, setRatingValue] = useState(0);
 
