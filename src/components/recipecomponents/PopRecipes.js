@@ -42,53 +42,30 @@ export function IconCheckboxes() {
 //     );
 // }
 
-const Recipes = () => {
-    const [recipes, setRecipes] = useState([]);
+const PopRecipes = () => {
+    const [popRecipes, setPopRecipes] = useState([]);
     const [like, setLike] = useState(false);
 
     
 
     
     useEffect(() => {
-        axios.get('/recipelist')
+        axios.get('/poplist')
             .then((response) => {
-                setRecipes(response.data)
+                setPopRecipes(response.data)
             }) 
             ;
     }, []);
 
     
 
-    // const RecipeCardsBlock = styled.div `
-    //     display: flex;
-    //     padding: 1rem;
-    //     width: 768px;
-    //     margin: 0 auto;
-    //     @media screen and (max-width: 768px){
-    //         width: 100%;
-    //         overflow-x: auto;
-    //     }
-    // `;
-
-    // const Category = 
-        
     
-    //     styled.div`
-           
-
-    //         &:hover {
-    //             color: #495057;
-    //         }
-
-           
-    //         }
-    //     `;
 
     return (
         <>
-         <div className="text-left mt-20">
+        <div className="text-left mt-20">
             <div className="font-semibold text-4xl text-left ml-28 mr-10 mt-20 pt-20">
-            전체 레시피
+            인기 레시피
             </div>
         </div>
         <div className='py-10 pl-10' 
@@ -101,7 +78,7 @@ const Recipes = () => {
                 
             }}
             >
-                 {recipes.map(c => (
+                 {popRecipes.map(c => (
                     <Card key={c.rno}
                     style={{
                       width: '18rem',
@@ -137,14 +114,12 @@ const Recipes = () => {
                         작성자: {c.regId}
                       </CardText>
                       </Link>
-                      <Button
-                        className='bg-white'>
+                      <Button className='bg-white'>
                         <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
                       </Button>
-                      <div>
+                      <div style={{height:"80px"}}>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
-                        {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
                         <span className='inline items-justify'>🟢 3.4</span>
                       </div>
                     </CardBody>
@@ -193,4 +168,4 @@ const Recipes = () => {
     );
 }
 
-export default Recipes;
+export default PopRecipes;

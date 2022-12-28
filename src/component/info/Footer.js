@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     const style = {
@@ -23,6 +23,6 @@ export default function Footer() {
                     <Link to={'/dietmenu'}>다이어트 식단표</Link>
                 </li>
             </ul>
-        </div>    
+        </div>
     )
 }

@@ -3,28 +3,47 @@ import {
   Form, FormGroup, InputGroup, Input, Button
   , Modal, ModalHeader, ModalBody, ModalFooter, Table, Fade
 } from 'reactstrap';
-import { useContext, useEffect } from 'react';
-import { DietModalContext } from './DietModal';
+import { useContext, useEffect, useState } from 'react';
 import { hasBgRendering } from '@fullcalendar/react';
 import './ModalCommon.css';
 
-import {useSelector, useDispatch} from 'react-redux'; // useSelector : 특정 변수의 값을 가져온다. 함수를 인자값으로 넣어야함. / useDispatch : reduce() 함수를 호출
+// import {useSelector, useDispatch} from 'react-redux'; // useSelector : 특정 변수의 값을 가져온다. 함수를 인자값으로 넣어야함. / useDispatch : reduce() 함수를 호출
+import axios from 'axios';
+import { DietModalContext } from './DietModal';
 
 
-export default function DietListModal() {
+export default function DietListModal({modalSearchProps, data}) {
 
   // DietModal Context 연동
   const context = useContext(DietModalContext);
 
   const renderArr = [];
   // const recipeArr = context.recipeArr;
-  const recipeArr = useSelector((state)=>{return state.recipeArr})
+  // const recipeArr = useSelector((state)=>{return state.recipeArr})
+  const [searchData, setSearchData] = useState([])
 
-  const selectRecipeData = context.selectRecipeData;
+  useEffect(()=>{
+    axios.get("/recipeSearch",{params:{param:modalSearchProps}
+   })
+   .then((res)=>{
+     setSearchData(res.data) // 전역변수 배열에 값 초기화
+   })
+   .catch((res)=>{
+     alert(res)
+   })
+  },[])
+
   const listRender = () => {
-    let searchData = context.searchData;
-    // console.log(searchData[0])
-    // let arr = [];
+    let mealDiv = 0;
+    switch (data.mealDivStr) {
+      case "아침": mealDiv = 1
+      break;
+      
+      case "점심": mealDiv = 2
+      break;
+      
+      default: mealDiv = 3
+    }
     for(let i=0; i<searchData.length; i++) {
       renderArr.push(
         <tr key={searchData[i].rno} id={i}>
@@ -35,14 +54,34 @@ export default function DietListModal() {
             <a style={{textDecoration: "none", color : "black"}}
                 onClick={(e) => {
                   e.preventDefault();
-                  console.log("searchData[i] : ",searchData[i]);
-                  recipeArr.push(searchData[i]);
-                  // recipeArr[recipeArr.length] = searchData[i]; //배열에 요소 추가
-                  context.modalToggle2(); //부모 modalShow2 값 변경 -> isOpen = false
+                  if(data.dietListArray.length >= 6) 
+                    {alert("식단이 꽉 찼습니다");
+                    return;
+                  }
+                  // 험수화 할 수 없음. 반복문 내에서 선택된 데이터를 반영해야 하기 때문에
+                  axios.post("/dietAdd", {dietDate : data.dietDate, mealDiv : mealDiv, rNo:searchData[i].rno})
+                  .then((response)=>{
+                    alert("식단 추가 성공!");
+                    /* data.setDietListArray([...data.dietListArray
+                    , {userId : data.dietListArray[0].userId
+                       , dietDate : data.dietListArray[0].dietDate
+                       , mealDiv : data.dietListArray[0].mealDiv
+                       , achieve : data.dietListArray[0].achieve
+                       , targetKcal : data.dietListArray[0].targetKcal
+                       , dno : data.dietListArray[0].dno
+                       , recipe : searchData[i]
+                      }
+                    ]) */
+                    data.dietSearch(data.mealDivStr);
+                    context.modalToggle2(); //부모 modalShow2 값 변경 -> isOpen = false 
+                  })
+                  .catch((error)=>{
+                    alert("식단 추가 실패!");
+                  })
             }}>{searchData[i].title}</a>
           </td>
           <td>
-            {searchData[i].kcal}
+            {searchData[i].kcal}kcal
           </td>
           <td>
             {searchData[i].cnt}
@@ -60,29 +99,29 @@ export default function DietListModal() {
   }
   return (
     <>
-    <Modal isOpen={context.modalShow2} fade={true} toggle={context.modalToggle2} style={{ width: "700px", position: "fixed", top: "50%", left: "80%", transform: "translate(-50%,-50%)" }}>
+    <Modal size='xl' isOpen={context.modalShow2} fade={true} toggle={context.modalToggle2} style={{ width: "620px", position: "fixed", top: "50%", left: "65%", transform: "translate(-50%,-50%)" }}>
       <ModalHeader toggle={context.modalToggle2}>
       <div>
         <div style={{display:"inline-block"}}>
-          <span>"{context.searchParam}" 검색 결과</span>
+          <span>"{modalSearchProps}" 검색 결과</span>
         </div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
         <div style={{display:"inline-block",float:"right"}}>
-          <span>{context.searchData.length} 개</span>
+          <span>{searchData.length} 개</span>
         </div> 
       </div>
       </ModalHeader>
       <ModalBody style={{ height: "700px" }}>
         <Form >
           <FormGroup>
-            <Table striped>
+            <Table striped style={{width:"100%",tableLayout:"fixed",textAlign:"center"}}>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>메뉴명</th>
-                  <th>칼로리</th>
-                  <th>조회수</th>
-                  <th>별점</th>
-                  <th>좋아요</th>
+                  <th style={{width:"100px"}}>ID</th>
+                  <th style={{width:"170px"}}>메뉴명</th>
+                  <th style={{width:"100px"}}>칼로리</th>
+                  <th style={{width:"70px"}}>조회수</th>
+                  <th style={{width:"70px"}}>별점</th>
+                  <th style={{width:"70px"}}>좋아요</th>
                 </tr>
               </thead>
               <tbody>
@@ -93,7 +132,7 @@ export default function DietListModal() {
         </Form>
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={(e) => {e.preventDefault(); context.modalToggle2(); }}>완료</Button>
+        <Button color="secondary" onClick={(e) => {e.preventDefault(); context.modalToggle2(); }}>닫기</Button>
       </ModalFooter>
     </Modal>
     </>

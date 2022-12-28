@@ -16,9 +16,9 @@ export default function HeaderDropDownLogin(){
         <DropdownMenu >
           <DropdownItem style={{lineHeight: "25px"}} header>Header</DropdownItem>
           <DropdownItem style={{lineHeight: "25px"}} disabled>Action</DropdownItem>
-          <DropdownItem style={{lineHeight: "25px"}}><Link to={'/#'}><b>로그인</b></Link></DropdownItem>
+          <Link to={'/login'}><DropdownItem style={{lineHeight: "25px"}}><b>로그인</b></DropdownItem></Link>
           <DropdownItem style={{lineHeight: "25px"}} divider />
-          <DropdownItem style={{lineHeight: "25px"}}><Link to={'/#'}><b>회원가입</b></Link></DropdownItem>
+          <Link to={'/join'}><DropdownItem style={{lineHeight: "25px"}}><b>회원가입</b></DropdownItem></Link>
         </DropdownMenu>
       </Dropdown>
     );

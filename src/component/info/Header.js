@@ -55,7 +55,7 @@ export default function Header() {
                         <Link style={linkStyle} to={'/dietScheduler'}><b>식단표 관리</b></Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/allrecipe'}><b>전체 레시피</b></Link>
+                        <Link style={linkStyle} to={'/recipelist'}><b>전체 레시피</b></Link>
                     </li>
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/popRecipe'}><b>인기 레시피</b></Link>
