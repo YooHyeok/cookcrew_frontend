@@ -34,7 +34,8 @@ export default function RecipeMod() {
     }
 
     const fileChange = (e) => {
-        setFiles({ file: e.target.file[0] })
+        console.log(e.target.files[0])
+        setFiles({ file: e.target.files[0] })
     }
 
     useEffect(()=> {
@@ -50,7 +51,7 @@ export default function RecipeMod() {
 
     const submit = (e) => {
         e.preventDefault();
-        console.log(rcps);
+        console.log(files.file);
         const formData = new FormData();
         formData.append('file', files.file);
         formData.append('rno', rNo);
@@ -64,6 +65,7 @@ export default function RecipeMod() {
         formData.append('modDate', rcps.modDate);
         formData.append('source', rcps.source);
         formData.append('kcal', rcps.kcal);
+        formData.append('thumbPath', rcps.thumbPath);
         //formData.append('rating', rcps.rating);
         formData.append('cnt', rcps.cnt);
         console.log(formData);
@@ -143,8 +145,9 @@ export default function RecipeMod() {
                                 </tr>
                                 <tr>
                                     <div class="input-group mb-3" style={{ width: '350px' }}>
-                                        <label class="input-group-text" for="'board_file">썸네일</label>
-                                        <input type="file" class="form-control" name='file' id='board_file' accept='image/*'                                             onChange={fileChange} />
+                                        <label class="input-group-text" for="file">썸네일</label>
+                                        <input type="file" class="form-control" name='file' id='file' accept='image/*'
+                                        onChange={fileChange} />                                       
                                     </div>
                                 </tr>
                             </table>

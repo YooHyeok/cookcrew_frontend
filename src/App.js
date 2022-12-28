@@ -27,6 +27,7 @@ import MyPage from './component/user/MyPage';
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
 import PopRecipe from './component_test/recipe/PopRecipe';
+import DeletePage from './component/recipe/DeletePage';
 
 // import Join from './component_test/user/Join';
 // import Login from './component_test/user/Login';
@@ -70,6 +71,8 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />
+
+              <Route exact path='/deletepage' element={<DeletePage />} />
             </Routes>
             <Footer />
           </BrowserRouter>
