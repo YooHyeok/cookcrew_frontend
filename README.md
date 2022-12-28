@@ -6,7 +6,7 @@
 # 작성자 조현빈
 
 # 작성자 박지혜
-
+npm install @mui/icons-material 
 # 작성자 이규희
 
 

@@ -1,5 +1,5 @@
-import { Checkbox, TextField, Button, FormControlLabel, Link, Grid, Typography, Avatar, Box, Container } from "@mui/material";
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Checkbox, TextField, Button, FormControlLabel, Link, Grid, Typography, Box, Container } from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import axios from "axios";
 import { useState } from "react";
 // import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ function Login() {
 
     const divStyle = {
         width: '1200px' //캘린더 width 조절을 위해 부모태그에 설정한다.
-        , height: '600px'
+        , height: '800px'
         , textAlign: 'center'
         , margin: '100px auto'
         , marginBottom: '20px'
@@ -19,7 +19,6 @@ function Login() {
 
     const [user, setUser] = useState({ id: '', password: '' });
     const handleInputUser = (e) => {
-        console.log(e)
         const name = e.target.name;
         const value = e.target.value;
 
@@ -53,9 +52,7 @@ function Login() {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar> */}
+
                     <Typography component="h1" variant="h5">
                         <div><h1><b> Log in </b></h1></div><br />
                     </Typography>
