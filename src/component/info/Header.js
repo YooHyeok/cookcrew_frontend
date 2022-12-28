@@ -51,7 +51,7 @@ export default function Header() {
     return (
         <div className='Header'>
             <div style={style}>
-                <ul className="nav-items1" >
+                <ul className="nav-items-1 h-20" >
                     <li className="nav-item">
                         {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link> */}
                         <Link style={linkStyle} to={'/'} id="logo"><img style={{width:"160px", marginTop:"-20px"}} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
@@ -62,7 +62,7 @@ export default function Header() {
                         <Link style={linkStyle} to={'/dietScheduler'}><b>식단표 관리</b></Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/allrecipe'}><b>전체 레시피</b></Link>
+                        <Link style={linkStyle} to={'/recipelist'}><b>전체 레시피</b></Link>
                     </li>
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/popRecipe'}><b>인기 레시피</b></Link>

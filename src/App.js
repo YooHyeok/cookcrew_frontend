@@ -1,3 +1,9 @@
+import React from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PageHome from './components/PageHome';
+import RecipeDetailPage from './components/recipecomponents/RecipeDetailPage';
+import RecipeList from './components/recipecomponents/RecipeList';
+import ChefRankingPage from './components/chefrankingcomponents/ChefRankingPage';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,22 +20,24 @@ import Main from './component/main/Main';
 import DietScheduler from './component/diet/DietScheduler';
 // import AllRecipe from './component/recipe/AllRecipe';
 // import PopRecipe from './component/recipe/PopRecipe';
-// import MyRecipe from './component/recipe/MyRecipe';
+
 
 import RecipeCreate from "./component/recipe/RecipeCreate";
 import RecipeMod from "./component/recipe/RecipeMod";
 import RecipeRef from "./component/recipe/RecipeRef";
 
-import Join from './component/user/Join';
-import Login from './component/user/Login';
+
+import ChallengeRankingPage from './components/challengerankingcomponents/ChallengeRankingPage';
+import Recipes from './components/recipecomponents/Recipes';
+import RecipeCard from './components/recipecomponents/RecipeCard';
 import MyPage from './component/user/MyPage';
 
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
 import PopRecipe from './component_test/recipe/PopRecipe';
 
-// import Join from './component_test/user/Join';
-// import Login from './component_test/user/Login';
+import Join from './component/user/Join';
+import Login from './component/user/Login';
 // import Mypage from './component_test/user/Mypage';
 
 // import MyRecipe from './component_test/recipe/MyRecipe';
@@ -38,18 +46,19 @@ import PopRecipe from './component_test/recipe/PopRecipe';
 // import RecipeModify from './component_test/recipe/RecipeModify';
 
 /* 라우터 */
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /* 리덕스 처리 */
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
+import PopRecipes from './components/recipecomponents/PopRecipes';
 
 let persistor = persistStore(store);
 
 function App() {
   return (
+    
     <div className="App">
 
       <Provider store={store}>
@@ -57,10 +66,10 @@ function App() {
           <BrowserRouter>
             <Header />
             <Routes>
-              <Route exact path='/' element={<Main />} />
+              <Route exact path='/' element={<PageHome />} />
               <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
-              {/* <Route exact path='/AllRecipe' element={<AllRecipe />} />{/* 전체 레시피 */}
-              {/* <Route exact path='/popRecipe' element={<PopRecipe />} />인기 레시피 */} */
+              <Route exact path='/recipelist' element={<Recipes />} />{/* 전체 레시피 */}
+              <Route exact path='/popRecipe' element={<PopRecipes />} />{/* 인기 레시피 */}
               <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
               <Route exact path='/chalengeRank' />{/* 챌린지 랭킹 */}
               {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
