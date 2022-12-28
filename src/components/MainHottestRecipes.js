@@ -15,7 +15,7 @@ const HottestRecipes = () => {
 
     
     useEffect(() => {
-        axios.get('/recipelist')
+        axios.get('/popmain')
             .then((response) => {
                 setRecipes(response.data)
             }) 
@@ -30,7 +30,7 @@ const HottestRecipes = () => {
                 width: "768px",
                 display: "grid",
                 gridTemplateRows: "1fr",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
                 
             }}
             >
@@ -45,7 +45,7 @@ const HottestRecipes = () => {
                     }}
                   >
                     <LikeButton></LikeButton>
-                    <Link to = {`/recipes/${c.rno}`}>
+                    <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
                       src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
@@ -64,7 +64,7 @@ const HottestRecipes = () => {
                         className="mb-2 text-muted"
                         tag="h6"
                       >
-                        칼로리: {c.rkcal}
+                        칼로리: {c.kcal}
                       </CardSubtitle>
                       <CardText>
                         작성자: {c.regId}
@@ -78,7 +78,7 @@ const HottestRecipes = () => {
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                        <span className='inline items-justify'>🟢 3.4</span>
+                        <span className='inline items-justify'>🟢 {c.rating}</span>
                       </div>
                     </CardBody>
                   </Card>

@@ -14,7 +14,7 @@ const DATA = [
         image: "/img/boong.jpg",
         heading:  "COOKCREW",
         subHeading: "레시피검색과 식단관리를 한번에,🔥",
-        btnText: "",
+        btnText: "ahah",
         btnLink: "",
       },
         {
@@ -94,8 +94,11 @@ const SectionHero2 = () => {
           return null;
         }
         const slideButton = () => {
-            if(!item.btnText){
-                return (<div className="w-5 h-6 ml-2.5" viewBox="0 0 24 24" fill="none"></div>);
+            if((item.btnText)=='ahah'){
+                // return (<div className="w-5 h-6 ml-2.5 none" viewBox="0 0 24 24" fill="none"></div>);
+                return(
+                  <div className='invisible'><ButtonPrimary className='invisivle'></ButtonPrimary></div>
+                )
             }else {
                  return (
                 <ButtonPrimary 
@@ -183,7 +186,7 @@ const SectionHero2 = () => {
               />*/}
               </div>
       
-              <div className="relative container pb-0 pt-14 sm:pt-20 lg:py-44">
+              <div className="relative container pb-0 pt-14 sm:pt-20 lg:py-40">
                 <div
                   className={`relative z-[1] w-full max-w-3xl space-y-8 sm:space-y-14 nc-SectionHero2Item__left`}
                 >

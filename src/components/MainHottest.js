@@ -1,6 +1,6 @@
 import React from "react";
 import PopRecipes from "./recipecomponents/Recipes";
-import HottestRecipes from "./HottestRecipes";
+import MainHottestRecipes from "./MainHottestRecipes";
 const MainHottest =() => {
     return(
         <>
@@ -11,7 +11,7 @@ const MainHottest =() => {
                 <button className="inline justify-items-start border rounded-lg bg-secondary text-white">{">더 보기"}</button>
            </div>
            <div className="mx-20 mt-10 justify-items-start">
-                <HottestRecipes/>
+                <MainHottestRecipes/>
            </div>
         </>
     )

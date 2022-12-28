@@ -119,10 +119,7 @@ const Recipes = () => {
                     />
                     </Link>
                     
-                    <CardBody
-                        style = {{
-                            border: "solid 1px"
-                        }}>
+                    <CardBody>
                       <Link to = {`/recipes/${c.rno}`}>
                       <CardTitle tag="h5">
                         {c.title}
@@ -131,16 +128,16 @@ const Recipes = () => {
                         className="mb-2 text-muted"
                         tag="h6"
                       >
-                        칼로리: {c.rkcal}
+                        칼로리: {c.kcal}
                       </CardSubtitle>
                       <CardText>
                         작성자: {c.regId}
                       </CardText>
                       </Link>
-                      <Button
+                      {/* <Button
                         className='bg-white'>
                         <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
-                      </Button>
+                      </Button> */}
                       <div>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}

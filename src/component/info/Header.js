@@ -21,7 +21,7 @@ export default function Header() {
         position: 'fixed',
         left: 0,
         top: 0,
-        zIndex: 10,
+        zIndex: 1000,
     }
 
     const linkStyle = {
@@ -51,10 +51,10 @@ export default function Header() {
     return (
         <div className='Header'>
             <div style={style}>
-                <ul className="nav-items-1 h-20" >
+                <ul className="nav-items-1" >
                     <li className="nav-item">
                         {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link> */}
-                        <Link style={linkStyle} to={'/'} id="logo"><img style={{width:"160px", marginTop:"-20px"}} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
+                        <Link style={linkStyle} to={'/'} id="logo"><img className='inline' style={{width:"160px", marginTop:"-20px"}} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
                     </li>
                 </ul>
                 <ul className="nav-items2">
