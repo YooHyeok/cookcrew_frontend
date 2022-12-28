@@ -1,5 +1,5 @@
-import { Checkbox, TextField, Button, FormControlLabel, Link, Grid, Typography, Avatar, Box, Container } from "@mui/material";
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Checkbox, TextField, Button, FormControlLabel, Link, Grid, Typography, Box, Container } from "@mui/material";
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import axios from "axios";
 import { useState } from "react";
 // import { Link } from "react-router-dom";
@@ -70,9 +70,7 @@ function Login() {
                     flexDirection: 'column',
                     alignItems: 'center',
                 }}>
-                    {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar> */}
+
                     <Typography component="h1" variant="h5">
                         <div><h1><b> Log in </b></h1></div><br />
                     </Typography>

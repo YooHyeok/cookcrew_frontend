@@ -39,9 +39,9 @@ export default function MyPage() {
             <div className="screen-wrap">
                 <div className="screen-header">
                     <span> 내 정보 </span>
-                    <span> 다이어트 캘린더 </span>
                     <span> 나의 레시피 </span>
-                    <span> 나의 구독 </span>
+                    <span> 나의 찜목록 </span>
+                    <span> 나의 요리사 </span>
                 </div>
             </div>
             <hr />
@@ -54,7 +54,7 @@ export default function MyPage() {
             }}>
                 {/* 프로필 사진 영역 */}
 
-                {/* 압룍폼 영역 */}
+                {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }}>
                     <FormGroup row>
                         <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
