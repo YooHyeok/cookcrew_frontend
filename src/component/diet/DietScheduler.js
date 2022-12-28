@@ -4,7 +4,7 @@ import FullCalendar from '@fullcalendar/react' // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid' // a plugin!
 import interactionPlugin from "@fullcalendar/interaction" // npm i --force @fullcalendar/interaction
 import listPlugin from "@fullcalendar/list" // npm i --force @fullcalendar/list
-import "@fullcalendar/common/main.css"
+// import "@fullcalendar/common/main.css"
 /*컴포넌트 */
 import DietModal from './DietModal';
 /* CSS */
@@ -16,6 +16,7 @@ import axios from 'axios';
 import {Provider} from 'react-redux' // npm install --save react-redux
 import store from "./recipeArrayReduxStore";
 import { UncontrolledAlert } from 'reactstrap';
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 
 export const DietSchedulerContext = createContext();
@@ -27,12 +28,13 @@ export default function DietScheduler() {
     , textAlign: 'left'
     , margin: '100px auto'
     , marginBottom: '20px'
-    , border: '0.5px solid gray'
+    , border: '0.1px solid gray'
     , padding: '30px'
     , borderRadius: '20px'
     , top: '100'
   };
- 
+  const userId = useSelector( (state) => {return state.UserId} );
+
   const [modalShow1, setModalShow1] = useState(false);
   const modalToggle1 = () => {
     setModalShow1(!modalShow1)
@@ -56,7 +58,7 @@ export default function DietScheduler() {
    * useEffect에서 호출된다.
    */
   const eventRender = () => {
-    axios.get("/dietSearchMonthAll")
+    axios.get("/dietSearchMonthAll", {params:{userId:userId}})
     .then((res)=>{
       console.log(res.data)
       for(let i=0; i<res.data.length; i++) {
@@ -144,11 +146,9 @@ export default function DietScheduler() {
       {/* DietModal은 DietListModal의 부모 컴포넌트 이므로 store값은 DietListModal에도 함께 공유된다 */}
 
       { modalShow1 &&
-        <Provider store={store}>
           <DietSchedulerContext.Provider value={modal1}>
             <DietModal dietValue={dietProps}/>
           </DietSchedulerContext.Provider>
-        </Provider>
       }
     </div>
   )

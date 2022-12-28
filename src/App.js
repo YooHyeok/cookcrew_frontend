@@ -20,16 +20,18 @@ import RecipeCreate from "./component/recipe/RecipeCreate";
 import RecipeMod from "./component/recipe/RecipeMod";
 import RecipeRef from "./component/recipe/RecipeRef";
 
-// import Join from './component/user/Join';
-// import Login from './component/user/Login';
+import Join from './component/user/Join';
+import Login from './component/user/Login';
+import MyPage from './component/user/MyPage';
 
 
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
 import PopRecipe from './component_test/recipe/PopRecipe';
-import Join from './component_test/user/Join';
-import Login from './component_test/user/Login';
-import Mypage from './component_test/user/Mypage';
+
+// import Join from './component_test/user/Join';
+// import Login from './component_test/user/Login';
+// import Mypage from './component_test/user/Mypage';
 
 // import MyRecipe from './component_test/recipe/MyRecipe';
 // import RecipeWrite from './component_test/recipe/RecipeWrite';
@@ -66,6 +68,7 @@ function App() {
               <Route exact path='/recipemod' element={<RecipeMod />} />{/* 레시피 수정 */}
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
+              <Route exact path='/mypage' element={<MyPage />} />
             </Routes>
             <Footer />
           </BrowserRouter>

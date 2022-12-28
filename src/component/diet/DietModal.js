@@ -9,7 +9,7 @@ import DietListModal from './DietListModal';
 import { Search } from 'react-bootstrap-icons';
 import './ModalCommon.css';
 import axios from 'axios';
-// import {useSelector} from 'react-redux'; // useSelector : 특정 변수의 값을 가져온다. 함수를 인자값으로 넣어야함. / useDispatch : reduce() 함수를 호출
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 /**
  * 식단 리스트 출력, 수정, 삭제 Modal컴포넌트
@@ -65,6 +65,7 @@ export default function DietModal({dietValue}) {
   const modalStateValue = () => {
     setModalShowResearchParam(!modalShowResearchParam);
   }
+  const userId = useSelector( (state) => {return state.UserId} );
 
   /**
    * 식단 검색 함수
@@ -72,16 +73,17 @@ export default function DietModal({dietValue}) {
    */
   const dietSearch = (mealDivValue) => {
     let param = {}
+    console.log(userId)
     let url = "/dietSearch";
     switch (mealDivValue) {
       case '아침': 
-      param = {params:{dietDate : dietValue.dietDate, mealDiv: '1'}};
+      param = {params:{userId: userId, dietDate : dietValue.dietDate, mealDiv: '1'}};
       break;
       case '점심': 
-      param = {params:{dietDate : dietValue.dietDate, mealDiv: '2'}};
+      param = {params:{userId: userId, dietDate : dietValue.dietDate, mealDiv: '2'}};
       break;
       case '저녁': 
-      param = {params:{dietDate : dietValue.dietDate, mealDiv: '3'}};
+      param = {params:{userId: userId, dietDate : dietValue.dietDate, mealDiv: '3'}};
     }
     axios.get(url, param)
     .then((res)=>{
@@ -97,7 +99,7 @@ export default function DietModal({dietValue}) {
       }
     })
     .catch((res)=>{
-      console.log(res)
+      // console.log(res)
     })
   }
 
@@ -107,6 +109,7 @@ export default function DietModal({dietValue}) {
   let renderDietArr = [];
   const dietList = (dietListArray) =>{
     renderDietArr = []
+    console.log(dietListArray)
     // if(dietListArray.length == 0) return;
     for(let i=0; i<dietListArray.length; i++) {
 
