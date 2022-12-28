@@ -8,11 +8,11 @@ const RecipeList = ()=> {
     return (
         <>
         
-            <SectionHero2/>
+            {/* <SectionHero2/> */}
             <div>
                 <Container>
                 <Recipes/>
-                <MyCard/>
+                {/* <MyCard/> */}
                 </Container>
             </div>
             {/* {recipes.map(recipe => {

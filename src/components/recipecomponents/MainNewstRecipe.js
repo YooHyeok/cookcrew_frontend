@@ -6,8 +6,8 @@ import {
   } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
-import { BsFillStarFill } from 'react-icons/bs'
-import { yellow } from '@mui/material/colors';
+
+// 메인 최신 레시피
 
 const NewstRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -32,7 +32,7 @@ const NewstRecipes = () => {
                 width: "768px",
                 display: "grid",
                 gridTemplateRows: "1fr",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
                 
             }}
             >
@@ -47,7 +47,7 @@ const NewstRecipes = () => {
                     }}
                   >
                     <LikeButton></LikeButton>
-                    <Link to = {`/recipes/${c.rno}`}>
+                    <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
                       src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"

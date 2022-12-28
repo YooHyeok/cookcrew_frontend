@@ -96,9 +96,9 @@ export default function Tumbnail() {
                     <Container fixed id='detail_container'>
                         <div id='icons_group'>
                             {/* 조회수, 별점, 찜갯수 들어가는 곳 */}
-                            <span><BsFillEyeFill />&nbsp;{cnt}</span>&nbsp;&nbsp;
-                            <span><BsFillStarFill />&nbsp;{ratingValue}</span>&nbsp;&nbsp;
-                            <span><BsHeartFill />&nbsp;17</span>&nbsp;&nbsp;
+                            <span><BsFillEyeFill className='inline' />&nbsp;{cnt}</span>&nbsp;&nbsp;
+                            <span><BsFillStarFill className='inline' />&nbsp;{ratingValue}</span>&nbsp;&nbsp;
+                            <span><BsHeartFill className='inline' />&nbsp;17</span>&nbsp;&nbsp;
                         </div><hr />
                         <div id='explain_recipe'>
                             <div id='exp_title'>
