@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
-
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 export default function MyPage() {
     const divStyle = {
@@ -16,10 +16,11 @@ export default function MyPage() {
         , top: '100'
     };
 
+    const userId = useSelector( (state) => {return state.UserId} );
 
     const [user, setUser] = useState({});
     useEffect(() => {
-        axios.get('/mypage', { params: { id: "mdmdr8" } })
+        axios.get('/mypage', { params: { id: userId } })
             .then((res) => {
                 console.log(res);
                 console.log(res.data);

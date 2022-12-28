@@ -195,7 +195,7 @@ function Join() {
             axios.post('/join', userJoin)
                 .then((res) => {
                     alert("회원 가입을 축하합니다.")
-
+                    document.location.href="/login"
                 }).catch((error) => {
                     console.log("error")
                 })

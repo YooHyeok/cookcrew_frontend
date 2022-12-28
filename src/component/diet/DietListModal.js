@@ -10,6 +10,7 @@ import './ModalCommon.css';
 // import {useSelector, useDispatch} from 'react-redux'; // useSelector : 특정 변수의 값을 가져온다. 함수를 인자값으로 넣어야함. / useDispatch : reduce() 함수를 호출
 import axios from 'axios';
 import { DietModalContext } from './DietModal';
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 
 export default function DietListModal({modalSearchProps, data}) {
@@ -32,6 +33,8 @@ export default function DietListModal({modalSearchProps, data}) {
      alert(res)
    })
   },[])
+
+  const userId = useSelector( (state) => {return state.UserId} );
 
   const listRender = () => {
     let mealDiv = 0;
@@ -59,7 +62,7 @@ export default function DietListModal({modalSearchProps, data}) {
                     return;
                   }
                   // 험수화 할 수 없음. 반복문 내에서 선택된 데이터를 반영해야 하기 때문에
-                  axios.post("/dietAdd", {dietDate : data.dietDate, mealDiv : mealDiv, rNo:searchData[i].rno})
+                  axios.post("/dietAdd", {userId: userId, dietDate : data.dietDate, mealDiv : mealDiv, rno:searchData[i].rno})
                   .then((response)=>{
                     alert("식단 추가 성공!");
                     /* data.setDietListArray([...data.dietListArray

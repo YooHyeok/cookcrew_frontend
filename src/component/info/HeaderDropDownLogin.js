@@ -9,7 +9,7 @@ export default function HeaderDropDownLogin(){
     const context = useContext(HeaderDropDownContext);
 
     return (
-      <Dropdown isOpen={context.dropdownOpenLogin} fade="true" toggle={context.toggleLogin}>
+      <Dropdown id="ok" isOpen={context.dropdownOpenLogin} fade="true" toggle={context.toggleLogin}>
         <DropdownToggle caret style={{backgroundColor:"rgb(0,0,0,0)", border:"none"}}>
             <PersonCircle size={30}/>
         </DropdownToggle>
