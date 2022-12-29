@@ -10,7 +10,7 @@ const MainNewst =() => {
                 </span>
                 <button className="inline justify-items-start border rounded-lg bg-secondary text-white">{">더 보기"}</button>
            </div>
-           <div className="w-full">
+           <div className="mx-20 mt-10 justify-items-start">
                 <MainNewstRecipes className=''/>
            </div>
         </>

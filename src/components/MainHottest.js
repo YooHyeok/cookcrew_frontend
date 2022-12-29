@@ -1,6 +1,6 @@
 import React from "react";
 import PopRecipes from "./recipecomponents/Recipes";
-import MainHottestRecipes from "./MainHottestRecipes";
+import MainHottestRecipes from "./recipecomponents/MainHottestRecipes";
 const MainHottest =() => {
     return(
         <>

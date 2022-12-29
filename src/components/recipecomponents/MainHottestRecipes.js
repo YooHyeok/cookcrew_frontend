@@ -5,7 +5,7 @@ import {
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import LikeButton from './recipecomponents/LikeButton';
+import LikeButton from './LikeButton';
 
 const HottestRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -48,15 +48,13 @@ const HottestRecipes = () => {
                     <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
-                      src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
+                      src={c.thumbPath}
                     />
                     </Link>
                     
                     <CardBody
-                        style = {{
-                            border: "solid 1px"
-                        }}>
-                      <Link to = {`/recipes/${c.rno}`}>
+                       >
+                      <Link to = {`/reciperef/${c.rno}`}>
                       <CardTitle tag="h5">
                         {c.title}
                       </CardTitle>
@@ -72,7 +70,7 @@ const HottestRecipes = () => {
                       </Link>
                       <Button
                         className='bg-white'>
-                        <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
+                        <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
                       </Button>
                       <div>
 
