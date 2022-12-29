@@ -120,7 +120,7 @@ const Recipes = () => {
                     </Link>
                     
                     <CardBody>
-                      <Link to = {`/recipes/${c.rno}`}>
+                      <Link to = {`/reciperef/${c.rno}`}>
                       <CardTitle tag="h5">
                         {c.title}
                       </CardTitle>

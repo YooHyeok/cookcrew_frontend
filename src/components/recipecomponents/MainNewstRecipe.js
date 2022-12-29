@@ -6,6 +6,7 @@ import {
   } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
+import { BsFillStarFill } from 'react-icons/bs'
 
 // 메인 최신 레시피
 
@@ -17,7 +18,7 @@ const NewstRecipes = () => {
 
     
     useEffect(() => {
-        axios.get('/recipelist')
+        axios.get('/listmain')
             .then((response) => {
                 setRecipes(response.data)
             }) 
@@ -50,15 +51,13 @@ const NewstRecipes = () => {
                     <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
-                      src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
+                      src={c.thumbPath}
                     />
                     </Link>
                     
                     <CardBody
-                        style = {{
-                            border: "solid 1px"
-                        }}>
-                      <Link to = {`/recipes/${c.rno}`}>
+                        >
+                      <Link to = {`/reciperef/${c.rno}`}>
                       <CardTitle tag="h5">
                         {c.title}
                       </CardTitle>
@@ -74,14 +73,14 @@ const NewstRecipes = () => {
                       </Link>
                       <span>
                         
-                        <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
+                        <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
                       </span>
                       <div>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
                         {/* <span className='inline items-justify'><BsFillStarFill style={{fill:'#fdd835'}}/> <span>{c.rating}</span>{c.rating}</span> */}
-                        <span className='inline items-justify'>⭐{c.rating}</span>
+                        <span className=''><BsFillStarFill className='inline fill-yellow-400'/>&nbsp;&nbsp;{c.rating}</span>
                       </div>
                     </CardBody>
                   </Card>
