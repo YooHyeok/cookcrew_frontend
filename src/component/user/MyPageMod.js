@@ -1,8 +1,11 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
+import { Typography } from "@mui/material";
+// import { JustifyLeft } from "react-bootstrap-icons";
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 export default function MyPageMod() {
     const divStyle = {
@@ -11,36 +14,144 @@ export default function MyPageMod() {
         , textAlign: 'center'
         , margin: '100px auto'
         , marginBottom: '20px'
-        // , border: '0.5px solid gray'
         , padding: '30px'
-        // , borderRadius: '20px'
         , top: '100'
     };
 
-    const [info, setInfo] = useState({});
+    const userId = useSelector((state) => { return state.UserId });
+
+    const [usernickname, setUsernickname] = useState('')
+    const [userin, setUserIn] = useState({
+        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: ''
+    });
+
+    useEffect(() => {
+        axios.get('/mypage', { params: { id: userId } })
+            .then((res) => {
+                console.log(res);
+                console.log(res.data);
+                setUserIn(res.data);
+                setUsernickname(res.data.nickname)
+            }).catch((error) => {
+                console.log(error)
+            })
+    }, [])
+
+    const setChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setUserIn({ ...userin, [name]: value });
+    }
+
+
+    const addressHandle = {
+        selectAddress: (data) => {
+            setUserIn({ ...userin, address: data.address, postcode: data.zonecode });
+            setModalShow(false)
+        }
+    }
+    //정규식
+    const [validNN, setValidNN] = useState(false);
+
+    //중복확인
+    const [existNn, setExistNn] = useState(false);
+
+    // 주소 모달
     const [modalShow, setModalShow] = useState(false);
     const modalToggle = () => {
         setModalShow(!modalShow)
     }
-    const [address, setAddress] = useState("");
-    const [postcode, setPostcode] = useState("")
-    const addressHandle = {
-        selectAddress: (data) => {
-            setAddress(data.address);
-            setPostcode(data.zonecode);
-            setModalShow(false)
+
+    const ID_REG = /^[a-zA-Z][a-zA-Z0-9-_]{3,15}$/;
+
+    // 닉네임 정규표현식 일치하는지 검사
+    const setNnInfo = (e) => {
+        let nickname = e.target.value;
+        setUserIn({ ...userin, 'nickname': nickname });
+        const reg = new RegExp(ID_REG);
+        let checkReg = reg.test(nickname) ? true : false;
+        if (checkReg) {
+            console.log("닉네임 정규표현식 일치")
+            document.getElementById("regnnTrue").setAttribute("style", "display:show; color: blue;")
+            document.getElementById("regnnFalse").setAttribute("style", "display:none; color: red;")
+        }
+        if (!checkReg) {
+            console.log("닉네임 정규표현식 불일치")
+            document.getElementById("regnnFalse").setAttribute("style", "display:show; color: red;")
+            document.getElementById("regnnTrue").setAttribute("style", "display:none; color: blue;")
         }
     }
 
+    useEffect(() => {
+        const result = ID_REG.test(userin.nickname);
+        setValidNN(result);
+    }, [userin.nickname])
+
+
+    const CheckNN = (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('nickname', userin.nickname)
+        axios.post('/existByNn', formData)
+            .then((res) => {
+                if (res.data === false) {
+                    alert("사용 가능합니다.");
+                    setExistNn(true)
+                }
+                else if (res.data === true) {
+                    alert("중복되는 닉네임입니다.")
+                    setExistNn(false)
+                }
+            }).catch((error) => {
+                // alert("중복되는 아이디 입니다.")
+                console.log("Error")
+            })
+
+    };
+
+    const formData = new FormData();
+
+    const submit = (e) => {
+        e.preventDefault();
+        console.log(formData)
+        console.log(userin)
+
+        if (userin.nickname == usernickname.nickname) {
+            console.log(userin)
+            axios.post('/mypagemod', userin)
+                .then((res) => {
+                    alert("수정이 완료되었습니다.")
+                    document.location.href = "/mypage"
+                }).catch((error) => {
+                    console.log("error")
+                })
+        }
+        else if (validNN && existNn) {
+            // axios.post('/join', formData)
+            console.log(userin)
+            axios.post('/mypagemod', userin)
+                .then((res) => {
+                    alert("수정이 완료되었습니다.")
+                    document.location.href = "/mypage"
+                }).catch((error) => {
+                    console.log("error")
+                })
+        } else {
+            alert("입력한 정보가 올바르지 않습니다.");
+        }
+    }
+
+
+
     return (
         <div style={divStyle}>
-            <div><h1><b> My Page</b></h1></div><br />
+            <div><h1><b> My Page 수정</b></h1></div><br />
             <div className="screen-wrap">
                 <div className="screen-header">
                     <span> 내 정보 </span>
-                    <span> 다이어트 캘린더 </span>
                     <span> 나의 레시피 </span>
-                    <span> 나의 구독 </span>
+                    <span> 나의 찜목록 </span>
+                    <span> 나의 랭킹 </span>
                 </div>
             </div>
             <hr />
@@ -53,63 +164,72 @@ export default function MyPageMod() {
                     , padding: '30px'
                     // , borderRadius: '20px'
                 }}>
+
                     <Form style={{ width: "400px", margin: '0px auto' }}>
+
+                        {/* 닉네임 */}
                         <FormGroup row>
                             <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
-                            <Col sm={8}>
-                                <Input type='text' name='nickname' id='nickname' required />
+                            <Col sm={5}>
+                                <Input type='text' name='nickname' id='nickname' value={userin.nickname} onChange={setNnInfo} required />
                             </Col>
+                            <Col sm={3} >
+                                <Button outline color='primary' style={{ width: '100%' }} onClick={CheckNN}>변경</Button>
+                            </Col>
+                            <p>
+                                <span id="regnnTrue" style={{ display: "none" }}><b>사용 가능한 닉네임입니다.</b></span>
+                                <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, <br />숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                            </p>
                         </FormGroup>
+                        {/* 아이디 */}
                         <FormGroup row>
                             <Label htmlFor="id" sm={4}>아&nbsp;&nbsp;이&nbsp;&nbsp;디</Label>
-                            <Col sm={4}>
-                                <Input type="text" name="id" id="id" onChange required />
+                            <Col sm={8}>
+                                <Input type="text" name="id" id="id" value={userin.id} readOnly />
                             </Col>
-                            <Col sm={4}>
-                                <Button outline color='secondary' style={{ width: '100%' }} onClick>중복확인</Button>
-                            </Col>
+
                         </FormGroup>
                         {/* 패스워드 */}
                         <FormGroup row>
                             <Label htmlFor='grade' sm={4}>패스워드</Label>
                             <Col>
-                                <Button outline color='secondary' style={{ width: '100%' }} onClick>재발급</Button>
+                                <Button outline color='primary' style={{ width: '100%' }} onClick>재발급</Button>
                             </Col>
                         </FormGroup>
                         {/* 이메일 */}
                         <FormGroup row>
                             <Label htmlFor='email' sm={4}>이&nbsp;&nbsp;메&nbsp;&nbsp;일</Label>
                             <Col sm={8}>
-                                <Input type='email' name='email' id='email' placeholder="패스워드 재발급을 위한 이메일" required />
+                                <Input type='email' name='email' id='email' value={userin.email} onChange={setChange} required />
                             </Col>
                         </FormGroup>
                         {/* 우편번호 */}
                         <FormGroup row>
                             <Label htmlFor="id" sm={4}>우편&nbsp;번호</Label>
                             <Col sm={4}>
-                                <Input type="text" name="id" id="id" value={postcode} onClick={modalToggle} required />
+                                <Input type="text" name="id" id="id" value={userin.postcode} onClick={modalToggle} required />
                             </Col>
                             <Col sm={4}>
-                                <Button outline color='secondary' style={{ width: '100%' }} onClick={modalToggle}>검색</Button>
+                                <Button outline color='primary' style={{ width: '100%' }} onClick={modalToggle}>검색</Button>
                             </Col>
                         </FormGroup>
                         {/* 주소 */}
                         <FormGroup row>
                             <Label htmlFor='grade' sm={4}>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</Label>
                             <Col>
-                                <Input type="text" name="grade" id="grade" sm={8} value={address} />
+                                <Input type="text" name="grade" id="grade" sm={8} value={userin.address} />
                             </Col>
                         </FormGroup>
                         {/* 상세주소 */}
                         <FormGroup row>
                             <Label htmlFor='grade' sm={4}>상세&nbsp;주소</Label>
                             <Col>
-                                <Input type="text" name="grade" id="grade" sm={8} value={"없음"} required placeholder="해당하지 않을경우 없음 입력" />
+                                <Input type="text" name="grade" id="grade" sm={8} value={userin.addrDetail} required placeholder="해당하지 않을경우 없음 입력" />
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Col sm={4} >
-                                <Button color='secondary' style={{ width: '400px' }}>수정</Button>
+                                <Button color='primary' style={{ width: '400px' }} onClick={submit}>수정 완료</Button>
                             </Col>
                         </FormGroup>
                     </Form>
@@ -118,7 +238,7 @@ export default function MyPageMod() {
                     <Modal isOpen={modalShow} fade={true} toggle={modalToggle} style={{ witop: "100px", left: "28%" }}>
                         <ModalHeader toggle={modalToggle}>주소 검색</ModalHeader>
                         <ModalBody>
-                            <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} defaultQuery='가산디지털1로 2' />
+                            <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} />
                         </ModalBody>
                         <ModalFooter color="secondary" onClick={modalToggle}>
                             {/* <Button color='secondary'>닫기</Button> */}
@@ -126,6 +246,6 @@ export default function MyPageMod() {
                     </Modal>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
