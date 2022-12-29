@@ -4,9 +4,9 @@ import RecipeList from './RecipeList';
 import RecipeCard from './RecipeCard';
 import styled from 'styled-components';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 import { border } from '@mui/system';
 import { hover } from '@testing-library/user-event/dist/hover';
 import { colors } from '@mui/material';
@@ -23,7 +23,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export function IconCheckboxes() {
   return (
-    <div style={{float:"left", width:"80px"}}>
+    <div style={{ float: "left", width: "80px" }}>
       <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
     </div>
   );
@@ -38,121 +38,127 @@ export function IconCheckboxes() {
 //             <div>
 //               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
 //             </div>
-          
+
 //     );
 // }
 
 const Recipes = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [like, setLike] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [like, setLike] = useState(false);
 
-    
 
-    
-    useEffect(() => {
-        axios.get('/recipelist')
-            .then((response) => {
-                setRecipes(response.data)
-            }) 
-            ;
-    }, []);
 
-    
 
-    // const RecipeCardsBlock = styled.div `
-    //     display: flex;
-    //     padding: 1rem;
-    //     width: 768px;
-    //     margin: 0 auto;
-    //     @media screen and (max-width: 768px){
-    //         width: 100%;
-    //         overflow-x: auto;
-    //     }
-    // `;
+  useEffect(() => {
+    axios.get('/recipelist')
+      .then((response) => {
+        setRecipes(response.data)
+      })
+      ;
+  }, []);
 
-    // const Category = 
-        
-    
-    //     styled.div`
-           
 
-    //         &:hover {
-    //             color: #495057;
-    //         }
 
-           
-    //         }
-    //     `;
+  // const RecipeCardsBlock = styled.div `
+  //     display: flex;
+  //     padding: 1rem;
+  //     width: 768px;
+  //     margin: 0 auto;
+  //     @media screen and (max-width: 768px){
+  //         width: 100%;
+  //         overflow-x: auto;
+  //     }
+  // `;
 
-    return (
-        <>
-         <div className="text-left mt-20">
-            <div className="font-semibold text-4xl text-left ml-28 mr-10 mt-20 pt-20">
-            전체 레시피
-            </div>
+  // const Category = 
+
+
+  //     styled.div`
+
+
+  //         &:hover {
+  //             color: #495057;
+  //         }
+
+
+  //         }
+  //     `;
+
+  return (
+    <>
+      <div className="text-left mt-20">
+        <div className="font-semibold text-4xl text-left ml-28 mr-10 mt-20 pt-20">
+          전체 레시피
+          <div style={{ float: 'right' }}>
+            <Link to={'/recipecreate'}>
+              <button type="button" class="btn btn-outline-dark" >
+                레시피 작성하기&nbsp;</button>&nbsp;
+            </Link>
+          </div>
         </div>
-        <div className='py-10 pl-10' 
-            style = {{
-                
-                width: "768px",
-                display: "grid",
-                gridTemplateRows: "1fr",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr",
-                
-            }}
-            >
-                 {recipes.map(c => (
-                    <Card key={c.rno}
-                    style={{
-                      width: '18rem',
-                      fontSize: '1.125rem',
-                      cursor: 'pointer',
-                      padding: '0.5rem',
-                      margin: '1rem',
-                    }}
-                  >
-                    <LikeButton></LikeButton>
-                    <Link to = {`/recipes/${c.rno}`}>
-                    <img
-                      alt="Sample"
-                      src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
-                    />
-                    </Link>
-                    
-                    <CardBody
-                        style = {{
-                            border: "solid 1px"
-                        }}>
-                      <Link to = {`/recipes/${c.rno}`}>
-                      <CardTitle tag="h5">
-                        {c.title}
-                      </CardTitle>
-                      <CardSubtitle
-                        className="mb-2 text-muted"
-                        tag="h6"
-                      >
-                        칼로리: {c.rkcal}
-                      </CardSubtitle>
-                      <CardText>
-                        작성자: {c.regId}
-                      </CardText>
-                      </Link>
-                      <Button
-                        className='bg-white'>
-                        <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
-                      </Button>
-                      <div>
+      </div>
+      <div className='py-10 pl-10'
+        style={{
 
-                        {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
-                        {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                        <span className='inline items-justify'>🟢 3.4</span>
-                      </div>
-                    </CardBody>
-                  </Card>
-                  
-                ))}
-            </div>
-            {/* <RecipeCardsBlock>
+          width: "768px",
+          display: "grid",
+          gridTemplateRows: "1fr",
+          gridTemplateColumns: "1fr 1fr 1fr 1fr",
+
+        }}
+      >
+        {recipes.map(c => (
+          <Card key={c.rno}
+            style={{
+              width: '18rem',
+              fontSize: '1.125rem',
+              cursor: 'pointer',
+              padding: '0.5rem',
+              margin: '1rem',
+            }}
+          >
+            <LikeButton></LikeButton>
+            <Link to={`/recipes/${c.rno}`}>
+              <img
+                alt="Sample"
+                src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
+              />
+            </Link>
+
+            <CardBody
+              style={{
+                border: "solid 1px"
+              }}>
+              <Link to={`/recipes/${c.rno}`}>
+                <CardTitle tag="h5">
+                  {c.title}
+                </CardTitle>
+                <CardSubtitle
+                  className="mb-2 text-muted"
+                  tag="h6"
+                >
+                  칼로리: {c.rkcal}
+                </CardSubtitle>
+                <CardText>
+                  작성자: {c.regId}
+                </CardText>
+              </Link>
+              <Button
+                className='bg-white'>
+                <Link to={`/recipes/${c.rno}`}>레시피 보기</Link>
+              </Button>
+              <div>
+
+                {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
+                {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
+                <span className='inline items-justify'>🟢 3.4</span>
+              </div>
+            </CardBody>
+          </Card>
+
+        ))}
+      </div>
+      {/* <RecipeCardsBlock>
                 {recipes.map(c => (
                     <Category><Card key={c.rno}
                     style={{
@@ -183,14 +189,14 @@ const Recipes = () => {
                   </Card></Category>
                 ))}
             </RecipeCardsBlock> */}
-            {/* <h1>Recipes</h1>
+      {/* <h1>Recipes</h1>
             <RecipeList recipes={recipes}/>
             
             <RecipeCard
                 recipes = {recipes}
                 /> */}
-        </>
-    );
+    </>
+  );
 }
 
 export default Recipes;

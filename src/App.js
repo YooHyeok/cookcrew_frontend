@@ -80,8 +80,6 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />
-
-              <Route exact path='/deletepage' element={<DeletePage />} />
             </Routes>
             <Footer />
           </BrowserRouter>

@@ -5,7 +5,7 @@ import { useEffect, useRef, useState, createContext } from 'react';
 import axios from 'axios';
 import Toasteditor from './ToastEditor';
 import "./Recipe.css";
-
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 export const Toast = createContext();
 
@@ -16,6 +16,8 @@ export default function RecipeCreate() {
     const [toastHtml, setToastHtml] = useState('');
     const [toastMarkdown, setMarkdown] = useState('');
     const [files, setFiles] = useState({});
+    const userId = useSelector( (state) => {return state.UserId} );
+console.log(userId);
 
     const context = {
         setToastHtml: setToastHtml.bind(this),
@@ -40,7 +42,7 @@ export default function RecipeCreate() {
 
         const formData = new FormData();
         formData.append('title', rcps.title);
-        formData.append('reg_id', rcps.regId);
+        formData.append('userId', userId);
         formData.append('toastHtml', toastHtml);
         formData.append('toastMarkdown', toastMarkdown);
         formData.append('file', files.file);
@@ -54,6 +56,7 @@ export default function RecipeCreate() {
             .then((response) => {
                 console.log(response.data);
                 alert(response.data);
+                document.location.href="/recipelist"
             })
             .catch((error) => {
                 console.log(error);
@@ -135,7 +138,7 @@ export default function RecipeCreate() {
                     </div>
                 </div>
                 <section>
-                    <input type='reset' className="btn btn-outline-danger" value='다시쓰기' />&nbsp;&nbsp;
+                    <input type='reset' className="btn btn-outline-danger" value='다시쓰기' />&nbsp;&nbsp;                  
                     <button type="button" className="btn btn-outline-dark" onClick={submit}>등록</button>
                 </section>
                 <br /><br />
