@@ -31,6 +31,7 @@ import ChallengeRankingPage from './components/challengerankingcomponents/Challe
 import Recipes from './components/recipecomponents/Recipes';
 import RecipeCard from './components/recipecomponents/RecipeCard';
 import MyPage from './component/user/MyPage';
+import MyPageMod from './component/user/MyPageMod';
 
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
@@ -58,7 +59,7 @@ let persistor = persistStore(store);
 
 function App() {
   return (
-    
+
     <div className="App">
       <Provider store={store}>
         <PersistGate persistor={persistor}>
@@ -78,8 +79,6 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />
-
-              <Route exact path='/deletepage' element={<DeletePage />} />
             </Routes>
             <Footer />
           </BrowserRouter>
