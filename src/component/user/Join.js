@@ -213,7 +213,7 @@ function Join() {
                             {/* 닉네임 */}
                             <label >Nickname</label><br />
                             <input className="inputStyle" type="text" name="nickname" id="nickname" placeholder="nickname" value={userJoin.nickname} onChange={setNnInfo} required></input>
-                            <Button color="warning" className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
+                            <Button outline color='primary' className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
                             <p>
                                 <span id="regnnTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
                                 <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
@@ -224,7 +224,7 @@ function Join() {
                             <div>
                                 <label htmlFor="id">ID</label><br />
                                 <input className="inputStyle" type="text" name="id" id="id" placeholder="id" value={userJoin.id} onChange={setIdInfo} required />
-                                <Button color="warning" className="CheckBtn" onClick={CheckId}>중복 확인</Button>
+                                <Button outline color='primary' className="CheckBtn" onClick={CheckId}>중복 확인</Button>
                                 <p>
                                     <span id="regTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
                                     <span id="regFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
@@ -245,7 +245,7 @@ function Join() {
                             {/* 주소 */}
                             <label>우편번호</label><br />
                             <input className="inputStyle" type="text" name="postcode" id="postcode" value={userJoin.postcode} onClick={modalToggle} readOnly />
-                            <Button color="warning" className="CheckBtn" onClick={modalToggle}>주소 찾기</Button>
+                            <Button outline color='primary' className="CheckBtn" onClick={modalToggle}>주소 찾기</Button>
                             <br /><br />
 
                             <label>주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소</label><br />
@@ -268,7 +268,7 @@ function Join() {
                         <br /><br /> */}
 
                             <div>
-                                <Button type='submit' color="warning" onClick={submit} style={{ width: "355px", height: "50px" }}>회 원 가 입</Button>
+                                <Button type='submit' color="primary" onClick={submit} style={{ width: "355px", height: "50px" }}>회 원 가 입</Button>
                             </div>
                         </div>
 
@@ -279,7 +279,7 @@ function Join() {
             <Modal isOpen={modalShow} fade={true} toggle={modalToggle} style={{ witop: "100px", left: "28%" }}>
                 <ModalHeader toggle={modalToggle}>주소 검색</ModalHeader>
                 <ModalBody>
-                    <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} defaultQuery='가산디지털1로 2' />
+                    <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} />
                 </ModalBody>
                 <ModalFooter color="secondary" onClick={modalToggle}>
                     {/* <Button color='secondary'>닫기</Button> */}
