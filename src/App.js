@@ -40,6 +40,8 @@ import DeletePage from './component/recipe/DeletePage';
 
 import Join from './component/user/Join';
 import Login from './component/user/Login';
+import ToDoList from './component/user/ToDoList';
+// import Profile from './component/user/Profile';
 // import Mypage from './component_test/user/Mypage';
 
 // import MyRecipe from './component_test/recipe/MyRecipe';
@@ -76,9 +78,12 @@ function App() {
               <Route exact path='/recipecreate' element={<RecipeCreate />} />{/* 레시피 등록 */}
               <Route exact path='/reciperef/:rNo' element={<RecipeRef />} />{/* 레시피 상세 */}
               <Route exact path='/recipemod' element={<RecipeMod />} />{/* 레시피 수정 */}
+
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
-              <Route exact path='/mypage' element={<MyPage />} />
+              <Route exact path='/mypage' element={<MyPage />} /> {/* 마이페이지 */}
+              <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
+              <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 수정 */}
             </Routes>
             <Footer />
           </BrowserRouter>
