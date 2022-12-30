@@ -3,7 +3,9 @@ import { useState, useEffect } from "react";
 import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
-import { Typography } from "@mui/material";
+import { Link } from 'react-router-dom';
+// import { ReactDOM } from "react";
+// import { Files } from "react-files";
 // import { JustifyLeft } from "react-bootstrap-icons";
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
@@ -22,7 +24,7 @@ export default function MyPageMod() {
 
     const [usernickname, setUsernickname] = useState('')
     const [userin, setUserIn] = useState({
-        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: ''
+        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: '', file: null
     });
 
     useEffect(() => {
@@ -36,6 +38,9 @@ export default function MyPageMod() {
                 console.log(error)
             })
     }, [])
+
+
+    const [imgURL, setImgURL] = useState('');
 
     const setChange = (e) => {
         const name = e.target.name;
@@ -109,10 +114,14 @@ export default function MyPageMod() {
 
     };
 
-    const formData = new FormData();
+    // 파일 기능들
+    const fileChange = (e) => {
+        setUserIn({ file: e.target.files[0] })
+    }
 
     const submit = (e) => {
         e.preventDefault();
+        const formData = new FormData();
         console.log(formData)
         console.log(userin)
 
@@ -166,7 +175,13 @@ export default function MyPageMod() {
                 }}>
 
                     <Form style={{ width: "400px", margin: '0px auto' }}>
-
+                        {/* 프로필 */}
+                        <div row>
+                            <img src={imgURL} alt="" />
+                        </div>
+                        <FormGroup row>
+                            <Input type="file" name="file" id="file" onChange={fileChange} accept='image/*'></Input>
+                        </FormGroup>
                         {/* 닉네임 */}
                         <FormGroup row>
                             <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
@@ -229,7 +244,7 @@ export default function MyPageMod() {
                         </FormGroup>
                         <FormGroup row>
                             <Col sm={4} >
-                                <Button color='primary' style={{ width: '400px' }} onClick={submit}>수정 완료</Button>
+                                <Link to={'/mypage'}><Button color='primary' style={{ width: '400px' }} onClick={submit}>수정 완료</Button></Link>
                             </Col>
                         </FormGroup>
                     </Form>
