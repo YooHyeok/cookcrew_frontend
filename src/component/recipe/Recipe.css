@@ -16,6 +16,11 @@
     width: 1000px;
 }
 
+/* 토스트 뷰어 글자*/
+.toastui-editor-contents > div {
+    font-size: 18px;
+}
+
 /* #s_p{
     width: 516px;
     height: 644px;

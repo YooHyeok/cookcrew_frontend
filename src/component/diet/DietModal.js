@@ -3,14 +3,14 @@ import {
   Form, FormGroup, InputGroup, Input, Button
   , Modal, ModalHeader, ModalBody, ModalFooter, Table
 } from 'reactstrap';
-import {createContext, useState, useContext, useEffect, useRef } from 'react';
+import {createContext, useState, useContext, useEffect } from 'react';
 import { DietSchedulerContext } from './DietScheduler';
 import DietListModal from './DietListModal';
 import { Search } from 'react-bootstrap-icons';
 import './ModalCommon.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-
+import * as DateUtil from "./DateUtil.js"
 /**
  * 식단 리스트 출력, 수정, 삭제 Modal컴포넌트
  * @returns 
@@ -31,8 +31,13 @@ export default function DietModal({dietValue}) {
   /* 검색창 검색어 State변수 */
   const [searchParam, setSearchParam] = useState('');
 
+  /* 시작일자 종료일자 yyyy-MM-dd TO yyyy년 MM월 dd일 */
+  const [searchData, setSearchData] = useState({});
+  /* fmtDateKr : yyyy년 MM월 dd일 - DateUtil.js 파일 참조*/
+  const fmtStartDTKr = DateUtil.hipenToKrfmtDate(searchData.startDate);
+  const fmtEndDTKr = DateUtil.hipenToKrfmtDate(searchData.endDate);
+
   /* 모달 2 파라미터 배열 변수(rno값) State변수 */
-  const [selectRecipeData, setSelectRecipeData] = useState([]);
   const [mealDivStr, setMealDivStr] = useState('');
   const [disaabled, setDisabled] = useState(true);
   const [modalStyle, setModalStyle] = useState({ width: "700px", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)" })
@@ -73,7 +78,6 @@ export default function DietModal({dietValue}) {
    */
   const dietSearch = (mealDivValue) => {
     let param = {}
-    console.log(userId)
     let url = "/dietSearch";
     switch (mealDivValue) {
       case '아침': 
@@ -87,19 +91,20 @@ export default function DietModal({dietValue}) {
     }
     axios.get(url, param)
     .then((res)=>{
-      setDietListArray(res.data)
-      if(res.data.length > 0){
+      setSearchData(res.data)
+      setDietListArray(res.data.dietListBy)
+      if(res.data.dietListBy.length > 0){
         let kcalTotalSum = 0;
         for(let i=0; i<res.data.length; i++) {
           kcalTotalSum += res.data[i].recipe.kcal;
         }
-        setTargetKcal(res.data[0].targetKcal)
+        setTargetKcal(res.data.dietListBy[0].targetKcal)
         setTotalKcal(kcalTotalSum)
-        setAchieve(res.data[0].achieve)
+        setAchieve(res.data.dietListBy[0].achieve)
       }
     })
     .catch((res)=>{
-      // console.log(res)
+      alert("에러 발생 ! \n 에러 내용 :=> " + res)
     })
   }
 
@@ -109,20 +114,26 @@ export default function DietModal({dietValue}) {
   let renderDietArr = [];
   const dietList = (dietListArray) =>{
     renderDietArr = []
-    console.log(dietListArray)
     // if(dietListArray.length == 0) return;
     for(let i=0; i<dietListArray.length; i++) {
 
       renderDietArr.push(
         <tr key={dietListArray[i].dno} id={dietListArray[i].dno}>
           <td>
-            <a style={{textDecoration: "none", color : "black"}} href="#" target='_blank' onClick={(e)=>{e.preventDefault();}}>{dietListArray[i].recipe.title}</a>
+            <a style={{textDecoration: "none", color : "black"}} target='_blank'
+             onClick={(e)=>{
+              e.preventDefault();
+              alert("새 탭으로 열립니다");
+              //href={`http://localhost/reciperef/${dietListArray[i].recipe.rno}`} 
+              window.open(`http://localhost/reciperef/${dietListArray[i].recipe.rno}`)
+            }}>{dietListArray[i].recipe.title}</a>
           </td>
           <td>
             {dietListArray[i].recipe.kcal}Kcal
           </td>
           <td style={{textAlign:"right"}}>
-            <a href="http://localhost/dietmenu" className="hyphenIcon" style={{ display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}>(-)</a>
+            {/* <a href="http://localhost/dietmenu" className="hyphenIcon" style={{ display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}>(-)</a> */}
+            <a href="http://localhost/dietmenu" className="hyphenIcon" style={{display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}><img style={{width:"25px", float:"right"}}src={require("./delete_icon.png")}/></a>
           </td>
         </tr>
       )
@@ -308,7 +319,7 @@ export default function DietModal({dietValue}) {
               </div>
             </InputGroup>
         </ModalHeader>
-        <ModalBody style={{ height: "600px" }}>
+        <ModalBody style={{ height: "400px" }}>
           <Form style={{height: "540px"}}>
             <FormGroup>
               <div style={{height:"38px"}}>
@@ -358,6 +369,11 @@ export default function DietModal({dietValue}) {
           </Form>
         </ModalBody>
         <ModalFooter>
+          <div style={{height:"30px", float:"left"}}>
+            <span style={{width:"100%",display:"inline-block"}}>
+              {/* {fmtStartDTKr} ~ {fmtEndDTKr} */}
+            </span>
+          </div>
           <Table striped style={{width:"466px",tableLayout:"fixed",textAlign:"center"}}>
                 <thead>
                   <tr>

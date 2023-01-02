@@ -74,6 +74,7 @@ export default function RecipeMod() {
             .then((response) => {
                 console.log(response.data);
                 alert(response.data);
+                document.location.href=`/reciperef/${rNo}`
                 
             })
             .catch((error) => {

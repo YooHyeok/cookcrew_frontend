@@ -12,7 +12,7 @@ export default function HeaderDropDownLogin() {
   return (
     <Dropdown id="ok" isOpen={context.dropdownOpenLogin} fade="true" toggle={context.toggleLogin}>
       <DropdownToggle caret style={{ backgroundColor: "rgb(0,0,0,0)", border: "none" }}>
-        <PersonCircle size={30} />
+        <PersonCircle className="inline" size={30} />
       </DropdownToggle>
       <DropdownMenu >
         {/* <DropdownItem style={{lineHeight: "25px"}} header>header</DropdownItem>

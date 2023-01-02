@@ -4,9 +4,9 @@ import RecipeList from './RecipeList';
 import RecipeCard from './RecipeCard';
 import styled from 'styled-components';
 import {
-    Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
-  } from 'reactstrap';
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 import { border } from '@mui/system';
 import { hover } from '@testing-library/user-event/dist/hover';
 import { colors } from '@mui/material';
@@ -25,7 +25,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export function IconCheckboxes() {
   return (
-    <div style={{float:"left", width:"80px"}}>
+    <div style={{ float: "left", width: "80px" }}>
       <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
     </div>
   );
@@ -40,60 +40,51 @@ export function IconCheckboxes() {
 //             <div>
 //               <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
 //             </div>
-          
+
 //     );
 // }
 
 const Recipes = () => {
-    const [recipes, setRecipes] = useState([]);
-    const [like, setLike] = useState(false);
+  const [recipes, setRecipes] = useState([]);
+  const [like, setLike] = useState(false);
 
-    
 
-    
-    useEffect(() => {
-        axios.get('/recipelist')
-            .then((response) => {
-                setRecipes(response.data)
-            }) 
-            ;
-    }, []);
 
-    
 
-    // const RecipeCardsBlock = styled.div `
-    //     display: flex;
-    //     padding: 1rem;
-    //     width: 768px;
-    //     margin: 0 auto;
-    //     @media screen and (max-width: 768px){
-    //         width: 100%;
-    //         overflow-x: auto;
-    //     }
-    // `;
+  useEffect(() => {
+    axios.get('/recipelist')
+      .then((response) => {
+        setRecipes(response.data)
+      })
+      ;
+  }, []);
 
-    // const Category = 
-        
-    
-    //     styled.div`
-           
 
-    //         &:hover {
-    //             color: #495057;
-    //         }
 
            
     //         }
     //     `;
-
+    const divStyle = {
+      width: '1340px' //캘린더 width 조절을 위해 부모태그에 설정한다.
+      , height: '100%'
+      , textAlign: 'left'
+      , margin: '100px auto'
+      , marginBottom: '20px'
+      , border: '0.1px solid lightgray'
+      , padding: '30px'
+      , borderRadius: '20px'
+      , top: '100'
+    };
     return (
-        <>
-         <div className="text-left mt-20">
+        <div style={divStyle} >
+         {/* <div className="text-left mt-20">
             <div className="font-semibold text-4xl text-left ml-28 mr-10 mt-20 pt-20">
             전체 레시피
             </div>
-        </div>
-        <div className='py-10 pl-10' 
+        </div> */}
+        <div><h1><b>전체 레시피</b></h1></div><br />
+
+        <div
             style = {{
                 
                 width: "768px",
@@ -182,13 +173,13 @@ const Recipes = () => {
                   </Card></Category>
                 ))}
             </RecipeCardsBlock> */}
-            {/* <h1>Recipes</h1>
+      {/* <h1>Recipes</h1>
             <RecipeList recipes={recipes}/>
             
             <RecipeCard
                 recipes = {recipes}
                 /> */}
-        </>
+        </div>
     );
 }
 
