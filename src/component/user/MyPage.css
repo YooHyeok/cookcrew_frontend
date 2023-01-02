@@ -9,8 +9,17 @@
 .mypage_button{
     display: flex;
     justify-content: space-between;
+    padding-bottom: 100px
 }
 .mypage_btn{
   display: flex;
   justify-content: space-evenly;
+}
+.profile {
+  display: flex;
+  justify-content: center;
+  margin: 10%;
+}
+.content-wrap{
+  margin-bottom: 10%;
 }

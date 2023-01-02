@@ -7,6 +7,8 @@
 
 # 작성자 박지혜
 npm install @mui/icons-material 
+npm install --s react-files
+
 # 작성자 이규희
 
 

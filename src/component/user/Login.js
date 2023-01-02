@@ -1,12 +1,11 @@
 import { Checkbox, TextField, Button, FormControlLabel, Link, Grid, Typography, Box, Container } from "@mui/material";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import axios from "axios";
 import { useState } from "react";
 // import { Link } from "react-router-dom";
 // import { Form, FormGroup, Label, Input, Button, Col, } from "reactstrap";
 
-import {useDispatch } from "react-redux";
-import {useCookies} from 'react-cookie';
+import { useDispatch } from "react-redux";
+import { useCookies } from 'react-cookie';
 
 
 function Login() {
@@ -44,15 +43,15 @@ function Login() {
                 console.log(res.data)
 
                 //accessToken redux에 저장
-                dispatch({type:"NEWTOKEN", data:res.data.accessToken});
+                dispatch({ type: "NEWTOKEN", data: res.data.accessToken });
                 //userId redux에 저장
-                dispatch({type:"USERID", data:res.data.userId});
+                dispatch({ type: "USERID", data: res.data.userId });
                 //refreshToken Cookie에 저장
                 const expires = new Date(); //쿠키 만료시간 지정
-                expires.setDate(expires.getDate()+1) //현재날짜 + 1 = 하루
-                setCookie('refreshToken', res.data.refreshToken, {url:'/', expires})
+                expires.setDate(expires.getDate() + 1) //현재날짜 + 1 = 하루
+                setCookie('refreshToken', res.data.refreshToken, { url: '/', expires })
                 alert('로그인 성공');
-                document.location.href="/"
+                document.location.href = "/"
             })
             .catch((error) => {
                 console.log(error)

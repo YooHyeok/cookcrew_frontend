@@ -1,9 +1,13 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
+import { PersonCircle } from 'react-bootstrap-icons';
+import { display } from "@mui/system";
+
 
 export default function MyPage() {
     const divStyle = {
@@ -16,7 +20,8 @@ export default function MyPage() {
         , top: '100'
     };
 
-    const userId = useSelector( (state) => {return state.UserId} );
+    const userId = useSelector((state) => { return state.UserId });
+
 
     const [user, setUser] = useState({});
     useEffect(() => {
@@ -32,16 +37,18 @@ export default function MyPage() {
 
 
 
+
     return (
 
-        <div style={divStyle}>
+        <div style={divStyle} className="content-wrap">
             <div><h1><b> My Page</b></h1></div><br />
             <div className="screen-wrap">
                 <div className="screen-header">
-                    <span> 내 정보 </span>
-                    <span> 나의 레시피 </span>
-                    <span> 나의 찜목록 </span>
-                    <span> 나의 요리사 </span>
+                    <Link to={"/mypage"}><span> 내 정보 </span></Link>
+                    <Link to={"/"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
+                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>
             <hr />
@@ -53,9 +60,14 @@ export default function MyPage() {
 
             }}>
                 {/* 프로필 사진 영역 */}
+                <div className="profile">
+                    <PersonCircle size={150} />
+                </div>
+
 
                 {/* 입력폼 영역 */}
-                <Form style={{ width: "400px", margin: '0px auto' }}>
+                <Form style={{ width: "400px", margin: '0px auto' }} >
+                    {/* <Progress /> */}
                     <FormGroup row>
                         <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
                         <Col sm={8}>
@@ -95,13 +107,13 @@ export default function MyPage() {
                     <FormGroup row>
                         <Label htmlFor='grade' sm={4}>상세&nbsp;주소</Label>
                         <Col>
-                            <Input type="text" name="grade" id="grade" sm={8} value={user.addrDetail} readOnly placeholder="해당하지 않을경우 없음 입력" />
+                            <Input type="text" name="grade" id="grade" sm={8} value={user.addrDetail} readOnly />
                         </Col>
                     </FormGroup>
 
                     <FormGroup row className="mypage_btn">
                         <Col sm={2} >
-                            <Button color='success' style={{ width: '100px' }}>수정</Button>
+                            <Link to={'/mypagemod'}><Button color='success' style={{ width: '100px' }}>수정</Button></Link>
                         </Col>
                         <Col sm={2} >
                             <Button color='secondary' style={{ width: '100px' }}>회원 탈퇴</Button>
