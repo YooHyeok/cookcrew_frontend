@@ -1,8 +1,23 @@
 /* 스케줄러 타이틀 정렬 ( [<] ___년___월 [>] ) */
 .fc-header-toolbar > .fc-toolbar-chunk{
     display:flex;
+    /* margin : 0 auto; */
+    
+}
+.fc-dayGridMonth-button, .fc-listMonth-button {
+  color : "black"
+} 
+/* 일요일 날짜 빨간색 */
+.fc-day-sun a {
+  color: red;
+  text-decoration: none;
 }
 
+/* 토요일 날짜 파란색 */
+.fc-day-sat a {
+  color: blue;
+  text-decoration: none;
+}
 /* 각 영역 텍스트 검정색, 밑줄제거 */
   .fc-col-header-cell-cushion /* [날짜헤더] 요일 */
 , .fc-daygrid-day-number /* [날짜블록] 일 */

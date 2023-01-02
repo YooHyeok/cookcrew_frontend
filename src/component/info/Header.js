@@ -14,14 +14,13 @@ export const HeaderDropDownContext = createContext();
 export default function Header() {
     const style = {
         // background: "linear-gradient( 45deg, white, #ff4500 )",
-        // backgroundColor: '#ff4500',
         backgroundColor: '#B0D6FF',
         borderBottom: "0.5px solid lightgray",
         width: '100%',
         position: 'fixed',
         left: 0,
         top: 0,
-        zIndex: 1000,
+        zIndex: 1000
     }
 
     const linkStyle = {
@@ -45,21 +44,33 @@ export default function Header() {
         toggleLogOut: toggleLogOut.bind(this)
     }
 
-    const token = useSelector(state => state.Authorization);
-    const userId = useSelector((state) => { return state.UserId });
+    const token = useSelector( state=> state.Authorization );
+    const userId = useSelector( (state) => {return state.UserId} );
+    
+    const dietLogin = () => {
+        console.log("메롱", token , userId)
+        if(token == '' || userId == '') {
+            alert('로그인이 필요한 페이지입니다. \n 로그인 페이지로 이동합니다.');
+            document.location.href = '/login';
+            return;
+        }
+        if(token != '' && userId != '') {
+            document.location.href ='/dietScheduler';
+            return;
+        }
+    }
 
     return (
-        <div className='Header'>
             <div style={style}>
-                <ul className="nav-items-1" >
+                <ul className="nav-items-1 " >
                     <li className="nav-item">
                         {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link> */}
-                        <Link style={linkStyle} to={'/'} id="logo"><img className='inline' style={{ width: "160px", marginTop: "-20px" }} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
+                        <Link style={linkStyle} to={'/'} id="logo"><img className="inline" style={{width:"160px", marginTop:"-20px"}} src={require('../../resources/img/logo/cookcrew.png')} alt='' /></Link>
                     </li>
                 </ul>
                 <ul className="nav-items2">
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/dietScheduler'}><b>식단표 관리</b></Link>
+                        <Link style={linkStyle} onClick={(e) => { e.preventDefault(); dietLogin();}}><b>식단표 관리</b></Link>
                     </li>
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/recipelist'}><b>전체 레시피</b></Link>
@@ -83,7 +94,6 @@ export default function Header() {
                     </HeaderDropDownContext.Provider>
                 </ul>
             </div>
-        </div>
     )
 }
 
