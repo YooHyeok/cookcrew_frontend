@@ -6,6 +6,7 @@ import {
   } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
+import { BsFillStarFill } from 'react-icons/bs'
 
 const HottestRecipes = () => {
     const [recipes, setRecipes] = useState([]);
@@ -44,7 +45,7 @@ const HottestRecipes = () => {
                       margin: '1rem',
                     }}
                   >
-                    <LikeButton></LikeButton>
+                    
                     <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
@@ -54,29 +55,32 @@ const HottestRecipes = () => {
                     
                     <CardBody
                        >
-                      <Link to = {`/reciperef/${c.rno}`}>
-                      <CardTitle tag="h5">
-                        {c.title}
+                      
+                      <CardTitle tag="h5" className='inline'>
+                        <Link to={`/reciperef/${c.rno}`}><span className='inline'>{c.title}</span></Link><span className='inline'><LikeButton className='inline'/></span>
                       </CardTitle>
+                     
+                      
+                      <Link to = {`/reciperef/${c.rno}`}>
                       <CardSubtitle
                         className="mb-2 text-muted"
                         tag="h6"
                       >
                         칼로리: {c.kcal}
                       </CardSubtitle>
-                      <CardText>
+                      <CardText className="mb-2 text-muted"
+                        tag="h6">
                         작성자: {c.regId}
                       </CardText>
                       </Link>
-                      <Button
-                        className='bg-white'>
-                        <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
-                      </Button>
+                      <span>
+                        <Link to = {`/reciperef/${c.rno}`}></Link>
+                      </span>
                       <div>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                        <span className='inline items-justify'>🟢 {c.rating}</span>
+                        <span className='inline items-justify'><BsFillStarFill className='inline fill-yellow-400'/> {c.rating}</span>
                       </div>
                     </CardBody>
                   </Card>

@@ -103,7 +103,7 @@ export default function RecipeRef() {
                         </div>
                         <tr style={{ float: "right" }}>
                             <button type="button" class="btn btn-outline-warning" onClick={openrating}>
-                                별점주기&nbsp;<BsFillStarFill /></button>&nbsp;
+                                별점주기&nbsp;<BsFillStarFill className="inline" /></button>&nbsp;
                             <Modal isOpen={ratingModal} fade={true} toggle={openrating}>
                                 <ModalHeader toggle={openrating}>맛있으셨다면 평가해주세요!</ModalHeader>
                                 <ModalBody>
@@ -117,18 +117,18 @@ export default function RecipeRef() {
                                 </ModalFooter>
                             </Modal>
                             <button type="button" class="btn btn-outline-danger" onClick={openlike}>
-                                찜하기&nbsp;<BsHeartFill /></button>&nbsp;
+                                찜하기&nbsp;<BsHeartFill className="inline" /></button>&nbsp;
                             <Modal isOpen={likeModal} fade={true} toggle={openlike}>
                                 <ModalHeader toggle={openlike}></ModalHeader>
                                 <ModalBody>
-                                    찜목록으로 이동했습니다. <span style={{ color: "red" }} ><BsHeartFill /></span>
+                                    찜목록으로 이동했습니다. <span style={{ color: "red" }} ><BsHeartFill className="inline" /></span>
                                 </ModalBody>
                                 <ModalFooter>
                                     <Button onClick={openlike}>확인</Button>
                                 </ModalFooter>
                             </Modal>
                             <button type="button" class="btn btn-outline-secondary" onClick={openreport}>
-                                신고하기&nbsp;<AiTwotoneAlert /></button>
+                                신고하기&nbsp;<AiTwotoneAlert className="inline" /></button>
                             <Modal isOpen={reportModal} fade={true} toggle={openreport}>
                                 <ModalHeader toggle={openreport}>신고하기
                                     <span style={{ color: "red" }} ><AiTwotoneAlert /></span>

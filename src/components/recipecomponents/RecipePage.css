@@ -1,0 +1,23 @@
+.numberbutton{
+    background-color: white;
+    border: none;
+    color: black;
+    margin-bottom: 55px;
+}
+
+.body {
+    
+    margin-top: 40px;
+    margin-bottom: 40px;
+    margin-left: 10%;
+    margin-right: 10%;
+    width: 80%;
+    padding-left: 7%;
+    padding-top: 40px;
+}
+
+.title {
+    margin-top:10%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
