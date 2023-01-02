@@ -4,7 +4,6 @@ import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBo
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
-import Progress from "./Progress";
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 import { PersonCircle } from 'react-bootstrap-icons';
 import { display } from "@mui/system";
@@ -68,7 +67,6 @@ export default function MyPage() {
 
                 {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }} >
-                    {/* <Progress /> */}
                     <FormGroup row>
                         <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
                         <Col sm={8}>
