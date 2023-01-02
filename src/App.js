@@ -55,8 +55,13 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
 
+
 import RecipePage from './components/recipecomponents/RecipePage';
 import DietChallenge from './component/rank/DietChallenge';
+
+import PopRecipes from './components/recipecomponents/PopRecipes';
+import MyRecipe from './component/recipe/MyRecipe';
+
 
 let persistor = persistStore(store);
 
@@ -83,12 +88,12 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
-
               <Route exact path='/recipepage' element={<RecipePage/>} /> {/*페이지처리*/}
               <Route exact path='/recipepage/:page' element={<RecipePage/>} /> {/*페이지처리*/}
-              <Route exact path='/mypage' element={<MyPage />} /> {/* 마이페이지 */}
               <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
               <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
+              <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />             
+
             </Routes>
             <Footer />
           </BrowserRouter>
