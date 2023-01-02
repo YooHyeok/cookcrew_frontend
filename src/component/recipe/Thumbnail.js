@@ -80,7 +80,7 @@ export default function Tumbnail() {
     },[])
 
     return (
-        <div style={{ width: '1080px' , height:'700px' }}>
+        <div style={{ width: '1080px' }}>
             <div style={{ float: 'left', width: '540px' }}>
                 <Fragment>
                     <Container fixed id='thumb_container'>
