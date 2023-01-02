@@ -1,0 +1,10 @@
+.input_wrap{
+    margin-right:-10%;
+}
+.add_btn{
+    margin-left: -10%;
+}
+.list_array{
+    display: flex;
+    justify-content: left;
+}

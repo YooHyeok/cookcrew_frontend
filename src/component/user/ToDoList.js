@@ -17,6 +17,11 @@ export default function ToDoList() {
     const [toDo, SetToDo] = useState("");
     const [toDos, SetToDos] = useState([]);
 
+    // let [i, SetI] = useState(1)
+    // const num_array = () => {
+    //     for i in range(SetToDos.length)
+    // }
+
     const writetodo = (item) => {
         SetToDo(item.target.value);
     };

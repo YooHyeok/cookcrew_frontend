@@ -157,10 +157,11 @@ export default function MyPageMod() {
             <div><h1><b> My Page 수정</b></h1></div><br />
             <div className="screen-wrap">
                 <div className="screen-header">
-                    <span> 내 정보 </span>
-                    <span> 나의 레시피 </span>
-                    <span> 나의 찜목록 </span>
-                    <span> 나의 랭킹 </span>
+                    <Link to={"/mypage"}><span> 내 정보 </span></Link>
+                    <Link to={"/"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
+                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>
             <hr />

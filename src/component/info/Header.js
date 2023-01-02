@@ -1,8 +1,8 @@
 import { Component, createContext, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-import { Button, Dropdown } from 'reactstrap';
-import { Search, PersonCircle } from 'react-bootstrap-icons';
+// import { Button, Dropdown } from 'reactstrap';
+// import { Search, PersonCircle } from 'react-bootstrap-icons';
 
 import HeaderDropDownLogin from "./HeaderDropDownLogin";
 import HeaderDropDownLogout from "./HeaderDropDownLogout";
@@ -16,7 +16,7 @@ export default function Header() {
         // background: "linear-gradient( 45deg, white, #ff4500 )",
         // backgroundColor: '#ff4500',
         backgroundColor: '#B0D6FF',
-        borderBottom : "0.5px solid lightgray",
+        borderBottom: "0.5px solid lightgray",
         width: '100%',
         position: 'fixed',
         left: 0,
@@ -45,16 +45,16 @@ export default function Header() {
         toggleLogOut: toggleLogOut.bind(this)
     }
 
-    const token = useSelector( state=> state.Authorization );
-    const userId = useSelector( (state) => {return state.UserId} );
-    
+    const token = useSelector(state => state.Authorization);
+    const userId = useSelector((state) => { return state.UserId });
+
     return (
         <div className='Header'>
             <div style={style}>
                 <ul className="nav-items-1" >
                     <li className="nav-item">
                         {/* <Link style={linkStyle} to={'/'} id="logo"><b>C</b>ook<b>Crew</b><img src={require('../../resources/img/pingpong.png')} alt='' /></Link> */}
-                        <Link style={linkStyle} to={'/'} id="logo"><img className='inline' style={{width:"160px", marginTop:"-20px"}} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
+                        <Link style={linkStyle} to={'/'} id="logo"><img className='inline' style={{ width: "160px", marginTop: "-20px" }} src={require('../../resources/img/cookcrew.png')} alt='' /></Link>
                     </li>
                 </ul>
                 <ul className="nav-items2">
@@ -77,8 +77,8 @@ export default function Header() {
                 <ul className="nav-items3">
                     <HeaderDropDownContext.Provider value={contextValue}>
                         <li className="nav-item-dropdown">
-                            {token=='' && <HeaderDropDownLogin/>}
-                            {userId!='' && <HeaderDropDownLogout />}
+                            {token == '' && <HeaderDropDownLogin />}
+                            {userId != '' && <HeaderDropDownLogout />}
                         </li>
                     </HeaderDropDownContext.Provider>
                 </ul>

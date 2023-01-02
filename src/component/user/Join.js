@@ -150,7 +150,7 @@ function Join() {
         let password = document.getElementById("password").value;
         let confpassword = document.getElementById("repw").value;
 
-        if (password == '' || confpassword == '') {
+        if (password === '' || confpassword === '') {
             document.getElementById("pwTrue").setAttribute("style", "display:none; color: blue;")
             document.getElementById("pwFalse").setAttribute("style", "display:none; color: red;")
         }
