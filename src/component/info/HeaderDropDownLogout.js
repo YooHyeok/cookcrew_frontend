@@ -19,7 +19,7 @@ export default function HeaderDropDownLogout() {
   return (
     <Dropdown isOpen={context.dropdownOpenLogOut} fade="true" toggle={context.toggleLogOut}>
       <DropdownToggle caret style={{ backgroundColor: "rgb(0,0,0,0)", border: "none" }}>
-        <PersonCircle size={30} />
+        <PersonCircle className="inline" size={30} />
       </DropdownToggle>
       <DropdownMenu>
         <Link to={'/recipecreate'}><DropdownItem style={{ lineHeight: "25px" }} ><b>레시피 작성</b></DropdownItem></Link>
