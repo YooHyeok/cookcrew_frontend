@@ -4,36 +4,59 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
+import './RecipePage.css';
 
-// 메인 최신 레시피
 
-const NewstRecipes = () => {
+
+
+function RecipePage() {
+    
+
+    const [pageInfo, setPageInfo]   =   useState({
+        allPage:0, curPage:0, startPage:0, endPage:0
+    });
+
     const [recipes, setRecipes] = useState([]);
-    const [like, setLike] = useState(false);
-
+    const [pageBtn, setPageBtn] = useState([]);
     
+    const pageRequest = (e) => {
+        serverRequest(e.target.value);
+    }
 
+    useEffect(()=> {
+        serverRequest(1);
+     },[])
+ 
+     const serverRequest = (page) => {
+         axios.get('http://localhost:8080/poprecipepage/' + page)
+         .then(response=> {
+             console.log(response.data.pageInfo);
+             setPageInfo(response.data.pageInfo);
+             setRecipes(response.data.recipes);
+         })
+         .catch(error=>{
+             console.log(error);
+         })
+     }
     
-    useEffect(() => {
-        axios.get('/listmain')
-            .then((response) => {
-                setRecipes(response.data)
-            }) 
-            ;
-    }, []);
-
-    return (
+     return (
         <>
-        <div className='py-10 pl-10' 
+         <div className="title">
+            <div className="font-semibold text-5xl text-left ml-36 mr-10 mt-20 pt-20">
+            인기 레시피
+            </div>
+        </div>
+        <section className='body'>
+        <div className='' 
             style = {{
                 
                 width: "768px",
                 display: "grid",
                 gridTemplateRows: "1fr",
-                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr",
                 
             }}
             >
@@ -55,8 +78,7 @@ const NewstRecipes = () => {
                     />
                     </Link>
                     
-                    <CardBody
-                        >
+                    <CardBody>
                       <Link to = {`/reciperef/${c.rno}`}>
                       <CardTitle tag="h5">
                         {c.title}
@@ -72,24 +94,37 @@ const NewstRecipes = () => {
                         작성자: {c.regId}
                       </CardText>
                       </Link>
-                      <span>
-                        <Link to = {`/reciperef/${c.rno}`}></Link>
-                      </span>
+                      {/* <Button
+                        className='bg-white'>
+                        <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
+                      </Button> */}
                       <div>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                        {/* <span className='inline items-justify'><BsFillStarFill style={{fill:'#fdd835'}}/> <span>{c.rating}</span>{c.rating}</span> */}
                         <span className=''><BsFillStarFill className='inline fill-yellow-400'/>&nbsp;&nbsp;{c.rating}</span>
-                      </div>
+                        </div>
                     </CardBody>
                   </Card>
                   
                 ))}
             </div>
-           
+        </section>
+            <div>
+                {(()=> {
+                        const array = [];
+                        for (let i = pageInfo.startPage; i<=pageInfo.endPage; i++){
+                            array.push(
+                                <span key={i}><Button className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
+                            )
+                        }
+                        console.log(array.length)
+                        return array;
+                    })()}
+            </div>
         </>
     );
 }
 
-export default NewstRecipes;
+export default RecipePage;
+

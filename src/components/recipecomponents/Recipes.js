@@ -16,6 +16,8 @@ import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import LikeButton from './LikeButton';
+import { BsFillStarFill } from 'react-icons/bs'
+
 
 
 
@@ -112,10 +114,10 @@ const Recipes = () => {
                     }}
                   >
                     <LikeButton></LikeButton>
-                    <Link to = {`/recipes/${c.rno}`}>
+                    <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
-                      src="http://www.foodsafetykorea.go.kr/uploadimg/cook/10_00277_2.png"
+                      src={c.thumbPath}
                     />
                     </Link>
                     
@@ -136,14 +138,14 @@ const Recipes = () => {
                       </Link>
                       {/* <Button
                         className='bg-white'>
-                        <Link to = {`/recipes/${c.rno}`}>레시피 보기</Link>
+                        <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
                       </Button> */}
                       <div>
 
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                        <span className='inline items-justify'>🟢 3.4</span>
-                      </div>
+                        <span className=''><BsFillStarFill className='inline fill-yellow-400'/>&nbsp;&nbsp;{c.rating}</span>
+                        </div>
                     </CardBody>
                   </Card>
                   

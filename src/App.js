@@ -34,7 +34,7 @@ import MyPage from './component/user/MyPage';
 
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
-import PopRecipe from './component_test/recipe/PopRecipe';
+import PopRecipe from './components/recipecomponents/PopRecipe';
 import Join from './component_test/user/Join';
 import Login from './component_test/user/Login';
 import Mypage from './component_test/user/Mypage';
@@ -52,6 +52,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
 
+import RecipePage from './components/recipecomponents/RecipePage';
+
 let persistor = persistStore(store);
 
 function App() {
@@ -65,7 +67,7 @@ function App() {
             <Routes>
               <Route exact path='/' element={<PageHome />} />
               <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
-              <Route exact path='/recipelist' element={<RecipeList />} />{/* 전체 레시피 */}
+              <Route exact path='/recipelist' element={<RecipePage />} />{/* 전체 레시피 */}
               <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
               <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
               <Route exact path='/chalengeRank' />{/* 챌린지 랭킹 */}
@@ -76,6 +78,8 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
+              <Route exact path='/recipepage' element={<RecipePage/>} /> {/*페이지처리*/}
+              <Route exact path='/recipepage/:page' element={<RecipePage/>} /> {/*페이지처리*/}
             </Routes>
             <Footer />
           </BrowserRouter>
