@@ -83,15 +83,27 @@ const Recipes = () => {
            
     //         }
     //     `;
-
+    const divStyle = {
+      width: '1340px' //캘린더 width 조절을 위해 부모태그에 설정한다.
+      , height: '100%'
+      , textAlign: 'left'
+      , margin: '100px auto'
+      , marginBottom: '20px'
+      , border: '0.1px solid lightgray'
+      , padding: '30px'
+      , borderRadius: '20px'
+      , top: '100'
+    };
     return (
-        <>
-         <div className="text-left mt-20">
+        <div style={divStyle} >
+         {/* <div className="text-left mt-20">
             <div className="font-semibold text-4xl text-left ml-28 mr-10 mt-20 pt-20">
             전체 레시피
             </div>
-        </div>
-        <div className='py-10 pl-10' 
+        </div> */}
+        <div><h1><b>전체 레시피</b></h1></div><br />
+
+        <div
             style = {{
                 
                 width: "768px",
@@ -189,7 +201,7 @@ const Recipes = () => {
             <RecipeCard
                 recipes = {recipes}
                 /> */}
-        </>
+        </div>
     );
 }
 

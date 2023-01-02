@@ -16,6 +16,7 @@ export const RecipeRefContext = createContext();
 export default function RecipeRef() {
     const divStyle = {
         width: '1200px' //캘린더 width 조절을 위해 부모태그에 설정한다.
+        , minHeight: "860px"
         , height: '100%'
         , textAlign: 'left'
         , margin: '100px auto'

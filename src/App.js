@@ -53,6 +53,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
 import PopRecipes from './components/recipecomponents/PopRecipes';
+import DietChallenge from './component/rank/DietChallenge';
 
 let persistor = persistStore(store);
 
@@ -71,7 +72,7 @@ function App() {
               <Route exact path='/recipelist' element={<Recipes />} />{/* 전체 레시피 */}
               <Route exact path='/popRecipe' element={<PopRecipes />} />{/* 인기 레시피 */}
               <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
-              <Route exact path='/chalengeRank' />{/* 챌린지 랭킹 */}
+              <Route exact path='/challengeRank' element={<DietChallenge />}/>{/* 챌린지 랭킹 */}
               {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
               <Route exact path='/recipecreate' element={<RecipeCreate />} />{/* 레시피 등록 */}
               <Route exact path='/reciperef/:rNo' element={<RecipeRef />} />{/* 레시피 상세 */}

@@ -7,19 +7,24 @@ import listPlugin from "@fullcalendar/list" // npm i --force @fullcalendar/list
 // import "@fullcalendar/common/main.css"
 /*컴포넌트 */
 import DietModal from './DietModal';
+import DietDescriptModal from './DietDescriptModal';
+
 /* CSS */
 import './fullcalendar.css';
 import './ModalCommon.css';
 /*Axios */
 import axios from 'axios';
 /* 리덕스 */
-import {Provider} from 'react-redux' // npm install --save react-redux
-import store from "./recipeArrayReduxStore";
-import { UncontrolledAlert } from 'reactstrap';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
+import { Button } from 'reactstrap';
+
+
+import * as DateUtil from './DateUtil'
+// import * as dateUtil from './dateUtil.js' //혹은 소문자로 파일명 지정후 .js파일확장자를 붙힌다.
 
 
 export const DietSchedulerContext = createContext();
+export const DietDesciprtContext = createContext();
 export default function DietScheduler() {
   
   const divStyle = {
@@ -28,13 +33,20 @@ export default function DietScheduler() {
     , textAlign: 'left'
     , margin: '100px auto'
     , marginBottom: '20px'
-    , border: '0.1px solid gray'
+    , border: '0.1px solid lightgray'
     , padding: '30px'
     , borderRadius: '20px'
     , top: '100'
   };
   const userId = useSelector( (state) => {return state.UserId} );
 
+  /* 상세 설명 모달 */
+  const [descriptShow, setDescriptShow] = useState(false);
+  const descriptToggle = () => {
+    setDescriptShow(!descriptShow)
+  }
+
+  /* 식단 계획 모달 */
   const [modalShow1, setModalShow1] = useState(false);
   const modalToggle1 = () => {
     setModalShow1(!modalShow1)
@@ -46,7 +58,6 @@ export default function DietScheduler() {
   const [dietProps, setDietProps] = useState({dietDate : '', mealDivStr : '아침', fmtDateKr: ''});
 
   useEffect(()=>{
-    document.getElementsByClassName("fc-listMonth-button")[0].innerText="리스트";
     eventRender();
   },[])
   
@@ -60,10 +71,6 @@ export default function DietScheduler() {
   const eventRender = () => {
     axios.get("/dietSearchMonthAll", {params:{userId:userId}})
     .then((res)=>{
-      console.log(res.data)
-      for(let i=0; i<res.data.length; i++) {
-
-      }
       setEvents(res.data);
     })
     .catch((res)=>{
@@ -79,14 +86,8 @@ export default function DietScheduler() {
    * 모달 제어 - Open 
    */
   const handleDateClick = (arg) => {
-    /* arg.strStr : yyyy-MM-dd */
-    let dietDateByServer = new Date(arg.startStr);
-
-    let year = dietDateByServer.getFullYear();
-    let month = (dietDateByServer.getMonth()+1);
-    let day = dietDateByServer.getDate();
-    /* fmtDateKr : yyyy년 MM월 dd일 */
-    let fmtDateKr = year+"년 "+month+"월 "+day+"일";
+    /* arg.strStr : yyyy-MM-dd - DateUtil.js 파일 참조 */
+    let fmtDateKr = DateUtil.hipenToKrfmtDate(arg.startStr);
 
     // setDietProps({...dietProps, dietDate : arg.startStr, fmtDateKr : fmtDateKr })
     setDietProps({dietDate : arg.startStr, mealDivStr : "아침", fmtDateKr : fmtDateKr})
@@ -100,17 +101,20 @@ export default function DietScheduler() {
    * 모달 제어 - Open 
   */
  const handleEventClick = (arg) => {
-  console.log(arg)
-   /* eventDate : yyyy-MM-dd */
-   let eventDate = arg.event.start.getFullYear()+"-"+(arg.event.start.getMonth()+1)+"-"+arg.event.start.getDate()
-   /* fmtDateKr : yyyy년 MM월 dd일 */
-   let fmtDateKr = arg.event.start.getFullYear()+"년 "+(arg.event.start.getMonth()+1)+"월 "+arg.event.start.getDate() +"일"
+   /* eventDate : yyyy-MM-dd - DateUtil.js 파일 참조*/
+   let eventDate = DateUtil.gmtToHipenfmtDate(arg.event.start);
+   /* fmtDateKr : yyyy년 MM월 dd일 - DateUtil.js 파일 참조*/
+   let fmtDateKr = DateUtil.gmtToKrfmtDate(arg.event.start);
    setDietProps({dietDate : eventDate, mealDivStr : arg.event.title, fmtDateKr : fmtDateKr})
     modalToggle1();
     
   }
 
 
+  const dsModal = {//user와 set함수를 함께 넘긴다.
+    descriptShow: descriptShow
+    , descriptToggle: descriptToggle.bind(this)
+  }
   const modal1 = {//user와 set함수를 함께 넘긴다.
     modalShow1: modalShow1
     , modalToggle1: modalToggle1.bind(this)
@@ -118,7 +122,13 @@ export default function DietScheduler() {
 
   return (
     <div style={divStyle}>
-      <div><h1><b>다이어트 식단표</b></h1></div><br />
+      <button style={{float:"right"}} onClick={(e)=>{e.preventDefault(); descriptToggle();}}><b>상세설명</b><br/><img style={{width:"40px",height:"40px",float:"right"}}src={require("./finger_cursor.png")}/></button>
+      <div>
+        <h1 style={{margin:"0px"}}><b>다이어트 식단표</b></h1>
+        <label style={{color:"gray", fontSize:"13px"}}>챌린지 참여 여부에 따라 챌린지 랭킹에 등제됩니다.</label>
+      </div>
+      <br/>
+      
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin, listPlugin]}
         initialView="dayGridMonth"
@@ -130,13 +140,27 @@ export default function DietScheduler() {
         noEventsContent='이달의 등록된 식단이 없습니다.'
         events={events}
         headerToolbar={{
-          start: 'dayGridMonth listMonth'
+          start: 'dayGridMonth listMonth today'
+          // end: 'challenge'
           , center: 'prev title next'
-          , end: 'today'
+          , end: 'challenge'
         }}
         buttonText={{
+          dayGridMonth: '달력',
+          listMonth: '목록',
           today:'오늘',
         }}
+        customButtons = {{
+          challenge: {
+            text: '첼린지 랭킹 참여 여부'
+            ,click : function() {
+              if(window.confirm('주간 챌린지 랭킹 페이지로 이동 하시겠습니까?')){
+                // document.location.href='challengeRank';
+              }
+            },
+          }}
+        }
+        
         eventOrder={"mealDiv"}
         dayMaxEventRows={true}
         select={handleDateClick} //dateClick으로 대체 가능.
@@ -144,7 +168,10 @@ export default function DietScheduler() {
         eventClick={handleEventClick}// title 출력
       />
       {/* DietModal은 DietListModal의 부모 컴포넌트 이므로 store값은 DietListModal에도 함께 공유된다 */}
-
+      {<DietDesciprtContext.Provider value={dsModal}>
+        <DietDescriptModal/>
+      </DietDesciprtContext.Provider>
+      }
       { modalShow1 &&
           <DietSchedulerContext.Provider value={modal1}>
             <DietModal dietValue={dietProps}/>
