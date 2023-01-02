@@ -4,7 +4,6 @@ import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBo
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
-import Progress from "./Progress";
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 import { PersonCircle } from 'react-bootstrap-icons';
 import { display } from "@mui/system";

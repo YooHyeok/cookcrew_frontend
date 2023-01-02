@@ -19,8 +19,7 @@ import Main from './component/main/Main';
 
 import DietScheduler from './component/diet/DietScheduler';
 // import AllRecipe from './component/recipe/AllRecipe';
-// import PopRecipe from './component/recipe/PopRecipe';
-
+import PopRecipe from './components/recipecomponents/PopRecipe';
 
 import RecipeCreate from "./component/recipe/RecipeCreate";
 import RecipeMod from "./component/recipe/RecipeMod";
@@ -35,10 +34,13 @@ import MyPageMod from './component/user/MyPageMod';
 
 /* 컴포넌트 테스트 */
 import AllRecipe from './component_test/recipe/AllRecipe';
-import PopRecipe from './component_test/recipe/PopRecipe';
-import Join from './component_test/user/Join';
-import Login from './component_test/user/Login';
 import Mypage from './component_test/user/Mypage';
+import DeletePage from './component/recipe/DeletePage';
+import Join from './component/user/Join';
+import Login from './component/user/Login';
+import ToDoList from './component/user/ToDoList';
+// import Profile from './component/user/Profile';
+// import Mypage from './component_test/user/Mypage';
 
 // import MyRecipe from './component_test/recipe/MyRecipe';
 // import RecipeWrite from './component_test/recipe/RecipeWrite';
@@ -80,6 +82,12 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
+
+              <Route exact path='/recipepage' element={<RecipePage/>} /> {/*페이지처리*/}
+              <Route exact path='/recipepage/:page' element={<RecipePage/>} /> {/*페이지처리*/}
+              <Route exact path='/mypage' element={<MyPage />} /> {/* 마이페이지 */}
+              <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
+              <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
             </Routes>
             <Footer />
           </BrowserRouter>
