@@ -39,6 +39,8 @@ export default function RecipeRef() {
     const userId = useSelector((state) => { return state.UserId });
     const [regId, setRegId] = useState('');
 
+    console.log(enabled);
+
     useEffect(() => {
         axios.get(`/rcpref/${rNo}`)
             .then((response) => {
@@ -161,8 +163,8 @@ export default function RecipeRef() {
                         <div class="container" style={{ width: '600px', fontSize: '16px' }} >
                             <ToastViewer />
                         </div>
-                        <br /><br />
-                        <div style={{ width: '850px' }}>
+                        <br /><br /><br /><br /><br /><br />
+                        <div >
                             <div style={{ float: 'left' }}>
                                 <Link to={'/recipelist'}>
                                 <button type="button" class="btn btn-outline-dark">목록으로</button>
@@ -213,7 +215,7 @@ export default function RecipeRef() {
                             </tr>
 
                         </div>
-                        <br /><br /><br /><br />
+                        
                     </center>
                 </form>
                 <br /><br />

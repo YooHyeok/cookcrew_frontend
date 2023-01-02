@@ -54,6 +54,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
 import PopRecipes from './components/recipecomponents/PopRecipes';
+import MyRecipe from './component/recipe/MyRecipe';
 
 let persistor = persistStore(store);
 
@@ -80,6 +81,7 @@ function App() {
               <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />
+              <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />             
             </Routes>
             <Footer />
           </BrowserRouter>
