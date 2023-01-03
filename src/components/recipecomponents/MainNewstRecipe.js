@@ -47,7 +47,6 @@ const NewstRecipes = () => {
                       margin: '1rem',
                     }}
                   >
-                    <LikeButton></LikeButton>
                     <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"

@@ -70,7 +70,6 @@ function RecipePage() {
                       margin: '1rem',
                     }}
                   >
-                    <LikeButton></LikeButton>
                     <Link to = {`/reciperef/${c.rno}`}>
                     <img
                       alt="Sample"
@@ -103,6 +102,8 @@ function RecipePage() {
                         {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                         {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
                         <span className=''><BsFillStarFill className='inline fill-yellow-400'/>&nbsp;&nbsp;{c.rating}</span>
+                        <span className='inline'><LikeButton className='inline'/></span>
+
                         </div>
                     </CardBody>
                   </Card>
