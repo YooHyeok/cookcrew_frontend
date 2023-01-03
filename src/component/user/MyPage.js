@@ -67,7 +67,6 @@ export default function MyPage() {
 
                 {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }} >
-                    {/* <Progress /> */}
                     <FormGroup row>
                         <Label htmlFor='nickname' sm={4}>닉&nbsp;&nbsp;네&nbsp;&nbsp;임</Label>
                         <Col sm={8}>
