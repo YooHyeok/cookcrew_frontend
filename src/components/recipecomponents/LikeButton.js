@@ -9,7 +9,7 @@ const LikeButton = (
   props, {
     liked = '',
     className = "", }) => {
-  const [isLiked, setIsLiked] = useState(liked);
+  const [isLiked, setIsLiked] = useState(props.isLiked);
   const userId = useSelector((state) => { return state.UserId });
   console.log(userId);
   const rno = props.rno;
