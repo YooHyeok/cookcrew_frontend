@@ -28,10 +28,11 @@ export default function MyPageMod() {
     });
 
     useEffect(() => {
+        // params는 json 형태로 넘길 때 쓴다. map 형식이나
         axios.get('/mypage', { params: { id: userId } })
             .then((res) => {
-                console.log(res);
-                console.log(res.data);
+                // console.log(res);
+                // console.log(res.data);
                 setUserIn(res.data);
                 setUsernickname(res.data.nickname)
             }).catch((error) => {
@@ -101,6 +102,7 @@ export default function MyPageMod() {
             .then((res) => {
                 if (res.data === false) {
                     alert("사용 가능합니다.");
+                    setUsernickname(userin.nickname)
                     setExistNn(true)
                 }
                 else if (res.data === true) {
@@ -122,12 +124,13 @@ export default function MyPageMod() {
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        console.log(formData)
-        console.log(userin)
+        // console.log(formData)
+        // console.log(userin)
 
-        if (userin.nickname == usernickname.nickname) {
+
+        if (userin.nickname == usernickname) {
             console.log(userin)
-            axios.post('/mypagemod', userin)
+            axios.post('/mypagemod', null, { params: userin })
                 .then((res) => {
                     alert("수정이 완료되었습니다.")
                     document.location.href = "/mypage"

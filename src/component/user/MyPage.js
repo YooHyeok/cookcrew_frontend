@@ -12,10 +12,10 @@ import { display } from "@mui/system";
 export default function MyPage() {
     const divStyle = {
         width: '1200px'
-        , height: '780px'
+        , height: '800px'
         , textAlign: 'center'
         , margin: '100px auto'
-        , marginBottom: '20px'
+        , marginBottom: '35px'
         , padding: '30px'
         , top: '100'
     };
@@ -54,9 +54,9 @@ export default function MyPage() {
             <hr />
             <div style={{
                 width: '500px'
-                , height: '475px'
+                , height: '600px'
                 , margin: '0px auto'
-                , padding: '30px'
+                , padding: '0 30px 30px 30px'
 
             }}>
                 {/* 프로필 사진 영역 */}
