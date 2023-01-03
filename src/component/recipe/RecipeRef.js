@@ -22,7 +22,7 @@ export default function RecipeRef() {
         , textAlign: 'left'
         , margin: '100px auto'
         , marginBottom: '40px'
-        , border: '0.5px solid gray'
+        // , border: '0.5px solid lightgray'
         , padding: '30px'
         , borderRadius: '20px'
         , top: '100'
