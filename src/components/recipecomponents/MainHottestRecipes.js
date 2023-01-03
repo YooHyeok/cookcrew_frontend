@@ -57,7 +57,7 @@ const HottestRecipes = () => {
                        >
                       
                       <CardTitle tag="h5" className='inline'>
-                        <Link to={`/reciperef/${c.rno}`}><span className='inline'>{c.title}</span></Link><span className='inline'><LikeButton className='inline'/></span>
+                        <Link to={`/reciperef/${c.rno}`}><span className='inline'>{c.title}</span></Link>
                       </CardTitle>
                      
                       
