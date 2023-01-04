@@ -8,6 +8,7 @@ import listPlugin from "@fullcalendar/list" // npm i --force @fullcalendar/list
 /*컴포넌트 */
 import DietModal from './DietModal';
 import DietDescriptModal from './DietDescriptModal';
+import DietChallengeModal from './DietChallengeModal';
 
 /* CSS */
 import './fullcalendar.css';
@@ -25,6 +26,7 @@ import * as DateUtil from './DateUtil'
 
 export const DietSchedulerContext = createContext();
 export const DietDesciprtContext = createContext();
+export const DietChallengeContext = createContext();
 export default function DietScheduler() {
   
   const divStyle = {
@@ -46,6 +48,12 @@ export default function DietScheduler() {
     setDescriptShow(!descriptShow)
   }
 
+  /* 챌린지 참여여부 모달 */
+  const [challengeShow, setChallengeShow] = useState(false);
+  const challengeToggle = () => {
+    setChallengeShow(!challengeShow)
+  }
+
   /* 식단 계획 모달 */
   const [modalShow1, setModalShow1] = useState(false);
   const modalToggle1 = () => {
@@ -55,6 +63,7 @@ export default function DietScheduler() {
     }
   }
   const [events, setEvents] = useState([]);
+  const [challengeDate, setChallengeDate] = useState({startDate : '', endDate:''});
   const [dietProps, setDietProps] = useState({dietDate : '', mealDivStr : '아침', fmtDateKr: ''});
 
   useEffect(()=>{
@@ -71,7 +80,8 @@ export default function DietScheduler() {
   const eventRender = () => {
     axios.get("/dietSearchMonthAll", {params:{userId:userId}})
     .then((res)=>{
-      setEvents(res.data);
+      setEvents(res.data.dietList);
+      setChallengeDate({startDate : res.data.startDate, endDate : res.data.endDate});
     })
     .catch((res)=>{
       alert(res)
@@ -115,6 +125,11 @@ export default function DietScheduler() {
     descriptShow: descriptShow
     , descriptToggle: descriptToggle.bind(this)
   }
+  const chlngModal = {//user와 set함수를 함께 넘긴다.
+    challengeShow: challengeShow
+    , challengeToggle: challengeToggle.bind(this)
+  }
+
   const modal1 = {//user와 set함수를 함께 넘긴다.
     modalShow1: modalShow1
     , modalToggle1: modalToggle1.bind(this)
@@ -122,7 +137,10 @@ export default function DietScheduler() {
 
   return (
     <div style={divStyle}>
-      <button style={{float:"right"}} onClick={(e)=>{e.preventDefault(); descriptToggle();}}><b>상세설명</b><br/><img style={{width:"40px",height:"40px",float:"right"}}src={require("./finger_cursor.png")}/></button>
+      <button style={{float:"right"}} onClick={(e)=>{e.preventDefault(); descriptToggle();}}>
+        <b>상세설명</b><br/>
+        <img style={{width:"40px",height:"40px",float:"right"}}src={require("./finger_cursor.png")}/>
+      </button>
       <div>
         <h1 style={{margin:"0px"}}><b>다이어트 식단표</b></h1>
         <label style={{color:"gray", fontSize:"13px"}}>챌린지 참여 여부에 따라 챌린지 랭킹에 등제됩니다.</label>
@@ -152,15 +170,12 @@ export default function DietScheduler() {
         }}
         customButtons = {{
           challenge: {
-            text: '첼린지 랭킹 참여 여부'
+            text: '챌린지 랭킹 참여 여부'
             ,click : function() {
-              if(window.confirm('주간 챌린지 랭킹 페이지로 이동 하시겠습니까?')){
-                // document.location.href='challengeRank';
-              }
+              challengeToggle();
             },
-          }}
-        }
-        
+          }
+        }}
         eventOrder={"mealDiv"}
         dayMaxEventRows={true}
         select={handleDateClick} //dateClick으로 대체 가능.
@@ -168,9 +183,14 @@ export default function DietScheduler() {
         eventClick={handleEventClick}// title 출력
       />
       {/* DietModal은 DietListModal의 부모 컴포넌트 이므로 store값은 DietListModal에도 함께 공유된다 */}
-      {<DietDesciprtContext.Provider value={dsModal}>
-        <DietDescriptModal/>
+      {descriptShow && 
+        <DietDesciprtContext.Provider value={dsModal}>
+        <DietDescriptModal />
       </DietDesciprtContext.Provider>
+      }
+      { challengeShow && <DietChallengeContext.Provider value={chlngModal}>
+        <DietChallengeModal challengeValue={challengeDate}/>
+      </DietChallengeContext.Provider>
       }
       { modalShow1 &&
           <DietSchedulerContext.Provider value={modal1}>

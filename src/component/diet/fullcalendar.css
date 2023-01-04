@@ -27,3 +27,48 @@
     color : black;
     text-decoration: none;
 }
+
+.fc-toolbar-title{
+  font-size:  35px !important;
+}
+
+/* 캘린더 날짜 < > 버튼 css */
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-prev-button
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-next-button{
+  background-color: white;
+  color:navy;
+  border : none;
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-prev-button:hover
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-next-button:hover{
+  background-color: white !important;
+  color:navy !important;
+  border : none !important;
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-prev-button:focus
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-next-button:focus{
+  background-color: white !important;
+  color : 1a252f !important;
+  border : none !important;
+}
+
+/**/
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-dayGridMonth-button
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-listMonth-button
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-today-button
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-challenge-button
+{
+  background-color: white;
+  color:#1a252f;
+  border : 2px solid #1a252f !important;
+}
+.fc-header-toolbar > .fc-toolbar-chunk > .fc-dayGridMonth-button:hover
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-listMonth-button:hover
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-today-button:hover
+, .fc-header-toolbar > .fc-toolbar-chunk > .fc-challenge-button:hover
+{
+  background-color: #6C757D;
+  color:white;
+  border : 2px solid #6C757D !important;
+}
+

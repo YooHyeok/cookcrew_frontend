@@ -49,30 +49,22 @@ import ToDoList from './component/user/ToDoList';
 
 /* 라우터 */
 
-/* 리덕스 처리 */
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
-import store from './component/redux_jwt/persist-store';
+
 
 import RecipePage from './components/recipecomponents/RecipePage';
 import DietChallenge from './component/rank/DietChallenge';
 
-let persistor = persistStore(store);
-
 function App() {
   return (
 
-    <div className="App">
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
+  <div className="App">
           <BrowserRouter>
             <Header />
             <Routes>
               <Route exact path='/' element={<PageHome />} />
               <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
               <Route exact path='/recipelist' element={<RecipePage />} />{/* 전체 레시피 */}
-              <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
+              <Route exact path='/recipepage' element={<PopRecipe />} />{/* 인기 레시피 */}
               <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
               <Route exact path='/challengeRank' element={<DietChallenge />}/>{/* 챌린지 랭킹 */}
               {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
@@ -84,16 +76,14 @@ function App() {
               <Route exact path='/login' element={<Login />} />{/* 로그인 */}
               <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
 
-              <Route exact path='/recipepage' element={<RecipePage/>} /> {/*페이지처리*/}
-              <Route exact path='/recipepage/:page' element={<RecipePage/>} /> {/*페이지처리*/}
+              {/* <Route exact path='/recipepage' element={<RecipePage/>} /> */} {/*페이지처리*/}
+              {/* <Route exact path='/recipepage/:page' element={<RecipePage/>} /> */} {/*페이지처리*/}
               <Route exact path='/mypage' element={<MyPage />} /> {/* 마이페이지 */}
               <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
               <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
             </Routes>
             <Footer />
           </BrowserRouter>
-        </PersistGate>
-      </Provider>
     </div>
   );
 }

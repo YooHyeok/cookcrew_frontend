@@ -10,10 +10,6 @@ import MainBestChef from "./MainBestChef";
 function PageHome() {
     return(
         <div className="nc-PageHome relative overflow-hidden">
-            <Helmet>
-                <title>cookcrew</title>
-            </Helmet>
-
             <SectionHero2/>
             {/* <hr className="my-20"/> */}
             <MainNewst/>

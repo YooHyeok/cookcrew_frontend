@@ -1,4 +1,4 @@
-import { Component, createContext, useState } from 'react';
+import { createContext, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
 // import { Button, Dropdown } from 'reactstrap';
@@ -70,19 +70,19 @@ export default function Header() {
                 </ul>
                 <ul className="nav-items2">
                     <li className="nav-item">
-                        <Link style={linkStyle} onClick={(e) => { e.preventDefault(); dietLogin();}}><b>식단표 관리</b></Link>
+                        <Link style={linkStyle} onClick={(e) => { e.preventDefault(); dietLogin();}}>식단표 관리</Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/recipelist'}><b>전체 레시피</b></Link>
+                        <Link style={linkStyle} to={'/recipelist'}>전체 레시피</Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/popRecipe'}><b>인기 레시피</b></Link>
+                        <Link style={linkStyle} to={'/popRecipe'}>인기 레시피</Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/bestChef'}><b>베스트 쉐프</b></Link>
+                        <Link style={linkStyle} to={'/bestChef'}>베스트 쉐프</Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/challengeRank'}><b>챌린지 랭킹</b></Link>
+                        <Link style={linkStyle} to={'/challengeRank'}>챌린지 랭킹</Link>
                     </li>
                 </ul>
                 <ul className="nav-items3">

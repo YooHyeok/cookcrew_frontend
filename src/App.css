@@ -47,9 +47,11 @@
 }
 
 .nav-item > a {
-  font-size: x-small;
+  /* font-size: x-small; */
+  font-size: x-large !important;
   text-decoration: none;
-  color: darkgray;
+  /* color: darkgray; */
+  color: black;
 }
 .footer-items {
   list-style: none;

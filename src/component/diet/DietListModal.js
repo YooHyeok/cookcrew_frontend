@@ -50,15 +50,16 @@ export default function DietListModal({modalSearchProps, data}) {
     for(let i=0; i<searchData.length; i++) {
       renderArr.push(
         <tr key={searchData[i].rno} id={i}>
-          <td>
+          {/* <td>
             {searchData[i].regId}
-          </td>{/* context.setSelectRecipeData(e.target.value); */}
+          </td> */}
           <td>
-            <a style={{textDecoration: "none", color : "black"}}
+            <a style={{cursor:"pointer",textDecoration: "none", color : "black"}}
                 onClick={(e) => {
                   e.preventDefault();
-                  if(data.dietListArray.length >= 6) 
-                    {alert("식단이 꽉 찼습니다");
+                  if(data.targetKcal < data.totalKcal+searchData[i].kcal) {
+                      alert("\n 해당 레시피를 추가할 수 없습니다. \n "
+                    +"지정한 목표 칼로리 수치를 초과합니다.");
                     return;
                   }
                   // 험수화 할 수 없음. 반복문 내에서 선택된 데이터를 반영해야 하기 때문에
@@ -104,22 +105,23 @@ export default function DietListModal({modalSearchProps, data}) {
     <>
     <Modal size='xl' isOpen={context.modalShow2} fade={true} toggle={context.modalToggle2} style={{ width: "620px", position: "fixed", top: "50%", left: "65%", transform: "translate(-50%,-50%)" }}>
       <ModalHeader toggle={context.modalToggle2}>
-      <div>
-        <div style={{display:"inline-block"}}>
-          <span>"{modalSearchProps}" 검색 결과</span>
-        </div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-        <div style={{display:"inline-block",float:"right"}}>
-          <span>{searchData.length} 개</span>
-        </div> 
-      </div>
+        {/* <div> */}
+        <div style={{ width: "560px"}}>
+          <div style={{display:"inline-block",float:"left"}}>
+            <span>[{modalSearchProps == "" ? "전체" : modalSearchProps}] 검색 결과</span>
+          </div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+          <div style={{display:"inline-block",float:"right"}}>
+            <span>{searchData.length} 개</span>
+          </div> 
+        </div>
       </ModalHeader>
-      <ModalBody style={{ height: "700px" }}>
-        <Form >
+      <ModalBody style={{overflow:"auto", height: "700px" }}>
+        <Form>
           <FormGroup>
             <Table striped style={{width:"100%",tableLayout:"fixed",textAlign:"center"}}>
               <thead>
                 <tr>
-                  <th style={{width:"100px"}}>ID</th>
+                  {/* <th style={{width:"100px"}}>ID</th> */}
                   <th style={{width:"170px"}}>메뉴명</th>
                   <th style={{width:"100px"}}>칼로리</th>
                   <th style={{width:"70px"}}>조회수</th>

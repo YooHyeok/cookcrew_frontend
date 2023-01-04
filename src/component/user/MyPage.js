@@ -12,10 +12,10 @@ import { display } from "@mui/system";
 export default function MyPage() {
     const divStyle = {
         width: '1200px'
-        , height: '780px'
+        , height: '800px'
         , textAlign: 'center'
         , margin: '100px auto'
-        , marginBottom: '20px'
+        , marginBottom: '35px'
         , padding: '30px'
         , top: '100'
     };
