@@ -30,6 +30,7 @@ export default function ToastEditor() {
         ['table', 'image', 'link'],
         ['code', 'codeblock']
       ]}
+      
       style={{textAlign:"left"}}
       onChange={onChange}
       useCommandShortcut={false} // 키보드 입력 컨트롤 방지

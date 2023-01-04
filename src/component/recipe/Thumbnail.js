@@ -60,13 +60,15 @@ export default function Tumbnail() {
                 const view = response.data;
                 // console.log(response.data);
 
-                const sumRate = view.reduce(function add(sum, currValue) {
+                /* const sumRate = view.reduce(function add(sum, currValue) {
                     return sum + currValue;
                 }, 0);
                 // console.log(sumRate);
                 const avgRate = sumRate / view.length;
                 // console.log(avgRate);
-                setRatingValue(avgRate);
+                setRatingValue(avgRate); */
+                console.log(response.data);
+                setRatingValue(view);
 
             })
             .catch((error) => {

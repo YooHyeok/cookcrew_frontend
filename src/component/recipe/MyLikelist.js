@@ -11,38 +11,25 @@ import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs';
 import '../../components/recipecomponents/RecipePage.css';
 
+export default function MyLikelist(){
 
-export default function MyRecipe() {
+    const [recipe, setRecipe] = useState([]);
 
     const userId = useSelector((state) => { return state.UserId });
-    // console.log(userId);
-    const [recipe, setRecipe] = useState([]);
-    // console.log(recipe);
-    const [pageInfo, setPageInfo] = useState({
-        allPage: 0, curPage: 0, startPage: 0, endPage: 0
-    });
+    console.log(userId);
 
-    const pageRequest = (e) => {
-        serverRequest(e.target.value);
-    }
-
-    useEffect(() => {
-        serverRequest();
-    }, [])
-
-    const serverRequest = () => {
-        axios.get(`/myrecipe/${userId}`)
-            .then((response) => {
-                console.log(response.data);               
-                setRecipe(response.data);
-                setPageInfo(response.data.pageInfo);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    };
-
-    return (
+    useEffect(()=> {
+        axios.get(`/mylikelist/${userId}`)
+        .then((response)=> {
+            console.log(response);
+            setRecipe(response.data);
+        })
+        .catch((error)=> {
+            console.log(error);
+        })
+    },[]);
+    
+    return(
         <div >
             <section className='body'>
                 <div className=''
@@ -98,6 +85,6 @@ export default function MyRecipe() {
                 </div>
             </section>
         </div>
-    );
+    )
+    
 }
-
