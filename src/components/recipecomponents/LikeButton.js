@@ -11,9 +11,9 @@ const LikeButton = (
     className = "", }) => {
   const [isLiked, setIsLiked] = useState(props.isLiked);
   const userId = useSelector((state) => { return state.UserId });
-  console.log(userId);
+  // console.log(userId);
   const rno = props.rno;
-  console.log(rno);
+  // console.log(rno);
 
   
 
@@ -23,11 +23,11 @@ const LikeButton = (
     const formData = new FormData();
     formData.append('rno', rno);
     formData.append('userId', userId);
-    // console.log(formData.data)
+    console.log(formData.data)
 
     axios.post('/like', formData)
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         alert(response.data);
       })
       .catch((error) => {

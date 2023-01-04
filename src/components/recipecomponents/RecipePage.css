@@ -1,4 +1,11 @@
 .numberbutton{
+    background-color:bisque;
+    border: none;
+    color: black;
+    margin-bottom: 55px;
+}
+
+.numberbuttoncur{
     background-color: white;
     border: none;
     color: black;

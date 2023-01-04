@@ -28,6 +28,7 @@ function RecipePage() {
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);
+    console.log("e.target.value : " + e.target.value);
   }
 
   useEffect(() => {
@@ -35,12 +36,14 @@ function RecipePage() {
   }, [])
 
   const serverRequest = (page) => {
-    axios.get('/recipepage/' + page, {params:{userId:userId}})
+    axios.get('/recipepage/' + page, { params: { userId: userId } })
       .then(response => {
-        console.log(response.data.pageInfo);
+        console.log(response.data);
         setPageInfo(response.data.pageInfo);
         setRecipes(response.data.recipes);
         setIsLikes(response.data.isLikeds);
+        console.log("pageInfo.curPage :" + pageInfo.curPage)
+        console.log("pageInfo.startPage :" + pageInfo.startPage)
       })
       .catch(error => {
         console.log(error);
@@ -48,10 +51,16 @@ function RecipePage() {
   }
 
   return (
-    <>
+    <div>
       <div className="title">
         <div className="font-semibold text-5xl text-left ml-36 mr-10 mt-20 pt-20">
           전체 레시피
+        </div>
+        <div>
+          <form>
+            <input placeholder='검색어를 입력하세요'></input>
+            <Button type='submit'>검색</Button>
+          </form>
         </div>
       </div>
       <section className='body'>
@@ -65,7 +74,7 @@ function RecipePage() {
 
           }}
         >
-          {recipes.map((c,idx) => (
+          {recipes.map((c, idx) => (
             <Card key={c.rno}
               style={{
                 width: '18rem',
@@ -75,16 +84,16 @@ function RecipePage() {
                 margin: '1rem',
               }}
             >
-              <Link to={`/reciperef/${c.rno}`}>
-                <div>
-                  <img className='imagesize'
+              <div>
+                <Link to={`/reciperef/${c.rno}`}>
+                  <CardImg className='imagesize'
                     alt="Sample"
                     src={c.thumbPath}
                   />
-                </div>
-              </Link>
+                </Link>
+              </div>
 
-              <CardBody>
+              <CardBody className=''>
                 <Link to={`/reciperef/${c.rno}`}>
                   <CardTitle tag="h5">
                     {c.title}
@@ -122,15 +131,29 @@ function RecipePage() {
         {(() => {
           const array = [];
           for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
-            array.push(
-              <span key={i}><Button className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
-            )
+            if (i == pageInfo.curPage) {
+              array.push(
+                <span key={i}><Button color='primary' className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
+              )
+            } else {
+              array.push(
+                <span key={i}><Button outline color='secondary' className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
+              )
+            }
           }
-          console.log(array.length)
+          array.unshift(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
+
+          )
+          
+          array.push(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
+
+          )
           return array;
         })()}
       </div>
-    </>
+    </div>
   );
 }
 
