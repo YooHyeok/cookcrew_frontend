@@ -64,9 +64,9 @@ export default function ToDoList() {
                     </div>
                 </Form>
                 <div >
-                    <ul >
+                    <ul className="list_array">
                         {toDos.map((item, index) => (
-                            <li className="list_array" key={index}>{item}</li>
+                            <li key={index}>{item}</li>
                         ))}
                     </ul>
                 </div>
