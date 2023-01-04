@@ -31,7 +31,7 @@ function RecipePage() {
      },[])
  
      const serverRequest = (page) => {
-         axios.get('http://localhost:8080/recipepage/' + page)
+         axios.get('/recipepage/' + page)
          .then(response=> {
              console.log(response.data.pageInfo);
              setPageInfo(response.data.pageInfo);

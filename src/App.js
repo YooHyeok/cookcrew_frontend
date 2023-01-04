@@ -63,6 +63,7 @@ import PopRecipes from './components/recipecomponents/PopRecipes';
 import MyRecipe from './component/recipe/MyRecipe';
 import MyLikelist from './component/recipe/MyLikelist';
 
+
 let persistor = persistStore(store);
 
 function App() {
@@ -93,6 +94,7 @@ function App() {
               <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
               <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
               <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />
+              <Route exact path='/mylikelist/:userId' element={<MyLikelist />} />
 
             </Routes>
             <Footer />

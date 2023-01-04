@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Toast,iframe } from './RecipeCreate'
+import { Toast } from './RecipeCreate'
 
 export default function ToastEditor() {
     const context = useContext(Toast);
@@ -30,22 +30,7 @@ export default function ToastEditor() {
         ['table', 'image', 'link'],
         ['code', 'codeblock']
       ]}
-      customHTMLRenderer={{
-        htmlBlock: {
-          iframe(node: any) {
-            return [
-              {
-                type: 'openTag',
-                tagName: 'iframe',
-                outerNewLine: true,
-                attributes: node.attrs
-              },
-              { type: 'html', content: node.childrenHTML },
-              { type: 'closeTag', tagName: 'iframe', outerNewLine: true }
-            ];
-          }
-        }
-      }}
+      
       style={{textAlign:"left"}}
       onChange={onChange}
       useCommandShortcut={false} // 키보드 입력 컨트롤 방지
