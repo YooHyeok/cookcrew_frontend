@@ -28,8 +28,8 @@ function Login() {
     const [cookie, setCookie] = useCookies(['refreshToken']);
     const dispatch = useDispatch();
 
-    const userId = useSelector((state) => { return state.UserId });
-    const accessToken = useSelector((state) => { return state.Authorization });
+    const userId = useSelector( (state) => {return state.UserId} );
+    const accessToken = useSelector( (state) => {return state.Authorization} );
 
     // login 버튼 클릭 이벤트
     const ClickLogin = (e) => {
@@ -39,6 +39,8 @@ function Login() {
         axios.post('/login', null, { params: user })
             .then((res) => {
                 // setUser(res.data);
+                console.log(res.data.res)
+
                 //accessToken redux에 저장
                 dispatch({ type: "NEWTOKEN", data: res.data.accessToken });
                 //userId redux에 저장
@@ -47,8 +49,11 @@ function Login() {
                 const expires = new Date(); //쿠키 만료시간 지정
                 expires.setDate(expires.getDate() + 1) //현재날짜 + 1 = 하루
                 setCookie('refreshToken', res.data.refreshToken, { url: '/', expires })
-                alert('로그인 성공');
-                // if (accessToken != null && userId != null)
+                if(userId != null && accessToken != null) {
+                    return userId;
+                }
+            })
+            .then((userId)=> {
                 document.location.href = "/"
             })
             .catch((error) => {

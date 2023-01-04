@@ -10,7 +10,7 @@ export default function DietChallenge() {
         , textAlign: 'left'
         , margin: '100px auto'
         , marginBottom: '20px'
-        , border: '0.1px solid lightgray'
+        // , border: '0.1px solid lightgray'
         , padding: '30px'
         , borderRadius: '20px'
         , top: '100'
@@ -74,7 +74,7 @@ export default function DietChallenge() {
             <div style={contentDiv1}>
                 <div><h5><b>지난주 식단 랭킹 3인</b></h5></div><br />
                 
-                {rankAscData.map((dietRank, index, data)=>{
+                {/* {rankAscData.map((dietRank, index, data)=>{
                     console.log(dietRank)
                     return(
                         <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
@@ -84,9 +84,9 @@ export default function DietChallenge() {
                             <span>달성률 : {dietRank.achievePercentage}%</span>
                         </div>
                     )
-                })}
-                {/* <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
-                    <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%", border:"1px solid black"}} src={require('../../resources/img/남규리.png')} alt='' />
+                })} */}
+                <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
+                    <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/남규리.png')} alt='' />
                     <span>남규리 님</span>
                 </div>
                 <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
@@ -96,12 +96,12 @@ export default function DietChallenge() {
                 <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
                     <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/이시우.png')} alt='' />
                     <span>이시우 님</span>
-                </div> */}
+                </div>
             </div>
             
             <div style={contentDiv1}>
                 <div><h5><b>꼴찌들...</b></h5></div><br />
-                {rankDescData.map((dietRank, index, data)=>{
+                {/* {rankDescData.map((dietRank, index, data)=>{
                     console.log(dietRank.userId)
                     return(
                         <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
@@ -111,11 +111,7 @@ export default function DietChallenge() {
                             <span>달성률 : {dietRank.achievePercentage}%</span>
                         </div>
                     )
-                })}
-                {/* <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
-                    <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/이세진.png')} alt='' />
-                    <span>인아웃세진 님</span>
-                </div>
+                })} */}
                 <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
                     <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/이세진.png')} alt='' />
                     <span>인아웃세진 님</span>
@@ -123,7 +119,11 @@ export default function DietChallenge() {
                 <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
                     <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/이세진.png')} alt='' />
                     <span>인아웃세진 님</span>
-                </div> */}
+                </div>
+                <div style={{display:"inline-block", margin:"0px 100px 0px 100px", textAlign:"center" }}>
+                    <img style={{width:"160px", marginTop:"-20px", borderRadius:"70%"}} src={require('../../resources/img/이세진.png')} alt='' />
+                    <span>인아웃세진 님</span>
+                </div>
             </div>
         </div>
     )

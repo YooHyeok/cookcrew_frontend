@@ -1,16 +1,16 @@
-
 import {
   Form, FormGroup, InputGroup, Input, Button
   , Modal, ModalHeader, ModalBody, ModalFooter, Table
 } from 'reactstrap';
-import {createContext, useState, useContext, useEffect } from 'react';
+import {createContext, useState, useContext, useEffect, useRef } from 'react';
 import { DietSchedulerContext } from './DietScheduler';
 import DietListModal from './DietListModal';
 import { Search } from 'react-bootstrap-icons';
 import './ModalCommon.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import * as DateUtil from "./DateUtil.js"
+import { OpenWith } from '@mui/icons-material';
+
 /**
  * 식단 리스트 출력, 수정, 삭제 Modal컴포넌트
  * @returns 
@@ -31,13 +31,8 @@ export default function DietModal({dietValue}) {
   /* 검색창 검색어 State변수 */
   const [searchParam, setSearchParam] = useState('');
 
-  /* 시작일자 종료일자 yyyy-MM-dd TO yyyy년 MM월 dd일 */
-  const [searchData, setSearchData] = useState({});
-  /* fmtDateKr : yyyy년 MM월 dd일 - DateUtil.js 파일 참조*/
-  const fmtStartDTKr = DateUtil.hipenToKrfmtDate(searchData.startDate);
-  const fmtEndDTKr = DateUtil.hipenToKrfmtDate(searchData.endDate);
-
   /* 모달 2 파라미터 배열 변수(rno값) State변수 */
+  const [selectRecipeData, setSelectRecipeData] = useState([]);
   const [mealDivStr, setMealDivStr] = useState('');
   const [disaabled, setDisabled] = useState(true);
   const [modalStyle, setModalStyle] = useState({ width: "700px", position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)" })
@@ -91,20 +86,22 @@ export default function DietModal({dietValue}) {
     }
     axios.get(url, param)
     .then((res)=>{
-      setSearchData(res.data)
-      setDietListArray(res.data.dietListBy)
-      if(res.data.dietListBy.length > 0){
+      setDietListArray(res.data.dietList)
+      setTargetKcal(res.data.achieve.targetKcal == undefined ? 0 : res.data.achieve.targetKcal)
+      if(res.data.dietList.length > 0) {
         let kcalTotalSum = 0;
-        for(let i=0; i<res.data.length; i++) {
-          kcalTotalSum += res.data[i].recipe.kcal;
+        for(let i=0; i<res.data.dietList.length; i++) {
+          kcalTotalSum += res.data.dietList[i].recipe.kcal;
         }
-        setTargetKcal(res.data.dietListBy[0].targetKcal)
         setTotalKcal(kcalTotalSum)
-        setAchieve(res.data.dietListBy[0].achieve)
+        setAchieve(res.data.achieve.achieve)
+      }
+      if(res.data.achieve.achieve == undefined) {
+        setTotalKcal(0)
+        setAchieve(false)
       }
     })
     .catch((res)=>{
-      alert("에러 발생 ! \n 에러 내용 :=> " + res)
     })
   }
 
@@ -132,8 +129,8 @@ export default function DietModal({dietValue}) {
             {dietListArray[i].recipe.kcal}Kcal
           </td>
           <td style={{textAlign:"right"}}>
-            {/* <a href="http://localhost/dietmenu" className="hyphenIcon" style={{ display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}>(-)</a> */}
-            <a href="http://localhost/dietmenu" className="hyphenIcon" style={{display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}><img style={{width:"25px", float:"right"}}src={require("./delete_icon.png")}/></a>
+            {/* <a href="http://localhost/dietmenu" className="hyphenIcon" style={{display: "show",textDecoration: "none", color : "black" }} onClick={delHypen}><img style={{width:"25px", float:"right"}}src={require("./delete_icon.png")}/></a>           */}
+            <img onClick={delHypen} className="hyphenIcon" style={{cursor:"pointer", color : "black" , width:"25px", float:"right"}}src={require("./delete_icon.png")}/>
           </td>
         </tr>
       )
@@ -158,12 +155,6 @@ export default function DietModal({dietValue}) {
     // setTargetKcal(targetKcalVal)
     rendekcalArr.push(
       <tr key={0}>
-        {/* <td>
-          <span style={{display:"block"}}>
-            <label htmlFor="clngeTf">참여</label>
-            <input type="checkbox" name="clngeTf" id="clngeTf" defaultChecked={achieve == 'y' ? true : false} onClick={(e)=>{console.log(e.target.checked)}}/>
-          </span>
-        </td> */}
         <td>
           <Input type="text" id="kcalInput" style={{width:"55px",height:"20px", display:"inline-block"}}
                  disabled={disaabled} onChange={(e)=>{
@@ -189,9 +180,9 @@ export default function DietModal({dietValue}) {
    * 식단구분 select 콤보 체인지 이벤트 콜백 함수
    */
   const selectChange = (e)=>{
-    e.preventDefault();
-    setMealDivStr(e.target.value);
-    dietSearch(e.target.value);
+    // e.preventDefault();
+    setMealDivStr(e);
+    dietSearch(e);
   } 
   
   /**
@@ -228,26 +219,47 @@ export default function DietModal({dietValue}) {
   }
 
    /**
-   * 목표칼로리, 달성여부 저장 (다중 update)
+   * 목표칼로리 저장
    * @param : 식단 날짜, 식단 구분
    */
-   const submit = (mealDivStr) => {
+  //  const submit = (mealDivStr) => {
+  //   let param = {}
+  //   console.log(mealDivStr)
+  //   switch (mealDivStr) {
+  //     case '아침': 
+  //     param = {dietDate : dietValue.dietDate, mealDiv: '1', targetKcal:targetKcal}; //사용자가 직접 체크
+  //     break;
+  //     case '점심': 
+  //     param = {dietDate : dietValue.dietDate, mealDiv: '2', targetKcal:targetKcal}; //사용자가 직접 체크
+  //     break;
+  //     case '저녁': 
+  //     param = {dietDate : dietValue.dietDate, mealDiv: '3', targetKcal:targetKcal}; //사용자가 직접 체크
+  //   }
+  //   if(window.confirm("입력하신 목표 칼로리를 저장 하시겠습니까?")) {
+  //     axios.put('/targetKcalSave', param)
+  //     .then((response)=>{
+  //       dietSearch(mealDivStr); 
+  //     })
+  //     .catch((error)=>{
+  //       alert("저장에 실패하였습니다.");
+  //     })
+      
+  //   }
+  // }
+   const targetSave = (mealDivStr) => {
     let param = {}
     switch (mealDivStr) {
       case '아침': 
-      param = {dietDate : dietValue.dietDate, mealDiv: '1', targetKcal:targetKcal, achieve:achieve};
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '1', targetKcal:targetKcal}; //사용자가 직접 체크
       break;
       case '점심': 
-      param = {dietDate : dietValue.dietDate, mealDiv: '2', targetKcal:targetKcal, achieve:achieve};
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '2', targetKcal:targetKcal}; //사용자가 직접 체크
       break;
       case '저녁': 
-      param = {dietDate : dietValue.dietDate, mealDiv: '3', targetKcal:targetKcal, achieve:achieve};
-      // break;
-      // default : 
-      // param = {params:{dietDate : dietValue.dietDate, mealDiv: '1'}};
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '3', targetKcal:targetKcal}; //사용자가 직접 체크
     }
-    if(window.confirm("입력하신 목표 칼로리와 달성여부를 저장 하시겠습니까?")) {
-      axios.put('/dietSave', param)
+    if(window.confirm("입력하신 목표 칼로리를 저장 하시겠습니까?")) {
+      axios.put('/targetKcalSave', param)
       .then((response)=>{
         dietSearch(mealDivStr); 
       })
@@ -256,6 +268,30 @@ export default function DietModal({dietValue}) {
       })
       
     }
+  }
+
+  /**
+   * 달성여부 통신
+   * @param {*} mealDivStr 
+   * @param {*} checkValue 
+   */
+   const achieveSave = (mealDivStr, checkValue) => {
+    let param = {}
+    switch (mealDivStr) {
+      case '아침': 
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '1', achieve:checkValue}; //사용자가 직접 체크
+      break;
+      case '점심': 
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '2', achieve:checkValue}; //사용자가 직접 체크
+      break;
+      case '저녁': 
+      param = {userId: userId, dietDate : dietValue.dietDate, mealDiv: '3', achieve:checkValue}; //사용자가 직접 체크
+    }
+    axios.put('/achieveSave', param)
+    .then((response)=>{})
+    .catch((error)=>{
+      alert("저장에 실패하였습니다.");
+    })
   }
 
   /**
@@ -274,7 +310,8 @@ export default function DietModal({dietValue}) {
    */
   const saveButtonClick = (e) => {
     e.preventDefault();
-    submit(dietValue.mealDivStr);
+    // submit(mealDivStr);
+    targetSave(mealDivStr);
     setDisabled(!disaabled);
   }
 
@@ -285,6 +322,8 @@ export default function DietModal({dietValue}) {
     mealDivStr : mealDivStr
     , dietDate : dietValue.dietDate
     , dietListArray : dietListArray
+    , targetKcal : targetKcal
+    , totalKcal : totalKcal
     , setDietListArray : setDietListArray.bind(this)
     , dietSearch : dietSearch.bind(this)
 
@@ -300,34 +339,68 @@ export default function DietModal({dietValue}) {
     <>
       <Modal isOpen={context.modalShow1} fade={true} toggle={context.modalToggle1} style={modalStyle}>
         <ModalHeader toggle={context.modalToggle1}>
-            <InputGroup size="sm" style={{width:"400px"}}>
+            <InputGroup size="sm" style={{width:"100%"}}>
               <div style={{height:"30px", float:"left"}}>
                 <span style={{width:"170px",display:"inline-block"}}>
-                  {dietValue.fmtDateKr} 
+                  {dietValue.fmtDateKr} 식단
                 </span>
               </div>
-              <div style={{display:"inline-block", float:"right", height:"32px", paddingLeft: "0px"}}>
-                <select name="" id="mealSelect" value={mealDivStr} onChange={selectChange}
+              <div style={{width:"170px",display:"inline-block", height:"32px", paddingLeft: "0px"}}>
+                <select name="" id="mealSelect" value={mealDivStr} onChange={(e)=>{selectChange(e.target.value)}}
                  style={{display:"inline", width:"85px", height:"30px", fontSize:"15px", padding:"4px 20px 0px 12px"}}>
                   <option value={"아침"} >아침</option>
                   <option value={"점심"} >점심</option>
                   <option value={"저녁"} >저녁</option>
                 </select>
               </div>
-              <div style={{height:"30px", float:"left"}}>
-                <span style={{display:"inline-block"}}>식단</span>
+              <div style={{height:"30px", float:"right"}}>
+                <label htmlFor="TargetTf">달성</label>&nbsp;&nbsp;&nbsp;
+                <input type="checkbox" name="TargetTf" id="TargetTf" checked={achieve} onChange={
+                  (e)=>{
+                    if(dietListArray.length==0){
+                      alert("\n 식단이 등록되지 않았습니다. \n 식단을 먼저 등록해주세요.");
+                      return false;
+                    }
+                    setAchieve(e.target.checked);
+                    achieveSave(mealDivStr, e.target.checked);
+                    }}
+                />
               </div>
             </InputGroup>
         </ModalHeader>
         <ModalBody style={{ height: "400px" }}>
-          <Form style={{height: "540px"}}>
+          <Form style={{overflow:"auto", height: "400px"}}>
             <FormGroup>
               <div style={{height:"38px"}}>
                 <div id="inputGroup" style={{ margin: "0px", display:"show", float:"left"}}>
                   <InputGroup size="s">
-                    <Input type="text" onKeyDown={(e)=>{if(e.key == "Enter") { e.preventDefault();  if(e.target.value == "") {alert("검색어를 최소 1글자 이상 입력하셔야 합니다."); return } modalToggle2();}}} 
+                    <Input type="text" onKeyDown={(e)=>{
+                      if(e.key == "Enter") {
+                        e.preventDefault(); 
+                          if(targetKcal == 0) {
+                            alert("\n 목표 칼로리가 0입니다. \n 먼저 목표칼로리를 설정해주세요."); return;
+                          }
+                          if(targetKcal<totalKcal) {
+                            alert("\n 목표 칼로리 수치를 초과하였습니다. \n 식단을 더이상 추가 할 수 없습니다."); return;
+                          }
+                        modalToggle2();
+                    }
+                  }
+                }
                     onChange={initSearchParam} placeholder='레시피를 입력하세요' style={{width:"427px", display: "inline-block"}} />
-                    <Button onClick={(e)=>{e.preventDefault(); if(searchParam == "") {alert("검색어를 최소 1글자 이상 입력하셔야 합니다."); return } modalToggle2();}} color="secondary" style={{width:"40px"}}>
+                    <Button onClick={(e)=>{
+                          e.preventDefault();
+                          /* if(dietListArray.length != 0 ) {
+                            if(targetKcal == 0) {
+                              alert("\n 목표 칼로리가 0입니다. \n 먼저 목표칼로리를 설정해주세요."); return;
+                            }
+                            if(targetKcal<totalKcal) {
+                              alert("\n 목표 칼로리 수치를 초과하였습니다. \n 식단을 더이상 추가 할 수 없습니다."); return;
+                            }
+                          } */
+                          modalToggle2();
+                        }
+                      } color="secondary" style={{width:"40px"}}>
                       <Search style={{width:"20px", height:"20px",padding : "0 4 4 0"}}/>
                       </Button>
                   </InputGroup>
@@ -369,25 +442,19 @@ export default function DietModal({dietValue}) {
           </Form>
         </ModalBody>
         <ModalFooter>
-          <div style={{height:"30px", float:"left"}}>
-            <span style={{width:"100%",display:"inline-block"}}>
-              {/* {fmtStartDTKr} ~ {fmtEndDTKr} */}
-            </span>
-          </div>
           <Table striped style={{width:"466px",tableLayout:"fixed",textAlign:"center"}}>
                 <thead>
                   <tr>
-                    {/* <th>챌린지 참여</th> */}
                     <th>목표 칼로리</th>
                     <th>칼로리 합계</th>
-                    <th>달성 여부</th>
+                    {/* <th>목표 달성 여부</th> */}
                   </tr>
                 </thead>  
                 <tbody>
-                    {/* {dietKcal(dietListArray)} */}
-                    <tr key={0}>
+                  {/* {dietKcal(dietListArray)} */}
+                  <tr key={0}>
                     <td>
-                      <Input type="text" id="kcalInput" style={{width:"55px",height:"20px", display:"inline-block"}}
+                      <Input type="text" id="kcalInput" style={{width:"70px",height:"20px", display:"inline-block"}}
                             value={targetKcal} disabled={disaabled} onChange={(e)=>{
                               setTargetKcal(e.target.value);
                               }}/>Kcal
@@ -397,11 +464,11 @@ export default function DietModal({dietValue}) {
                     </td>
                     <td>
                       <span style={{display:"block"}}>
-                        <label htmlFor="TargetTf">달성</label>&nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" name="TargetTf" id="TargetTf" disabled={disaabled} checked={achieve} onChange={(e)=>{setAchieve(e.target.checked)}}/>
+                        {/* <label htmlFor="TargetTf"></label>&nbsp;&nbsp;&nbsp; */}
+                        {/* <input type="checkbox" name="TargetTf" id="TargetTf" disabled={disaabled} checked={achieve} onChange={(e)=>{setAchieve(e.target.checked)}}/> */}
                       </span>
                     </td>
-                </tr>
+                  </tr>
                               
                 </tbody>
             </Table><br/><br/>

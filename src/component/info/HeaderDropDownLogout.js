@@ -4,17 +4,28 @@ import { Link } from 'react-router-dom';
 import { HeaderDropDownContext } from "./Header";
 import { Search, PersonCircle } from 'react-bootstrap-icons';
 
-import { useDispatch } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
+import { useDispatch, useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 export default function HeaderDropDownLogout() {
 
   const context = useContext(HeaderDropDownContext);
   const dispatch = useDispatch();
+  const userId = useSelector( (state) => {return state.UserId} );
+  const accessToken = useSelector( (state) => {return state.Authorization} );
 
-  const logout = () => { //토큰값, userId 초기화
+  const logout = (e) => { //토큰값, userId 초기화
+    e.preventDefault();
     dispatch({ type: "NEWTOKEN", data: '' })
     dispatch({ type: "USERID", data: '' })
+    
+    alert(userId);
+    alert(accessToken);
     document.location.href = '/';
+    if(userId == null && accessToken == null) {
+      alert(userId);
+      alert(accessToken);
+      console.log("ㅇㅇㅇㅇ")
+    }
   }
   return (
     <Dropdown isOpen={context.dropdownOpenLogOut} fade="true" toggle={context.toggleLogOut}>
