@@ -24,6 +24,7 @@ function RecipePage() {
   });
 
   const [recipes, setRecipes] = useState([]);
+  const [scoreList,setScoreList] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
 
   const pageRequest = (e) => {
@@ -42,8 +43,10 @@ function RecipePage() {
         setPageInfo(response.data.pageInfo);
         setRecipes(response.data.recipes);
         setIsLikes(response.data.isLikeds);
+        setScoreList(response.data.scoreList);
         console.log("pageInfo.curPage :" + pageInfo.curPage)
         console.log("pageInfo.startPage :" + pageInfo.startPage)
+        console.log("ratings: " + scoreList.data)
       })
       .catch(error => {
         console.log(error);
@@ -117,7 +120,7 @@ function RecipePage() {
 
                   {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                   {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.rating}</span>
+                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{scoreList[idx]}</span>
                   <span className='inline'><LikeButton LikeButton rno={c.rno} isLiked={isLikes[idx]} className='inline' /></span>
 
                 </div>
