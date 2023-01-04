@@ -1,21 +1,18 @@
 import axios from "axios";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import { PersonCircle } from 'react-bootstrap-icons';
-import { display } from "@mui/system";
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다. 토큰값과 userId값을 가져온다.
 
 
 export default function MyPage() {
     const divStyle = {
         width: '1200px'
-        , height: '780px'
+        , height: '800px'
         , textAlign: 'center'
         , margin: '100px auto'
-        , marginBottom: '20px'
+        , marginBottom: '35px'
         , padding: '30px'
         , top: '100'
     };
@@ -24,19 +21,24 @@ export default function MyPage() {
 
 
     const [user, setUser] = useState({});
+
+    const [src, setSrc] = useState('/img/profile.jpg');
     useEffect(() => {
         axios.get('/mypage', { params: { id: userId } })
             .then((res) => {
                 console.log(res);
                 console.log(res.data);
                 setUser(res.data);
+                if (res.data.thumbnail != null) {
+                    let blob = new Blob([new ArrayBuffer(res.data.thumbnail)], { type: "image/jpg" });
+                    const url = window.URL.createObjectURL(blob);
+                    console.log(url);
+                    setSrc(url);
+                }
             }).catch((error) => {
                 console.log(error)
             })
     }, [])
-
-
-
 
     return (
 
@@ -54,17 +56,15 @@ export default function MyPage() {
             <hr />
             <div style={{
                 width: '500px'
-                , height: '475px'
+                , height: '600px'
                 , margin: '0px auto'
-                , padding: '30px'
+                , padding: '30px 30px 30px 30px'
 
             }}>
                 {/* 프로필 사진 영역 */}
-                <div className="profile">
-                    <PersonCircle size={150} />
+                <div className="profile-wrap">
+                    <img className="profile" src={user.thumbnail} alt="profile" />
                 </div>
-
-
                 {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }} >
                     <FormGroup row>

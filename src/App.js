@@ -54,6 +54,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import store from './component/redux_jwt/persist-store';
+import { CookiesProvider } from 'react-cookie';
 
 
 import RecipePage from './components/recipecomponents/RecipePage';
@@ -69,36 +70,37 @@ function App() {
   return (
 
     <div className="App">
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <BrowserRouter>
-            <Header />
-            <Routes>
-              <Route exact path='/' element={<PageHome />} />
-              <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
-              <Route exact path='/recipelist' element={<RecipePage />} />{/* 전체 레시피 */}
-              <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
-              <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
-              <Route exact path='/challengeRank' element={<DietChallenge />} />{/* 챌린지 랭킹 */}
-              {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
-              <Route exact path='/recipecreate' element={<RecipeCreate />} />{/* 레시피 등록 */}
-              <Route exact path='/reciperef/:rNo' element={<RecipeRef />} />{/* 레시피 상세 */}
-              <Route exact path='/recipemod' element={<RecipeMod />} />{/* 레시피 수정 */}
+      <CookiesProvider>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <BrowserRouter>
+              <Header />
+              <Routes>
+                <Route exact path='/' element={<PageHome />} />
+                <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
+                <Route exact path='/recipelist' element={<RecipePage />} />{/* 전체 레시피 */}
+                <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
+                <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
+                <Route exact path='/challengeRank' element={<DietChallenge />} />{/* 챌린지 랭킹 */}
+                {/* <Route exact path='/MyRecipe' element={<MyRecipe />} />나의 레시피 */}
+                <Route exact path='/recipecreate' element={<RecipeCreate />} />{/* 레시피 등록 */}
+                <Route exact path='/reciperef/:rNo' element={<RecipeRef />} />{/* 레시피 상세 */}
+                <Route exact path='/recipemod' element={<RecipeMod />} />{/* 레시피 수정 */}
 
-              <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
-              <Route exact path='/login' element={<Login />} />{/* 로그인 */}
-              <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
-              <Route exact path='/recipepage' element={<RecipePage />} /> {/*페이지처리*/}
-              <Route exact path='/recipepage/:page' element={<RecipePage />} /> {/*페이지처리*/}
-              <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
-              <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
-              <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />
-
-            </Routes>
-            <Footer />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
+                <Route exact path='/join' element={<Join />} />{/* 회원가입 */}
+                <Route exact path='/login' element={<Login />} />{/* 로그인 */}
+                <Route exact path='/mypage' element={<MyPage />} />{/* 마이페이지 */}
+                <Route exact path='/recipepage' element={<RecipePage />} /> {/*페이지처리*/}
+                <Route exact path='/recipepage/:page' element={<RecipePage />} /> {/*페이지처리*/}
+                <Route exact path='/mypagemod' element={<MyPageMod />} />{/* 마이페이지 수정 */}
+                <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
+                <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />
+              </Routes>
+              <Footer />
+            </BrowserRouter>
+          </PersistGate>
+        </Provider>
+      </CookiesProvider>
     </div>
   );
 }
