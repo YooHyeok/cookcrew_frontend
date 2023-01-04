@@ -390,14 +390,12 @@ export default function DietModal({dietValue}) {
                     onChange={initSearchParam} placeholder='레시피를 입력하세요' style={{width:"427px", display: "inline-block"}} />
                     <Button onClick={(e)=>{
                           e.preventDefault();
-                          /* if(dietListArray.length != 0 ) {
-                            if(targetKcal == 0) {
-                              alert("\n 목표 칼로리가 0입니다. \n 먼저 목표칼로리를 설정해주세요."); return;
-                            }
-                            if(targetKcal<totalKcal) {
-                              alert("\n 목표 칼로리 수치를 초과하였습니다. \n 식단을 더이상 추가 할 수 없습니다."); return;
-                            }
-                          } */
+                          if(targetKcal == 0) {
+                            alert("\n 목표 칼로리가 0입니다. \n 먼저 목표칼로리를 설정해주세요."); return;
+                          }
+                          if(targetKcal<totalKcal) {
+                            alert("\n 목표 칼로리 수치를 초과하였습니다. \n 식단을 더이상 추가 할 수 없습니다."); return;
+                          }
                           modalToggle2();
                         }
                       } color="secondary" style={{width:"40px"}}>
@@ -456,6 +454,7 @@ export default function DietModal({dietValue}) {
                     <td>
                       <Input type="text" id="kcalInput" style={{width:"70px",height:"20px", display:"inline-block"}}
                             value={targetKcal} disabled={disaabled} onChange={(e)=>{
+                              if(e.target.value == 0)
                               setTargetKcal(e.target.value);
                               }}/>Kcal
                     </td>

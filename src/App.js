@@ -52,7 +52,7 @@ function App() {
             <Routes>
               <Route exact path='/' element={<PageHome />} />
               <Route exact path='/dietScheduler' element={<DietScheduler />} />{/* 식단표 관리 */}
-              <Route exact path='/recipelist' element={<RecipePage />} />{/* 전체 레시피 */}
+              <Route exact path='/recipelist' element={<RecipePage />} />전체 레시피
               <Route exact path='/popRecipe' element={<PopRecipe />} />{/* 인기 레시피 */}
               <Route exact path='/bestChef' />{/* 베스트 쉐프 */}
               <Route exact path='/challengeRank' element={<DietChallenge />}/>{/* 챌린지 랭킹 */}

@@ -22,9 +22,6 @@ export default function HeaderDropDownLogout() {
     alert(accessToken);
     document.location.href = '/';
     if(userId == null && accessToken == null) {
-      alert(userId);
-      alert(accessToken);
-      console.log("ㅇㅇㅇㅇ")
     }
   }
   return (
