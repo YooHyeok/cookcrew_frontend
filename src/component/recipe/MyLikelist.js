@@ -1,13 +1,15 @@
-import axios from "axios"
-import { useEffect,useState } from "react"
-import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import {useState} from 'react';
 import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
-import LikeButton from "../../components/recipecomponents/LikeButton";
-import { Link,useParams } from 'react-router-dom';
+  import { Link,useParams } from 'react-router-dom';
+import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs';
+import '../../components/recipecomponents/RecipePage.css';
 
 export default function MyLikelist(){
 
@@ -15,32 +17,18 @@ export default function MyLikelist(){
 
     const userId = useSelector((state) => { return state.UserId });
     console.log(userId);
-    const [pageInfo, setPageInfo] = useState({
-        allPage: 0, curPage: 0, startPage: 0, endPage: 0
-    });
-    const [page, setPage] = useState(0);
 
-    const pageRequest = (e) => {
-        setPage(e.target.value);
-    }
-
-    useEffect(() => {
-        serverRequest(1);
-    }, [])
-
-    const serverRequest = () => {
-        axios.get(`/mylikelist/${userId}${page}`)
-            .then((response) => {
-                console.log(response.data);               
-                setRecipe(response.data);
-                setPageInfo(response.data.pageInfo);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    };
-
-
+    useEffect(()=> {
+        axios.get(`/mylikelist/${userId}`)
+        .then((response)=> {
+            console.log(response);
+            setRecipe(response.data);
+        })
+        .catch((error)=> {
+            console.log(error);
+        })
+    },[]);
+    
     return(
         <div >
             <section className='body'>
@@ -96,18 +84,6 @@ export default function MyLikelist(){
                     ))}
                 </div>
             </section>
-            <div>
-                {(()=> {
-                        const array = [];
-                        for (let i = pageInfo.startPage; i<=pageInfo.endPage; i++){
-                            array.push(
-                                <span key={i}><Button className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
-                            )
-                        }
-                        console.log(array.length)
-                        return array;
-                    })()}
-            </div>
         </div>
     )
     

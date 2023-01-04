@@ -21,18 +21,17 @@ export default function MyRecipe() {
     const [pageInfo, setPageInfo] = useState({
         allPage: 0, curPage: 0, startPage: 0, endPage: 0
     });
-    const [page, setPage] = useState(0);
 
     const pageRequest = (e) => {
-        setPage(e.target.value);
+        serverRequest(e.target.value);
     }
 
     useEffect(() => {
-        serverRequest(1);
+        serverRequest();
     }, [])
 
     const serverRequest = () => {
-        axios.get(`/myrecipe/${userId}${page}`)
+        axios.get(`/myrecipe/${userId}`)
             .then((response) => {
                 console.log(response.data);               
                 setRecipe(response.data);
@@ -98,18 +97,6 @@ export default function MyRecipe() {
                     ))}
                 </div>
             </section>
-            <div>
-                {(()=> {
-                        const array = [];
-                        for (let i = pageInfo.startPage; i<=pageInfo.endPage; i++){
-                            array.push(
-                                <span key={i}><Button className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
-                            )
-                        }
-                        console.log(array.length)
-                        return array;
-                    })()}
-            </div>
         </div>
     );
 }
