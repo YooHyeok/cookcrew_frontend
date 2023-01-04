@@ -325,7 +325,7 @@ export default function DietModal({dietValue}) {
               <div style={{height:"38px"}}>
                 <div id="inputGroup" style={{ margin: "0px", display:"show", float:"left"}}>
                   <InputGroup size="s">
-                    <Input type="text" onKeyDown={(e)=>{ e.preventDefault(); if(e.key == "Enter") { if(e.target.value == "") {alert("검색어를 최소 1글자 이상 입력하셔야 합니다."); return } modalToggle2();}}} 
+                    <Input type="text" onKeyDown={(e)=>{if(e.key == "Enter") { e.preventDefault();  if(e.target.value == "") {alert("검색어를 최소 1글자 이상 입력하셔야 합니다."); return } modalToggle2();}}} 
                     onChange={initSearchParam} placeholder='레시피를 입력하세요' style={{width:"427px", display: "inline-block"}} />
                     <Button onClick={(e)=>{e.preventDefault(); if(searchParam == "") {alert("검색어를 최소 1글자 이상 입력하셔야 합니다."); return } modalToggle2();}} color="secondary" style={{width:"40px"}}>
                       <Search style={{width:"20px", height:"20px",padding : "0 4 4 0"}}/>

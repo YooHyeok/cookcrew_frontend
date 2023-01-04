@@ -85,7 +85,7 @@ function RecipePage() {
                 margin: '1rem',
               }}
             >
-              <div className='imgbox'>
+              <div className=''>
               <Link to={`/reciperef/${c.rno}`}>
                 <img
                   className='self-center'
