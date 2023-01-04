@@ -57,6 +57,13 @@ function Login() {
 
     }
 
+    // 인풋에 적용할 eneter 키 입력 함수
+    const handleOnKeyDown = (e) => {
+        if (e.key === "Enter") {
+            ClickLogin(e); //Enter 입력이 되면 클릭 이벤트 실행
+        }
+    };
+
     return (
         <div style={divStyle}>
             <Container component="main" maxWidth="xs">
@@ -72,7 +79,8 @@ function Login() {
                     </Typography>
 
                     <TextField label="ID" name='id' margin="normal" fullWidth required autoFocus onChange={handleInputUser} />
-                    <TextField label="Password" type='password' name='password' margin="normal" autoComplete="current-password" fullWidth required onChange={handleInputUser} />
+                    <TextField label="Password" type='password' name='password' margin="normal"
+                        autoComplete="current-password" fullWidth required onChange={handleInputUser} onKeyDown={handleOnKeyDown} />
                     <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
 
                     <Button type='submit' variant="contained" sx={{ mt: 3, mb: 2 }} fullWidth onClick={ClickLogin}>Login</Button>
