@@ -186,8 +186,7 @@ function Join() {
         // formData.append('detailaddress', userJoin.detailaddress);
         // formData.append('email', userJoin.email);
         // formData.append('checked', userJoin.checked);
-        console.log(formData)
-        console.log(userJoin)
+
 
         if (validId && validNN && existId && existNm) {
             // axios.post('/join', formData)
@@ -210,15 +209,6 @@ function Join() {
                 <div className='joinus'><h1><b>회원가입</b></h1><br />
                     <section className="join_cl" >
                         <div style={{ width: "400px", margin: "0 auto" }} >
-                            {/* 닉네임 */}
-                            <label >Nickname</label><br />
-                            <input className="inputStyle" type="text" name="nickname" id="nickname" placeholder="nickname" value={userJoin.nickname} onChange={setNnInfo} required></input>
-                            <Button outline color='primary' className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
-                            <p>
-                                <span id="regnnTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
-                                <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
-                            </p>
-
 
                             {/* 아이디 */}
                             <div>
@@ -227,7 +217,7 @@ function Join() {
                                 <Button outline color='primary' className="CheckBtn" onClick={CheckId}>중복 확인</Button>
                                 <p>
                                     <span id="regTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
-                                    <span id="regFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, 숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                                    <span id="regFalse" style={{ display: "none" }}><b>첫 글자는 영문자. 4~16자의 영문 대소문자,<br></br>숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
                                 </p>
                             </div>
 
@@ -242,6 +232,17 @@ function Join() {
                                 <span id="pwTrue" style={{ display: "none" }}><b>비밀번호 일치</b></span>
                                 <span id="pwFalse" style={{ display: "none" }}><b>비밀번호 불일치</b></span>
                             </p>
+
+                            {/* 닉네임 */}
+                            <label >Nickname</label><br />
+                            <input className="inputStyle" type="text" name="nickname" id="nickname" placeholder="nickname" value={userJoin.nickname} onChange={setNnInfo} required></input>
+                            <Button outline color='primary' className="CheckBtn" onClick={CheckNN}>중복 확인</Button>
+                            <p>
+                                <span id="regnnTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
+                                <span id="regnnFalse" style={{ display: "none" }}><b>첫 글자는 영문자. 4~16자의 영문 대소문자, <br></br>숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                            </p>
+
+
                             {/* 주소 */}
                             <label>우편번호</label><br />
                             <input className="inputStyle" type="text" name="postcode" id="postcode" value={userJoin.postcode} onClick={modalToggle} readOnly />
@@ -274,9 +275,10 @@ function Join() {
 
                     </section>
                 </div>
-            </form>
+            </form >
             {/* 우편번호 검색 모달 */}
-            <Modal isOpen={modalShow} fade={true} toggle={modalToggle} style={{ witop: "100px", left: "28%" }}>
+            < Modal isOpen={modalShow} fade={true} toggle={modalToggle} style={{ witop: "100px", left: "28%" }
+            }>
                 <ModalHeader toggle={modalToggle}>주소 검색</ModalHeader>
                 <ModalBody>
                     <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} />
@@ -284,8 +286,8 @@ function Join() {
                 <ModalFooter color="secondary" onClick={modalToggle}>
                     {/* <Button color='secondary'>닫기</Button> */}
                 </ModalFooter>
-            </Modal>
-        </div>
+            </ Modal>
+        </div >
     )
 };
 

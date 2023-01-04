@@ -1,6 +1,6 @@
 import { useState } from "react"
-import { Button, Form } from "reactstrap";
 import { Link } from 'react-router-dom';
+import { Form, FormGroup, Input, Button, Col } from 'reactstrap';
 
 
 export default function ToDoList() {
@@ -16,11 +16,6 @@ export default function ToDoList() {
 
     const [toDo, SetToDo] = useState("");
     const [toDos, SetToDos] = useState([]);
-
-    // let [i, SetI] = useState(1)
-    // const num_array = () => {
-    //     for i in range(SetToDos.length)
-    // }
 
     const writetodo = (item) => {
         SetToDo(item.target.value);
@@ -49,17 +44,33 @@ export default function ToDoList() {
             </div>
             <hr />
 
-            <Form onSubmit={submit}>
-                <input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
-                <Button outline color="primary"> Add To do </Button>
-            </Form>
-            <div className="list_array">
-                <ul >
-                    {toDos.map((item, index) => (
-                        <li key={index}>{item}</li>
-                    ))}
-                </ul>
+            <div style={{
+                width: '1000px'
+                , height: '1000px'
+                , margin: '0px auto'
+                , padding: '30px 30px 30px 30px'
+
+            }}>
+                <Form>
+                    <div className="todo-wrap">
+                        <FormGroup row >
+                            <Col sm={10}>
+                                <Input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
+                            </Col>
+                            <Col sm={2} className="add_btn">
+                                <Button outline color="primary" onClick={submit}> <b>Add To do</b> </Button>
+                            </Col>
+                        </FormGroup>
+                    </div>
+                </Form>
+                <div >
+                    <ul >
+                        {toDos.map((item, index) => (
+                            <li className="list_array" key={index}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-        </div>
+        </div >
     );
 }

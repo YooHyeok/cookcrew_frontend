@@ -4,15 +4,12 @@ import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBo
 import DaumPostcode from 'react-daum-postcode';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
-// import { ReactDOM } from "react";
-// import { Files } from "react-files";
-// import { JustifyLeft } from "react-bootstrap-icons";
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 export default function MyPageMod() {
     const divStyle = {
-        width: '1200px' //캘린더 width 조절을 위해 부모태그에 설정한다.
-        , height: '780px'
+        width: '1200px'
+        , height: '900px'
         , textAlign: 'center'
         , margin: '100px auto'
         , marginBottom: '20px'
@@ -20,11 +17,11 @@ export default function MyPageMod() {
         , top: '100'
     };
 
+    const [src, setSrc] = useState('/img/profile.jpg');
     const userId = useSelector((state) => { return state.UserId });
 
-    const [usernickname, setUsernickname] = useState('')
     const [userin, setUserIn] = useState({
-        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: '', file: null
+        nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: '', thumbnail: null
     });
 
     useEffect(() => {
@@ -34,14 +31,14 @@ export default function MyPageMod() {
                 // console.log(res);
                 // console.log(res.data);
                 setUserIn(res.data);
-                setUsernickname(res.data.nickname)
+                if (res.data.thumbnail != null) {
+                    setSrc(userin.thumbnail);
+                }
             }).catch((error) => {
                 console.log(error)
             })
     }, [])
 
-
-    const [imgURL, setImgURL] = useState('');
 
     const setChange = (e) => {
         const name = e.target.name;
@@ -57,10 +54,9 @@ export default function MyPageMod() {
         }
     }
     //정규식
-    const [validNN, setValidNN] = useState(false);
-
+    const [validNN, setValidNN] = useState(true);
     //중복확인
-    const [existNn, setExistNn] = useState(false);
+    const [useableNn, setUseableNn] = useState(true);
 
     // 주소 모달
     const [modalShow, setModalShow] = useState(false);
@@ -102,12 +98,11 @@ export default function MyPageMod() {
             .then((res) => {
                 if (res.data === false) {
                     alert("사용 가능합니다.");
-                    setUsernickname(userin.nickname)
-                    setExistNn(true)
+                    setUseableNn(true)
                 }
                 else if (res.data === true) {
                     alert("중복되는 닉네임입니다.")
-                    setExistNn(false)
+                    setUseableNn(false)
                 }
             }).catch((error) => {
                 // alert("중복되는 아이디 입니다.")
@@ -118,30 +113,40 @@ export default function MyPageMod() {
 
     // 파일 기능들
     const fileChange = (e) => {
-        setUserIn({ file: e.target.files[0] })
+        setUserIn({ ...userin, thumbnail: e.target.files[0] })
+        console.log(e.value);
+        readImage(e.target);
+
     }
+
+    const readImage = (input) => {
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                setSrc(e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
 
     const submit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        // console.log(formData)
-        // console.log(userin)
+        // console.log(userin.file)
 
-
-        if (userin.nickname == usernickname) {
+        if (validNN && useableNn) {
             console.log(userin)
-            axios.post('/mypagemod', null, { params: userin })
-                .then((res) => {
-                    alert("수정이 완료되었습니다.")
-                    document.location.href = "/mypage"
-                }).catch((error) => {
-                    console.log("error")
-                })
-        }
-        else if (validNN && existNn) {
-            // axios.post('/join', formData)
-            console.log(userin)
-            axios.post('/mypagemod', userin)
+            formData.append('id', userin.id);
+            formData.append('file', userin.thumbnail);
+            formData.append('nickname', userin.nickname);
+            formData.append('postcode', userin.postcode);
+            formData.append('address', userin.address);
+            formData.append('addrDetail', userin.addrDetail);
+            formData.append('email', userin.email);
+            console.log(formData);
+            axios.post('/mypagemod', formData)
                 .then((res) => {
                     alert("수정이 완료되었습니다.")
                     document.location.href = "/mypage"
@@ -180,11 +185,11 @@ export default function MyPageMod() {
 
                     <Form style={{ width: "400px", margin: '0px auto' }}>
                         {/* 프로필 */}
-                        <div row>
-                            <img src={imgURL} alt="" />
+                        <div className="profile-wrap">
+                            <img className="profile" src={src} alt="profile" />
                         </div>
                         <FormGroup row>
-                            <Input type="file" name="file" id="file" onChange={fileChange} accept='image/*'></Input>
+                            <Input type="file" name="file" id="file" onChange={fileChange} accept='image/*' ></Input>
                         </FormGroup>
                         {/* 닉네임 */}
                         <FormGroup row>
@@ -193,11 +198,11 @@ export default function MyPageMod() {
                                 <Input type='text' name='nickname' id='nickname' value={userin.nickname} onChange={setNnInfo} required />
                             </Col>
                             <Col sm={3} >
-                                <Button outline color='primary' style={{ width: '100%' }} onClick={CheckNN}>변경</Button>
+                                <Button outline color='primary' style={{ width: '100%' }} onClick={CheckNN}>중복</Button>
                             </Col>
                             <p>
-                                <span id="regnnTrue" style={{ display: "none" }}><b>사용 가능한 닉네임입니다.</b></span>
-                                <span id="regnnFalse" style={{ display: "none" }}><b>4~16자의 영문 대소문자, <br />숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
+                                <span id="regnnTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
+                                <span id="regnnFalse" style={{ display: "none" }}><b>첫 글자는 영문자와 4~16자의 영문 대소문자, <br />숫자와 특수기호(_),(-)만 사용가능합니다.</b></span>
                             </p>
                         </FormGroup>
                         {/* 아이디 */}
@@ -246,6 +251,7 @@ export default function MyPageMod() {
                                 <Input type="text" name="grade" id="grade" sm={8} value={userin.addrDetail} required placeholder="해당하지 않을경우 없음 입력" />
                             </Col>
                         </FormGroup>
+                        {/* 수정 완료 버튼 */}
                         <FormGroup row>
                             <Col sm={4} >
                                 <Link to={'/mypage'}><Button color='primary' style={{ width: '400px' }} onClick={submit}>수정 완료</Button></Link>
@@ -259,6 +265,7 @@ export default function MyPageMod() {
                         <ModalBody>
                             <DaumPostcode onComplete={addressHandle.selectAddress} autoClose={false} />
                         </ModalBody>
+
                         <ModalFooter color="secondary" onClick={modalToggle}>
                             {/* <Button color='secondary'>닫기</Button> */}
                         </ModalFooter>

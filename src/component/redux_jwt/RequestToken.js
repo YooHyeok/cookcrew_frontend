@@ -2,7 +2,7 @@ import axios from "axios"
 
 export const reqToken = async (token, dispatch, cookie, setCookie) => {
     try {
-        const res = await axios.post('http://localhost:8090/loginCheck', null,
+        const res = await axios.post('/loginCheck', null,
             {
                 headers: { Authorization: token + "," + cookie.refreshToken }
             });
