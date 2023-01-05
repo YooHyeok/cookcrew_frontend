@@ -34,6 +34,7 @@ export default function MyPageMod() {
                 if (res.data.filename != null) {
                     setSrc("/profile/" + res.data.id);
                 }
+
             }).catch((error) => {
                 console.log(error)
             })
