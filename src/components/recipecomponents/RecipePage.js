@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
   Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
+  CardTitle, CardSubtitle, Button,
+  Form, Input
 } from 'reactstrap';
 import { Link, useParams } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
-import './RecipePage.css';
+// import './RecipePage.css';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-
-
-
-
+import ButtonSecondary from '../../shared/Button/ButtonSecondary';
 
 function RecipePage() {
   const userId = useSelector((state) => { return state.UserId });
@@ -24,8 +22,10 @@ function RecipePage() {
   });
 
   const [recipes, setRecipes] = useState([]);
-  const [scoreList,setScoreList] = useState([]);
+  const [scoreList, setScoreList] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
+  
+  const [keyword, setKeyword] = useState('');
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);
@@ -53,24 +53,34 @@ function RecipePage() {
       })
   }
 
+
+  const keywordChange = (e) => {
+    setKeyword(e.target.value);
+  }
+
   return (
     <div>
       <div className="title">
-        <div className="font-semibold text-5xl text-left ml-36 mr-10 mt-20 pt-20">
+        <div className="text-5xl text-left ml-36 mr-10 mt-10 pt-20">
           전체 레시피
         </div>
-        <div>
-          <form>
-            <input placeholder='검색어를 입력하세요'></input>
-            <Button type='submit'>검색</Button>
-          </form>
+        <div style={{marginLeft:"1105px", marginBottom:"10px"}}>
+            <Link to = '/recipecreate'>
+              <ButtonSecondary>레시피 등록하기</ButtonSecondary>
+            </Link>
         </div>
+        <div className='ml-96'>
+            <input style={{width:"300px",marginLeft:"502px", border:"solid 1px", borderRadius:"5px"}} type="keyword" name="keyword" id="keyword"  value={keyword} placeholder="검색어를 입력하세요"  onChange={keywordChange}/>
+            <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
+        </div>
+        
       </div>
-      <section className='body'>
-        <div className=''
+      <section>
+        <div
           style={{
 
-            width: "768px",
+            width: "1356px",
+            margin: "0 auto",
             display: "grid",
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
@@ -96,21 +106,23 @@ function RecipePage() {
                 </Link>
               </div>
 
-              <CardBody className=''>
+              <CardBody className='cardbody '>
                 <Link to={`/reciperef/${c.rno}`}>
-                  <CardTitle tag="h5">
-                    {c.title}
-                  </CardTitle>
-                  <CardSubtitle
-                    className="mb-2 text-muted"
-                    tag="h6"
-                  >
-                    칼로리: {c.kcal}
-                  </CardSubtitle>
-                  <CardText className="mb-2 text-muted"
-                    tag="h6">
-                    작성자: {c.regId}
-                  </CardText>
+                  <div className='content-end '>
+                    <CardTitle tag="h5">
+                      {c.title}
+                    </CardTitle>
+                    <CardSubtitle
+                      className="mb-2 text-muted"
+                      tag="h6"
+                    >
+                      칼로리: {c.kcal}
+                    </CardSubtitle>
+                    <CardText className="mb-2 text-muted"
+                      tag="h6">
+                      작성자: {c.regId}
+                    </CardText>
+                  </div>
                 </Link>
                 {/* <Button
                         className='bg-white'>
@@ -144,15 +156,16 @@ function RecipePage() {
               )
             }
           }
-          array.unshift(
-            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
+          if (pageInfo.curPage != 1)
+            array.unshift(
+              <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage - 1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
 
-          )
-          
-          array.push(
-            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
+            )
+          if (pageInfo.curPage != Math.max(pageInfo.allPage))
+            array.push(
+              <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage + 1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
 
-          )
+            )
           return array;
         })()}
       </div>

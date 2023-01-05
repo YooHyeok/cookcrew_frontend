@@ -42,6 +42,7 @@ import ToDoList from './component/user/ToDoList';
 // import Profile from './component/user/Profile';
 import RecipePage from './components/recipecomponents/RecipePage';
 import DietChallenge from './component/rank/DietChallenge';
+import SearchResult from './components/recipecomponents/SearchResult';
 
 function App() {
   return (
@@ -72,6 +73,8 @@ function App() {
               <Route exact path='/todolist' element={<ToDoList />} />{/* 마이페이지 투두리스트 */}
               <Route exact path='/myrecipe/:userId' element={<MyRecipe />} />
               <Route exact path='/mylikelist/:userId' element={<MyLikelist />} />
+              <Route exact path='/searchresult/:keyword' element={<SearchResult/>} />
+              
 
             </Routes>
             <Footer />
