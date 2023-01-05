@@ -53,18 +53,38 @@
   /* color: darkgray; */
   color: black;
 }
-.footer-items {
+.footer-items-0 {
+  list-style: none;
+  /* margin: 0px auto; */
+  width:17%;
+  height:220px !important;
+  float: left;
+  padding:0;
+}
+.footer-items-1 {
   list-style: none;
   margin: 0px auto;
+  width:53%;
+  height:220px !important;
+  float: left;
+  padding:0;
+}
+.footer-items-2 {
+  list-style: none;
+  margin: 0px auto;
+  width:30%;
+  height:220px !important;
+  float: right;
+  padding:0;
 }
 .footer-item {
   display: inline-block;
-  height: 100px;
+  height: 220px;
   padding: 0 10px;
   /* text-align: center; */
-  min-width: 80px;
+  min-width: 220px;
   margin: 0 10px;
-  line-height: 80px;
+  line-height: 30px;
 }
 .footer-item > a {
   font-size: x-small;

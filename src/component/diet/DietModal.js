@@ -87,19 +87,26 @@ export default function DietModal({dietValue}) {
     axios.get(url, param)
     .then((res)=>{
       setDietListArray(res.data.dietList)
-      setTargetKcal(res.data.achieve.targetKcal == undefined ? 0 : res.data.achieve.targetKcal)
+      // targetKacl이 널 혹은 undefined일경우 0 그렇지않으면 타겟칼로리 반환
+      setTargetKcal(
+        res.data.achieve.targetKcal == undefined || res.data.achieve.targetKcal == null ? 0 : res.data.achieve.targetKcal
+        )
+        
       if(res.data.dietList.length > 0) {
         let kcalTotalSum = 0;
         for(let i=0; i<res.data.dietList.length; i++) {
           kcalTotalSum += res.data.dietList[i].recipe.kcal;
         }
+        console.log(kcalTotalSum)
         setTotalKcal(kcalTotalSum)
         setAchieve(res.data.achieve.achieve)
-      }
-      if(res.data.achieve.achieve == undefined) {
+      }else {
         setTotalKcal(0)
+      }
+      if(res.data.achieve.achieve == undefined || res.data.achieve.achieve == null) {
         setAchieve(false)
       }
+      
     })
     .catch((res)=>{
     })
@@ -454,7 +461,7 @@ export default function DietModal({dietValue}) {
                     <td>
                       <Input type="text" id="kcalInput" style={{width:"70px",height:"20px", display:"inline-block"}}
                             value={targetKcal} disabled={disaabled} onChange={(e)=>{
-                              if(e.target.value == 0)
+                              // if(e.target.value == 0)
                               setTargetKcal(e.target.value);
                               }}/>Kcal
                     </td>

@@ -44,9 +44,9 @@ export default function ToDoList() {
             <div className="screen-wrap">
                 <div className="screen-header">
                     <Link to={"/mypage"}><span> 내 정보 </span></Link>
-                    <Link to={"/"}><span> 나의 레시피 </span></Link>
-                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
-                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
+                    {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
                     <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>
