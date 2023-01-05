@@ -25,6 +25,7 @@ export default function Tumbnail() {
     const [enabled, setEnabled] = useState('');
     const [regDate,setRegDate] = useState('');
     const [modDate,setModDate] = useState('');
+    const [kcal,setKcal] = useState(0);
 
     const [ratingValue, setRatingValue] = useState(0);
 
@@ -47,6 +48,7 @@ export default function Tumbnail() {
                 setEnabled(rcp.enabled)
                 setRegDate(rcp.regDate)
                 setModDate(rcp.modDate)
+                setKcal(rcp.kcal)
                 // console.log(title);
             })
             .catch((error) => {
@@ -58,7 +60,7 @@ export default function Tumbnail() {
         axios.get(`/ratingvalue/${rNo}`)
             .then((response) => {
                 const view = response.data;
-                // console.log(response.data);
+                console.log(response.data);
 
                 /* const sumRate = view.reduce(function add(sum, currValue) {
                     return sum + currValue;
@@ -110,8 +112,8 @@ export default function Tumbnail() {
                                 <span><BsHeartFill className='inline' />&nbsp;17</span>&nbsp;&nbsp;
                                 <div style={{float:'right'}}>
                                     {regDate === modDate ?
-                                        <span style={{fontSize:'12px'}}>등록일자&nbsp;{regDate}</span>
-                                        : <span style={{fontSize:'12px'}}>수정일자&nbsp;{modDate}</span>                            
+                                        <span style={{fontSize:'16px'}}>등록일자&nbsp;{regDate}</span>
+                                        : <span style={{fontSize:'16px'}}>수정일자&nbsp;{modDate}</span>                            
                                     }
                                 </div>
                             </div><hr />
@@ -156,6 +158,11 @@ export default function Tumbnail() {
                                     <h3 style={{ fontSize: '20px' }}><strong>양념</strong></h3>
                                     <p style={{ fontSize: '16px' }}>
                                         {source}
+                                    </p>
+                                </div>
+                                <div id='exp_source'>
+                                <p style={{ fontSize: '20px' }}>
+                                        <strong>열량:</strong>&nbsp;{kcal}&nbsp;kcal
                                     </p>
                                 </div>
 
