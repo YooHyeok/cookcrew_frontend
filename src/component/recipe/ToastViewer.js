@@ -33,7 +33,7 @@ export default function ToastViewer() {
 
   if (enabled == true) {
     return (
-      <div style={{ fontSize: '16px' }}>
+      <div style={{ fontSize: '24px' }}>
         {/* <Viewer initialValue={markdown}/> */}
 
         {show && <Viewer initialValue={content} />}

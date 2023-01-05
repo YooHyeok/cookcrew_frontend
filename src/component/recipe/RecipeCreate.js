@@ -12,6 +12,19 @@ export const Toast = createContext();
 
 
 export default function RecipeCreate() {
+    const divStyle = {
+        width: '1200px' //캘린더 width 조절을 위해 부모태그에 설정한다.
+        , minHeight: "860px"
+        , height: '100%'
+        , textAlign: 'left'
+        , margin: '100px auto'
+        , marginBottom: '40px'
+        // , border: '0.5px solid lightgray'
+        , padding: '30px'
+        , borderRadius: '20px'
+        , top: '100'
+    };
+
     const [rcps, setRcps] = useState({ title: '', regId: '',sTitle: '', mat: '', source: '', kcal:''  })
     const [toastHtml, setToastHtml] = useState('');
     const [toastMarkdown, setMarkdown] = useState('');
@@ -66,10 +79,10 @@ console.log(userId);
 
     return (
         <Toast.Provider value={context} >
-            <div>
+            <div >
                 <br />
                 <div>
-                    <h2>레시피 작성</h2>
+                    <h1>레시피 작성</h1>
                     <div>
                         <br />
                         <form>
