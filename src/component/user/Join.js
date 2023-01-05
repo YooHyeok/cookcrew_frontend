@@ -8,9 +8,6 @@ import DaumPostcode from 'react-daum-postcode';
 
 function Join() {
 
-
-
-
     const [userJoin, setUserJoin] = useState({
         // nickname: '', id: '', password: '', address: '', detailaddress: '', email: '', checked: ''
         nickname: '', id: '', password: '', postcode: '', address: '', addrDetail: '', email: ''
@@ -213,7 +210,7 @@ function Join() {
                             {/* 아이디 */}
                             <div>
                                 <label htmlFor="id">ID</label><br />
-                                <input className="inputStyle" type="text" name="id" id="id" placeholder="id" value={userJoin.id} onChange={setIdInfo} required />
+                                <input className="inputStyle" type="text" name="id" id="id" placeholder="id" value={userJoin.id} onChange={setIdInfo} required autoFocus />
                                 <Button outline color='primary' className="CheckBtn" onClick={CheckId}>중복 확인</Button>
                                 <p>
                                     <span id="regTrue" style={{ display: "none" }}><b>알맞은 형식입니다. 중복 확인을 해주세요.</b></span>
