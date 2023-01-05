@@ -31,8 +31,8 @@ export default function MyPageMod() {
                 // console.log(res);
                 // console.log(res.data);
                 setUserIn(res.data);
-                if (res.data.thumbnail != null) {
-                    setSrc(userin.thumbnail);
+                if (res.data.filename != null) {
+                    setSrc("/profile/" + res.data.id);
                 }
             }).catch((error) => {
                 console.log(error)
@@ -176,10 +176,10 @@ export default function MyPageMod() {
             <div>
                 <div style={{
                     width: '500px'
-                    , height: '475px'
+                    , height: '500px'
                     , margin: '0px auto'
                     // , border: '0.5px solid gray'
-                    , padding: '30px'
+                    // , padding: '30px'
                     // , borderRadius: '20px'
                 }}>
 
