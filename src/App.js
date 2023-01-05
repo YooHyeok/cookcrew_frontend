@@ -44,6 +44,7 @@ import DietChallenge from './component/rank/DietChallenge';
 import MyRecipeList from './component/recipe/MyRecipeList';
 import MyPageRecipeCardList from './component/recipe/MyPageRecipeCardList';
 
+import SearchResult from './components/recipecomponents/SearchResult';
 function App() {
   return (
 
@@ -79,7 +80,7 @@ function App() {
               {/* 나의 레시피 */}
               <Route exact path='/myrecipelist' element={<MyRecipeList />} />
               <Route exact path='/mypagerecipelist' element={<MyPageRecipeCardList />} />
-
+              <Route exact path='/searchresult/:keyword' element={<SearchResult/>} />
             </Routes>
             <Footer />
           </BrowserRouter>
