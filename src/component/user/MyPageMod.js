@@ -114,7 +114,10 @@ export default function MyPageMod() {
 
     // 파일 기능들
     const fileChange = (e) => {
-        setUserIn({...userin, file: e.target.files[0] })
+        setUserIn({ ...userin, thumbnail: e.target.files[0] })
+        console.log(e.value);
+        readImage(e.target);
+
     }
 
     const readImage = (input) => {

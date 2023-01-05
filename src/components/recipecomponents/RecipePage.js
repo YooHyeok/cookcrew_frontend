@@ -24,8 +24,8 @@ function RecipePage() {
   const [recipes, setRecipes] = useState([]);
   const [scoreList, setScoreList] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
-  
-  const [keyword, setKeyword] = useState('');
+
+  const [keyword, setKeyword] = useState('keyword');
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);
@@ -64,16 +64,16 @@ function RecipePage() {
         <div className="text-5xl text-left ml-36 mr-10 mt-10 pt-20">
           전체 레시피
         </div>
-        <div style={{marginLeft:"1105px", marginBottom:"10px"}}>
-            <Link to = '/recipecreate'>
-              <ButtonSecondary>레시피 등록하기</ButtonSecondary>
-            </Link>
+        <div style={{ marginLeft: "1105px", marginBottom: "10px" }}>
+          <Link to='/recipecreate'>
+            <ButtonSecondary>레시피 등록하기</ButtonSecondary>
+          </Link>
         </div>
         <div className='ml-96'>
-            <input style={{width:"300px",marginLeft:"502px", border:"solid 1px", borderRadius:"5px"}} type="keyword" name="keyword" id="keyword"  value={keyword} placeholder="검색어를 입력하세요"  onChange={keywordChange}/>
-            <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
+          <input style={{ width: "300px", marginLeft: "502px", border: "solid 1px", borderRadius: "5px" }} type="keyword" name="keyword" id="keyword" value={keyword} placeholder="검색어를 입력하세요" onChange={keywordChange} />
+          <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
         </div>
-        
+
       </div>
       <section>
         <div
