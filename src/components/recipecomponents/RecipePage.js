@@ -24,7 +24,7 @@ function RecipePage() {
   });
 
   const [recipes, setRecipes] = useState([]);
-  const [scoreList,setScoreList] = useState([]);
+  const [scoreList, setScoreList] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
 
   const pageRequest = (e) => {
@@ -145,12 +145,12 @@ function RecipePage() {
             }
           }
           array.unshift(
-            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage - 1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
 
           )
-          
+
           array.push(
-            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage + 1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
 
           )
           return array;
