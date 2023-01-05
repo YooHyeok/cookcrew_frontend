@@ -91,10 +91,10 @@ export default function DietListModal({modalSearchProps, data}) {
             {searchData[i].cnt}
           </td>
           <td>
-            {searchData[i].cnt}
+            {searchData[i].score}
           </td>
           <td>
-            {searchData[i].cnt}
+            {searchData[i].likeValue}
           </td>
         </tr>
       )
