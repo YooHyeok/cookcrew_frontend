@@ -40,9 +40,9 @@ export default function RecipeRef() {
     const userId = useSelector((state) => { return state.UserId });
     const [regId, setRegId] = useState('');
 
-    console.log(enabled);
-
+    
     useEffect(() => {
+        console.log(typeof enabled);
         axios.get(`/rcpref/${rNo}`)
             .then((response) => {
                 const rcp = response.data;
@@ -121,8 +121,9 @@ export default function RecipeRef() {
             })
     }
 
-    if (enabled == true) {
-        return (
+    return (
+        <div>
+           { enabled == true &&
             <div style={divStyle}>
                 <div>
                     <div>
@@ -149,9 +150,6 @@ export default function RecipeRef() {
                             : null
                         }
                     </div>
-
-
-
                 </div><br />
                 {/* <div>
                 <br /><br /><br /><br /><br />
@@ -220,12 +218,11 @@ export default function RecipeRef() {
                     </center>
                 </form>
                 <br /><br />
-            </div>
-        )
-    }
-    else {
-        return (
-            <DeletePage />
-        )
-    }
+            </div>}
+            {
+            (typeof enabled == Boolean && enabled == false)
+            && <DeletePage />
+            }
+        </div>
+    )
 }

@@ -29,11 +29,8 @@ export default function MyPage() {
                 console.log(res);
                 console.log(res.data);
                 setUser(res.data);
-                if (res.data.thumbnail != null) {
-                    let blob = new Blob([new ArrayBuffer(res.data.thumbnail)], { type: "image/jpg" });
-                    const url = window.URL.createObjectURL(blob);
-                    console.log(url);
-                    setSrc(url);
+                if (res.data.filename != null) {
+                    setSrc("/profile/" + res.data.id);
                 }
             }).catch((error) => {
                 console.log(error)
@@ -47,9 +44,9 @@ export default function MyPage() {
             <div className="screen-wrap">
                 <div className="screen-header">
                     <Link to={"/mypage"}><span> 내 정보 </span></Link>
-                    <Link to={"/"}><span> 나의 레시피 </span></Link>
-                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
-                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
+                    {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
                     <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>
@@ -63,7 +60,7 @@ export default function MyPage() {
             }}>
                 {/* 프로필 사진 영역 */}
                 <div className="profile-wrap">
-                    <img className="profile" src={user.thumbnail} alt="profile" />
+                    <img className="profile" src={src} alt="profile" />
                 </div>
                 {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }} >

@@ -1,90 +1,75 @@
-// import { useEffect } from 'react';
-// import axios from 'axios';
-// import { useSelector } from 'react-redux';
-// import {useState} from 'react';
-// import {
-//     Card, CardImg, CardText, CardBody,
-//     CardTitle, CardSubtitle, Button
-//   } from 'reactstrap';
-//   import { Link,useParams } from 'react-router-dom';
-// import LikeButton from '../../components/recipecomponents/LikeButton';
-// import { BsFillStarFill } from 'react-icons/bs';
-// import '../../components/recipecomponents/RecipePage.css';
+import { useState } from "react"
+import { Link } from 'react-router-dom';
+import { Form, FormGroup, Input, Button, Col } from 'reactstrap';
 
-// export default function MyLikelist(){
 
-//     const [recipe, setRecipe] = useState([]);
+export default function MyLikelist() {
+    const divStyle = {
+        width: '1200px'
+        , height: '780px'
+        , textAlign: 'center'
+        , margin: '100px auto'
+        , marginBottom: '20px'
+        , padding: '30px'
+        , top: '100'
+    };
 
-//     const userId = useSelector((state) => { return state.UserId });
-//     console.log(userId);
+    const [toDo, SetToDo] = useState("");
+    const [toDos, SetToDos] = useState([]);
 
-//     useEffect(()=> {
-//         axios.get(`/mylikelist/${userId}`)
-//         .then((response)=> {
-//             console.log(response);
-//             setRecipe(response.data);
-//         })
-//         .catch((error)=> {
-//             console.log(error);
-//         })
-//     },[]);
-    
-//     return(
-//         <div >
-//             <section className='body'>
-//                 <div className=''
-//                     style={{
+    const writetodo = (item) => {
+        SetToDo(item.target.value);
+    };
+    console.log(toDos);
+    const submit = (e) => {
+        e.preventDefault();
+        if (toDo === "") {
+            return;
+        }
+        SetToDos((currentArray) => [...currentArray, toDo]);
+        SetToDo("");
+    };
 
-//                         display: "grid",
-//                         gridTemplateRows: "1fr",
-//                         gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    return (
+        <div style={divStyle} >
+            <div><h1><b>  My To Dos ({toDos.length}) </b></h1></div><br />
+            <div className="screen-wrap">
+                <div className="screen-header">
+                    <Link to={"/mypage"}><span> 내 정보 </span></Link>
+                    <Link to={"/"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
+                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
+                </div>
+            </div>
+            <hr />
 
-//                     }}
-//                 >
-//                     {recipe.map(c => (
-//                         <Card key={c.rno}
-//                             style={{
-//                                 width: '18rem',
-//                                 fontSize: '1.125rem',
-//                                 cursor: 'pointer',
-//                                 padding: '0.5rem',
-//                                 margin: '1rem',
-//                             }}
-//                         >
-//                             <LikeButton></LikeButton>
-//                             <Link to={`/reciperef/${c.rno}`}>
-//                                 <img
-//                                     alt="Sample"
-//                                     src={c.thumbPath}
-//                                 />
-//                             </Link>
+            <div style={{
+                width: '1000px'
+                , height: '1000px'
+                , margin: '0px auto'
+                , padding: '30px 30px 30px 30px'
 
-//                             <CardBody>
-//                                 <Link to={`/reciperef/${c.rno}`}>
-//                                     <CardTitle tag="h5">
-//                                         {c.title}
-//                                     </CardTitle>
-//                                     <CardSubtitle
-//                                         className="mb-2 text-muted"
-//                                         tag="h6"
-//                                     >
-//                                         칼로리: {c.kcal}
-//                                     </CardSubtitle>
-//                                     <CardText className="mb-2 text-muted"
-//                                         tag="h6">
-//                                         작성자: {c.regId}
-//                                     </CardText>
-//                                 </Link>
-//                                 <div>
-//                                     <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.rating}</span>
-//                                 </div>
-//                             </CardBody>
-//                         </Card>
-
-//                     ))}
-//                 </div>
-//             </section>
-//         </div>
-//     )
-    
-// }
+            }}>
+                <Form>
+                    <div className="todo-wrap">
+                        <FormGroup row >
+                            <Col sm={10}>                                <Input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
+                            </Col>
+                            <Col sm={2} className="add_btn">
+                                <Button outline color="primary" onClick={submit}> <b>Add To do</b> </Button>
+                            </Col>
+                        </FormGroup>
+                    </div>
+                </Form>
+                <div >
+                    <ul className="list_array">
+                        {toDos.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+        </div >
+    );
+}

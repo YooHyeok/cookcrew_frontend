@@ -1,42 +1,48 @@
 import { Link } from 'react-router-dom';
-
+import {SiGithub} from "react-icons/si"
 export default function Footer() {
     const style = {
-        height:"165px",
+        height:"240px",
         marginTop:"auto",
         backgroundColor:"#dde0ea",
         textAlign : "left"
     }
     return(
         <div style={style} >
-            {/* <ul style = {{height:"140px"}} className="footer-items " >
-                <li className="footer-item inline my-4 mx-4">
-                    <Link to={'/'} id="logo"><img className='inline w-32' src={require('../../resources/img/logo/cookcrew.png')} alt=''/></Link>
+            <ul className="footer-items-0" >
+            </ul>
+            <ul className="footer-items-1" >
+                <li tyle={{paddingTop:"20px"}} className="footer-item inline ">
+                    {/* <Link to={'/'} id="logo"><img className='inline w-32' src={require('../../resources/img/logo/cookcrew.png')} alt=''/></Link> */}
+                    <Link to={'/'}><img style={{width:"240px"}} src={require('../../resources/img/logo/cookcrew3.png')} alt='' /></Link>
+                    <span>Copyright© By 2023. CookCrew All Rights Reserved.</span>
                 </li>
-                <li className="footer-item">
-                    <Link to={'/myrecipe'}>나의 레시피</Link>
+            </ul>
+            <ul className="footer-items-2" >
+                <li className="footer-item" style={{paddingTop:"40px"}}>
+                    <h5>프로젝트 참여 </h5><br/>
+                    <span>
+                        <a style={{width:"20px"}} className="inline-block social-icon" href="https://github.com/YooHyeok" target="_blank">
+                            <SiGithub className="inline"/> 
+                        </a>
+                        유재혁 : webdevyoo@gmail.com</span><br/>
+                    <span>
+                        <a style={{width:"20px"}} className="inline-block social-icon" href="https://github.com/mdmdr8" target="_blank">
+                            <SiGithub className="inline"/> 
+                        </a>
+                        박지혜 : krystle.pk@gmail.com</span><br/>
+                    <span>
+                        <a style={{width:"20px"}} className="inline-block social-icon" href="https://github.com/JoHB94" target="_blank">
+                            <SiGithub className="inline"/> 
+                        </a>
+                        조현빈 : webdp1503@gmail.com</span><br/>
+                    <span>
+                        <a style={{width:"20px"}} className="inline-block social-icon" href="https://github.com/92Lee92" target="_blank">
+                            <SiGithub className="inline"/> 
+                        </a>
+                        이규희 : devindeed92@gmail.com</span><br/>
                 </li>
-                <li className="footer-item">
-                    <Link to={'/recipelist'}>전체 레시피</Link>
-                </li>
-                <li className="footer-item">
-                    <Link to={'/dietmenu'}>다이어트 식단표</Link>
-                </li>
-            </ul> */}
-            {/* <Link style={{margin :" 0 auto",float:"right"}} to={'/'} id="logo"><img className='inline w-32' src={require('../../resources/img/logo/cookcrew.png')} alt=''/></Link> */}
-
-            <span style={{padding:"20px 20px 20px 350px",float:"left", textAlign : "left"}}>
-            유재혁 : 깃 webdevyoo@gmail.com<br/>
-            박지혜 : 깃 my_archiver@naver.com<br/>
-            조현빈 : 깃 webdp1503@gmail.com<br/>
-            이규희 : 깃 devindeed92@gmail.com<br/>
-            Copyright© By 2023. CookCrew All Rights Reserved.
-            </span>
-            <span style={{padding:"20px 350px 20px 20px", float:"right", textAlign : "left"}}>
-                <Link><h5>ABOUT US</h5></Link>
-                <Link><h5>NOTICE</h5></Link>
-                <Link><h5>ORDER</h5></Link>
-            </span>
+            </ul>
         </div>
     )
 }

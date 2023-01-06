@@ -44,7 +44,7 @@ export default function Tumbnail() {
                 setContent(rcp.content)
                 setMat(rcp.mat)
                 setSource(rcp.source)
-                setImageUrl('/img/' + rcp.thumbPath);
+                setImageUrl(rcp.thumbPath);
                 setEnabled(rcp.enabled)
                 setRegDate(rcp.regDate)
                 setModDate(rcp.modDate)

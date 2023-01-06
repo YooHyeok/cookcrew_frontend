@@ -4,17 +4,19 @@ import {
   Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button
 } from 'reactstrap';
-import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import LikeButton from './LikeButton';
+import { Link } from 'react-router-dom';
+import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
-import './RecipePage.css';
-import ButtonSecondary from '../../shared/Button/ButtonSecondary';
+import '../../components/recipecomponents/RecipePage.css';
+import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
 
 
 
-function RecipePage() {
+
+function MyLikeCardList() {
+  const userId = useSelector((state) => { return state.UserId });
+  const [isLikes, setIsLikes] = useState([]);
 
 
   const [pageInfo, setPageInfo] = useState({
@@ -22,76 +24,53 @@ function RecipePage() {
   });
 
   const [recipes, setRecipes] = useState([]);
-  const [isLikes, setIsLikes] = useState([]);
-  const [scoreList,setScoreList] = useState([]);
-  const userId = useSelector((state) => { return state.UserId });
-  const [keyword, setKeyword] = useState('');
+  // const [scoreList,setScoreList] = useState([]);
+  const [pageBtn, setPageBtn] = useState([]);
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);
+    console.log("e.target.value : " + e.target.value);
   }
 
   useEffect(() => {
     serverRequest(1);
   }, [])
-  
-  const keywordChange = (e) => {
-    setKeyword(e.target.value);
-  }
+
   const serverRequest = (page) => {
-    axios.get('/poprecipepage/' + page, {params:{userId:userId}})
+    axios.get('/mylikelist/' + page, { params: { userId: userId } })
       .then(response => {
-        console.log(response.data.pageInfo);
+        console.log(response.data);
         setPageInfo(response.data.pageInfo);
         setRecipes(response.data.recipes);
-        setIsLikes(response.data.isLikeds);
-        setScoreList(response.data.scoreList);
+        // setIsLikes(response.data.isLikeds);
+        // setScoreList(response.data.scoreList);
+        console.log("pageInfo.curPage :" + pageInfo.curPage)
+        console.log("pageInfo.startPage :" + pageInfo.startPage)
       })
       .catch(error => {
         console.log(error);
       })
   }
 
-  // useEffect(() => {
-  //   axios.get('/likestatus',{params: userId})
-  //     .then((response) => {
-  //       // console.log(response.data);
-  //       setRnos(response.data);
-  //       console.log(rnos.toString);
-  //     })
-  //     .catch((error) => {
-  //       // console.log(error);
-  //     })
-  // }, []);
-
   return (
-    <>
+    <div>
       <div className="title">
-      <div className="text-5xl text-left ml-36 mr-10 mt-10 pt-20">
-          인기 레시피
-        </div>
-        <div style={{marginLeft:"1105px", marginBottom:"10px"}}>
-            <Link to = '/recipecreate'>
-              <ButtonSecondary>레시피 등록하기</ButtonSecondary>
-            </Link>
-        </div>
-        <div className='ml-96'>
-            <input style={{width:"300px",marginLeft:"502px", border:"solid 1px", borderRadius:"5px"}} type="keyword" name="keyword" id="keyword"  value={keyword} placeholder="검색어를 입력하세요"  onChange={keywordChange}/>
-            <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
+        <div className="font-semibold text-5xl text-left ml-36 mr-10 mt-20 pt-20">
+          나의 찜목록
         </div>
       </div>
-      <section>
+      <section className='body'>
         <div className=''
           style={{
-            width: "1356px",
-            margin: "0 auto",
+
+            width: "768px",
             display: "grid",
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
 
           }}
         >
-          {recipes.map((c,idx) => (
+          {recipes.map((c, idx) => (
             <Card key={c.rno}
               style={{
                 width: '18rem',
@@ -101,17 +80,16 @@ function RecipePage() {
                 margin: '1rem',
               }}
             >
-              <div className=''>
-              <Link to={`/reciperef/${c.rno}`}>
-                <img
-                  className='self-center'
-                  alt="Sample"
-                  src={c.thumbPath}
-                />
-              </Link>
+              <div>
+                <Link to={`/reciperef/${c.rno}`}>
+                  <CardImg className='imagesize'
+                    alt="Sample"
+                    src={c.thumb_path}
+                  />
+                </Link>
               </div>
 
-              <CardBody className='card-body'>
+              <CardBody className=''>
                 <Link to={`/reciperef/${c.rno}`}>
                   <CardTitle tag="h5">
                     {c.title}
@@ -132,10 +110,11 @@ function RecipePage() {
                         <Link to = {`/reciperef/${c.rno}`}>레시피 보기</Link>
                       </Button> */}
                 <div>
+
                   {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                   {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{scoreList[idx]}</span>
-                  <span className='inline'><LikeButton rno={c.rno} isLiked={isLikes[idx]} className='inline' /></span>
+                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.score}</span>
+                  <span className='inline'><LikeButton LikeButton rno={c.rno} isLiked={c.likeValue === 1} className='inline' /></span>
 
                 </div>
               </CardBody>
@@ -158,12 +137,11 @@ function RecipePage() {
               )
             }
           }
-          if(pageInfo.curPage != 1)
           array.unshift(
             <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
 
           )
-          if(pageInfo.curPage != Math.max(pageInfo.allPage))
+          
           array.push(
             <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
 
@@ -171,9 +149,9 @@ function RecipePage() {
           return array;
         })()}
       </div>
-    </>
+    </div>
   );
 }
 
-export default RecipePage;
+export default MyLikeCardList;
 

@@ -47,9 +47,3 @@
 .cardbody {
     height: 158px;
 }
-
-div > img {
-    align-items: center;
-    align-self: center;
-    padding-top: 30px;
-}

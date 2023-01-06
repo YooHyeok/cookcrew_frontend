@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link } from 'react-router-dom';
-import { Form, FormGroup, Input, Button, Col } from 'reactstrap';
+import { Form, FormGroup, Input, Button, Col, Navigate } from 'reactstrap';
 
 
 export default function ToDoList() {
@@ -30,15 +30,23 @@ export default function ToDoList() {
         SetToDo("");
     };
 
+
+
+    // const handleOnKeyDown = (e) => {
+    //     if (e.key === "Enter") {
+    //         e.preventDefault(); //Enter 입력이 되면 클릭 이벤트 실행
+    //     }
+    // };
+
     return (
         <div style={divStyle} >
             <div><h1><b>  My To Dos ({toDos.length}) </b></h1></div><br />
             <div className="screen-wrap">
                 <div className="screen-header">
                     <Link to={"/mypage"}><span> 내 정보 </span></Link>
-                    <Link to={"/"}><span> 나의 레시피 </span></Link>
-                    <Link to={"/"}><span> 나의 찜목록 </span></Link>
-                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
+                    <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
+                    {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
                     <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>
@@ -58,7 +66,7 @@ export default function ToDoList() {
                                 <Input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
                             </Col>
                             <Col sm={2} className="add_btn">
-                                <Button outline color="primary" onClick={submit}> <b>Add To do</b> </Button>
+                                <Button outline color="primary" > <b>Add To do</b> </Button>
                             </Col>
                         </FormGroup>
                     </div>
