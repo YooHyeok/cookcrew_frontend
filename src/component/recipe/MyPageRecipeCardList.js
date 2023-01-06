@@ -1,13 +1,10 @@
 import axios from "axios";
 import { useState, useEffect} from "react";
-import {  } from 'reactstrap';
 import '../user/MyPage.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다. 토큰값과 userId값을 가져온다.
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody,
+        CardTitle, CardSubtitle, Button} from 'reactstrap';
 import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
 import '../../components/recipecomponents/RecipePage.css';

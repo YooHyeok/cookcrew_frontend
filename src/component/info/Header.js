@@ -1,14 +1,9 @@
 import { createContext, useState } from 'react';
 import './Header.css';
 import { Link } from 'react-router-dom';
-// import { Button, Dropdown } from 'reactstrap';
-// import { Search, PersonCircle } from 'react-bootstrap-icons';
-
 import HeaderDropDownLogin from "./HeaderDropDownLogin";
 import HeaderDropDownLogout from "./HeaderDropDownLogout";
-
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-
 
 export const HeaderDropDownContext = createContext();
 export default function Header() {
@@ -48,7 +43,7 @@ export default function Header() {
     const userId = useSelector( (state) => {return state.UserId} );
     
     const dietLogin = () => {
-        console.log("메롱", token , userId)
+        console.log("로그인 정보", token , userId)
         if(token == '' || userId == '') {
             alert('로그인이 필요한 페이지입니다. \n 로그인 페이지로 이동합니다.');
             document.location.href = '/login';
@@ -73,7 +68,7 @@ export default function Header() {
                         <Link style={linkStyle} onClick={(e) => { e.preventDefault(); dietLogin();}}>식단표 관리</Link>
                     </li>
                     <li className="nav-item">
-                        <Link style={linkStyle} to={'/recipelist'}>전체 레시피</Link>
+                        <Link style={linkStyle} to={'/recipepage'}>전체 레시피</Link>
                     </li>
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/popRecipe'}>인기 레시피</Link>

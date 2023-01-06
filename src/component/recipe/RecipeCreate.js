@@ -1,7 +1,5 @@
-import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import { Label } from 'reactstrap';
-import { useEffect, useRef, useState, createContext } from 'react';
+import { useState, createContext } from 'react';
 import axios from 'axios';
 import Toasteditor from './ToastEditor';
 import "./Recipe.css";
@@ -56,7 +54,7 @@ console.log(userId);
             .then((response) => {
                 console.log(response.data);
                 alert(response.data);
-                document.location.href="/recipelist"
+                document.location.href="/recipepage"
             })
             .catch((error) => {
                 console.log(error);

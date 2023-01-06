@@ -1,15 +1,12 @@
-import {
-  Form, FormGroup, InputGroup, Input, Button
-  , Modal, ModalHeader, ModalBody, ModalFooter, Table
-} from 'reactstrap';
-import {createContext, useState, useContext, useEffect, useRef } from 'react';
+import {Form, FormGroup, InputGroup, Input, Button
+  , Modal, ModalHeader, ModalBody, ModalFooter, Table} from 'reactstrap';
+import {createContext, useState, useContext, useEffect } from 'react';
 import { DietSchedulerContext } from './DietScheduler';
 import DietListModal from './DietListModal';
 import { Search } from 'react-bootstrap-icons';
 import './ModalCommon.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import { OpenWith } from '@mui/icons-material';
 
 /**
  * 식단 리스트 출력, 수정, 삭제 Modal컴포넌트
@@ -231,7 +228,6 @@ export default function DietModal({dietValue}) {
    */
   //  const submit = (mealDivStr) => {
   //   let param = {}
-  //   console.log(mealDivStr)
   //   switch (mealDivStr) {
   //     case '아침': 
   //     param = {dietDate : dietValue.dietDate, mealDiv: '1', targetKcal:targetKcal}; //사용자가 직접 체크
@@ -422,11 +418,6 @@ export default function DietModal({dietValue}) {
                 <tbody id="listTbody">
                   {dietList(dietListArray)}
                   {/* {dietListArray.map((diet, i, dietListArray)=> {
-                    console.log(dietListArray)
-                    console.log(i)
-                    console.log(diet.dno)
-                    console.log(diet.recipe.title)
-                    console.log(diet.recipe.kcal)
                     return(
                       <tr key={diet.dno} id={diet.dno}>
                         <td>
