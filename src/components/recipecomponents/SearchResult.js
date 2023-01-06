@@ -8,24 +8,26 @@ import {
 import { Link, useParams } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
-// import './RecipePage.css';
+import './RecipePage.css';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import ButtonSecondary from '../../shared/Button/ButtonSecondary';
 
-function RecipePage() {
+
+
+
+
+function SearchResult() {
   const userId = useSelector((state) => { return state.UserId });
   const [isLikes, setIsLikes] = useState([]);
-
-
+  const { keyword } = useParams();
   const [pageInfo, setPageInfo] = useState({
     allPage: 0, curPage: 0, startPage: 0, endPage: 0
   });
 
-  const [recipes, setRecipes] = useState([]);
-  const [scoreList, setScoreList] = useState([]);
-  const [pageBtn, setPageBtn] = useState([]);
+  const [searchKeyword, setSearchKeyword] = useState(keyword);
 
-  const [keyword, setKeyword] = useState('');
+  const [recipes, setRecipes] = useState([]);
+  const [scoreList,setScoreList] = useState([]);
+  const [pageBtn, setPageBtn] = useState([]);
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);
@@ -34,10 +36,11 @@ function RecipePage() {
 
   useEffect(() => {
     serverRequest(1);
+    
   }, [])
 
   const serverRequest = (page) => {
-    axios.get('/recipepage/' + page, { params: { userId: userId } })
+    axios.get('/recipesearch/' + page, { params: { userId: userId }, params: {keyword: searchKeyword} })
       .then(response => {
         console.log(response.data);
         setPageInfo(response.data.pageInfo);
@@ -53,34 +56,26 @@ function RecipePage() {
       })
   }
 
-
   const keywordChange = (e) => {
-    setKeyword(e.target.value);
+    setSearchKeyword(e.target.value);
   }
 
   return (
     <div>
       <div className="title">
-        <div className="text-5xl text-left ml-36 mr-10 mt-10 pt-20">
-          전체 레시피
-        </div>
-        <div style={{ marginLeft: "1105px", marginBottom: "10px" }}>
-          <Link to='/recipecreate'>
-            <ButtonSecondary>레시피 등록하기</ButtonSecondary>
-          </Link>
+        <div className=" text-5xl text-left ml-36 mr-10 mt-20 pt-20">
+          검색 결과 <span style={{fontSize:"36px"}}>'{keyword}'</span>
         </div>
         <div className='ml-96'>
-          <input style={{ width: "300px", marginLeft: "502px", border: "solid 1px", borderRadius: "5px" }} type="keyword" name="keyword" id="keyword" value={keyword} placeholder="검색어를 입력하세요" onChange={keywordChange} />
-          <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
+            <input style={{width:"300px",marginLeft:"502px", border:"solid 1px", borderRadius:"5px"}} type="keyword" name="keyword" id="keyword"  value={keyword} placeholder="검색어를 입력하세요"  onChange={keywordChange}/>
+            <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
         </div>
-
       </div>
-      <section>
-        <div
+      <section className='body'>
+        <div className=''
           style={{
 
-            width: "1356px",
-            margin: "0 auto",
+            width: "768px",
             display: "grid",
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
@@ -106,23 +101,21 @@ function RecipePage() {
                 </Link>
               </div>
 
-              <CardBody className='cardbody '>
+              <CardBody className=''>
                 <Link to={`/reciperef/${c.rno}`}>
-                  <div className='content-end '>
-                    <CardTitle tag="h5">
-                      {c.title}
-                    </CardTitle>
-                    <CardSubtitle
-                      className="mb-2 text-muted"
-                      tag="h6"
-                    >
-                      칼로리: {c.kcal}
-                    </CardSubtitle>
-                    <CardText className="mb-2 text-muted"
-                      tag="h6">
-                      작성자: {c.regId}
-                    </CardText>
-                  </div>
+                  <CardTitle tag="h5">
+                    {c.title}
+                  </CardTitle>
+                  <CardSubtitle
+                    className="mb-2 text-muted"
+                    tag="h6"
+                  >
+                    칼로리: {c.kcal}
+                  </CardSubtitle>
+                  <CardText className="mb-2 text-muted"
+                    tag="h6">
+                    작성자: {c.regId}
+                  </CardText>
                 </Link>
                 {/* <Button
                         className='bg-white'>
@@ -143,7 +136,7 @@ function RecipePage() {
         </div>
       </section>
       <div>
-        {(() => {
+      {/* {(() => {
           const array = [];
           for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
             if (i == pageInfo.curPage) {
@@ -156,22 +149,22 @@ function RecipePage() {
               )
             }
           }
-          if (pageInfo.curPage != 1)
-            array.unshift(
-              <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage - 1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
+          if(pageInfo.curPage != 1)
+          array.unshift(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
 
-            )
-          if (pageInfo.curPage != Math.max(pageInfo.allPage))
-            array.push(
-              <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage + 1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
+          )
+          if(pageInfo.curPage != Math.max(pageInfo.allPage))
+          array.push(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
 
-            )
+          )
           return array;
-        })()}
+        })()} */}
       </div>
     </div>
   );
 }
 
-export default RecipePage;
+export default SearchResult;
 

@@ -1,15 +1,12 @@
-import {
-  Form, FormGroup, InputGroup, Input, Button
-  , Modal, ModalHeader, ModalBody, ModalFooter, Table
-} from 'reactstrap';
-import {createContext, useState, useContext, useEffect, useRef } from 'react';
+import {Form, FormGroup, InputGroup, Input, Button
+  , Modal, ModalHeader, ModalBody, ModalFooter, Table} from 'reactstrap';
+import {createContext, useState, useContext, useEffect } from 'react';
 import { DietSchedulerContext } from './DietScheduler';
 import DietListModal from './DietListModal';
 import { Search } from 'react-bootstrap-icons';
 import './ModalCommon.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import { OpenWith } from '@mui/icons-material';
 
 /**
  * 식단 리스트 출력, 수정, 삭제 Modal컴포넌트
@@ -87,19 +84,26 @@ export default function DietModal({dietValue}) {
     axios.get(url, param)
     .then((res)=>{
       setDietListArray(res.data.dietList)
-      setTargetKcal(res.data.achieve.targetKcal == undefined ? 0 : res.data.achieve.targetKcal)
+      // targetKacl이 널 혹은 undefined일경우 0 그렇지않으면 타겟칼로리 반환
+      setTargetKcal(
+        res.data.achieve.targetKcal == undefined || res.data.achieve.targetKcal == null ? 0 : res.data.achieve.targetKcal
+        )
+        
       if(res.data.dietList.length > 0) {
         let kcalTotalSum = 0;
         for(let i=0; i<res.data.dietList.length; i++) {
           kcalTotalSum += res.data.dietList[i].recipe.kcal;
         }
+        console.log(kcalTotalSum)
         setTotalKcal(kcalTotalSum)
         setAchieve(res.data.achieve.achieve)
-      }
-      if(res.data.achieve.achieve == undefined) {
+      }else {
         setTotalKcal(0)
+      }
+      if(res.data.achieve.achieve == undefined || res.data.achieve.achieve == null) {
         setAchieve(false)
       }
+      
     })
     .catch((res)=>{
     })
@@ -224,7 +228,6 @@ export default function DietModal({dietValue}) {
    */
   //  const submit = (mealDivStr) => {
   //   let param = {}
-  //   console.log(mealDivStr)
   //   switch (mealDivStr) {
   //     case '아침': 
   //     param = {dietDate : dietValue.dietDate, mealDiv: '1', targetKcal:targetKcal}; //사용자가 직접 체크
@@ -415,11 +418,6 @@ export default function DietModal({dietValue}) {
                 <tbody id="listTbody">
                   {dietList(dietListArray)}
                   {/* {dietListArray.map((diet, i, dietListArray)=> {
-                    console.log(dietListArray)
-                    console.log(i)
-                    console.log(diet.dno)
-                    console.log(diet.recipe.title)
-                    console.log(diet.recipe.kcal)
                     return(
                       <tr key={diet.dno} id={diet.dno}>
                         <td>
@@ -454,7 +452,7 @@ export default function DietModal({dietValue}) {
                     <td>
                       <Input type="text" id="kcalInput" style={{width:"70px",height:"20px", display:"inline-block"}}
                             value={targetKcal} disabled={disaabled} onChange={(e)=>{
-                              if(e.target.value == 0)
+                              // if(e.target.value == 0)
                               setTargetKcal(e.target.value);
                               }}/>Kcal
                     </td>

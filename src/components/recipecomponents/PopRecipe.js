@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토
 import LikeButton from './LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
 import './RecipePage.css';
+import ButtonSecondary from '../../shared/Button/ButtonSecondary';
 
 
 
@@ -22,8 +23,10 @@ function RecipePage() {
 
   const [recipes, setRecipes] = useState([]);
   const [isLikes, setIsLikes] = useState([]);
+  const [scoreList,setScoreList] = useState([]);
   const userId = useSelector((state) => { return state.UserId });
-  const [rnos, setRnos] = useState([]);
+  const [keyword, setKeyword] = useState('');
+
   const pageRequest = (e) => {
     serverRequest(e.target.value);
   }
@@ -31,7 +34,10 @@ function RecipePage() {
   useEffect(() => {
     serverRequest(1);
   }, [])
-
+  
+  const keywordChange = (e) => {
+    setKeyword(e.target.value);
+  }
   const serverRequest = (page) => {
     axios.get('/poprecipepage/' + page, {params:{userId:userId}})
       .then(response => {
@@ -39,6 +45,7 @@ function RecipePage() {
         setPageInfo(response.data.pageInfo);
         setRecipes(response.data.recipes);
         setIsLikes(response.data.isLikeds);
+        setScoreList(response.data.scoreList);
       })
       .catch(error => {
         console.log(error);
@@ -60,15 +67,24 @@ function RecipePage() {
   return (
     <>
       <div className="title">
-        <div className="font-semibold text-5xl text-left ml-36 mr-10 mt-20 pt-20">
+      <div className="text-5xl text-left ml-36 mr-10 mt-10 pt-20">
           인기 레시피
         </div>
+        <div style={{marginLeft:"1105px", marginBottom:"10px"}}>
+            <Link to = '/recipecreate'>
+              <ButtonSecondary>레시피 등록하기</ButtonSecondary>
+            </Link>
+        </div>
+        <div className='ml-96'>
+            <input style={{width:"300px",marginLeft:"502px", border:"solid 1px", borderRadius:"5px"}} type="keyword" name="keyword" id="keyword"  value={keyword} placeholder="검색어를 입력하세요"  onChange={keywordChange}/>
+            <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
+        </div>
       </div>
-      <section className='body'>
+      <section>
         <div className=''
           style={{
-
-            width: "768px",
+            width: "1356px",
+            margin: "0 auto",
             display: "grid",
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
@@ -118,7 +134,7 @@ function RecipePage() {
                 <div>
                   {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                   {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.rating}</span>
+                  <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{scoreList[idx]}</span>
                   <span className='inline'><LikeButton rno={c.rno} isLiked={isLikes[idx]} className='inline' /></span>
 
                 </div>
@@ -132,11 +148,26 @@ function RecipePage() {
         {(() => {
           const array = [];
           for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
-            array.push(
-              <span key={i}><Button className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
-            )
+            if (i == pageInfo.curPage) {
+              array.push(
+                <span key={i}><Button color='primary' className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
+              )
+            } else {
+              array.push(
+                <span key={i}><Button outline color='secondary' className='numberbutton' value={i} onClick={pageRequest}>{i}</Button>&nbsp;&nbsp;</span>
+              )
+            }
           }
-          console.log(array.length)
+          if(pageInfo.curPage != 1)
+          array.unshift(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage-1} onClick={pageRequest}>{"<"}</Button>&nbsp;&nbsp;</span>
+
+          )
+          if(pageInfo.curPage != Math.max(pageInfo.allPage))
+          array.push(
+            <span ><Button outline color='secondary' className='numberbutton' value={pageInfo.curPage+1} onClick={pageRequest}>{">"}</Button>&nbsp;&nbsp;</span>
+
+          )
           return array;
         })()}
       </div>
