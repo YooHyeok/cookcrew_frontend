@@ -25,7 +25,7 @@ function RecipePage() {
   const [scoreList, setScoreList] = useState([]);
   const [pageBtn, setPageBtn] = useState([]);
 
-  const [keyword, setKeyword] = useState('keyword');
+  const [keyword, setKeyword] = useState('');
 
   const pageRequest = (e) => {
     serverRequest(e.target.value);

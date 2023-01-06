@@ -136,7 +136,7 @@ function SearchResult() {
         </div>
       </section>
       <div>
-      {(() => {
+      {/* {(() => {
           const array = [];
           for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
             if (i == pageInfo.curPage) {
@@ -160,7 +160,7 @@ function SearchResult() {
 
           )
           return array;
-        })()}
+        })()} */}
       </div>
     </div>
   );
