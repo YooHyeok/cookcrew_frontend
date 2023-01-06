@@ -158,6 +158,7 @@ export default function MyPageMod() {
             alert("입력한 정보가 올바르지 않습니다.");
         }
     }
+    
 
 
 
@@ -169,7 +170,7 @@ export default function MyPageMod() {
                     <Link to={"/mypage"}><span> 내 정보 </span></Link>
                     <Link to={"/"}><span> 나의 레시피 </span></Link>
                     <Link to={"/"}><span> 나의 찜목록 </span></Link>
-                    <Link to={"/"}><span> 나의 랭킹 </span></Link>
+                    {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
                     <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
                 </div>
             </div>

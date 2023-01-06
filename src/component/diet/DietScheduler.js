@@ -9,7 +9,6 @@ import listPlugin from "@fullcalendar/list" // npm i --force @fullcalendar/list
 import DietModal from './DietModal';
 import DietDescriptModal from './DietDescriptModal';
 import DietChallengeModal from './DietChallengeModal';
-
 /* CSS */
 import './fullcalendar.css';
 import './ModalCommon.css';
@@ -17,12 +16,9 @@ import './ModalCommon.css';
 import axios from 'axios';
 /* 리덕스 */
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
-import { Button } from 'reactstrap';
-
-
+/* 날짜 함수 기능 컴포넌트 */
 import * as DateUtil from './DateUtil'
 // import * as dateUtil from './dateUtil.js' //혹은 소문자로 파일명 지정후 .js파일확장자를 붙힌다.
-
 
 export const DietSchedulerContext = createContext();
 export const DietDesciprtContext = createContext();

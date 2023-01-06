@@ -54,7 +54,8 @@ export default function MyLikelist() {
                 <Form>
                     <div className="todo-wrap">
                         <FormGroup row >
-                            <Col sm={10}>                                <Input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
+                            <Col sm={10}>                                
+                            <Input vlaue={toDo} onChange={writetodo} type="text" placeholder="Write your to do..." />
                             </Col>
                             <Col sm={2} className="add_btn">
                                 <Button outline color="primary" onClick={submit}> <b>Add To do</b> </Button>

@@ -21,7 +21,7 @@ export default function DeletePage() {
         <tr>
           <h2>삭제된 레시피 입니다.</h2>
         </tr><br /><br />
-        <Link to={'/recipelist'}>
+        <Link to={'/recipepage'}>
           <tr><Button>이전으로</Button></tr>
         </Link>       
     </center>
