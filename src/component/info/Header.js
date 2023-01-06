@@ -78,9 +78,9 @@ export default function Header() {
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/popRecipe'}>인기 레시피</Link>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                         <Link style={linkStyle} to={'/bestChef'}>베스트 쉐프</Link>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                         <Link style={linkStyle} to={'/challengeRank'}>챌린지 랭킹</Link>
                     </li>

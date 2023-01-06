@@ -8,7 +8,9 @@ import { Link } from 'react-router-dom';
 import LikeButton from './LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
 
-const MainHottestRecipes = () => {
+// 메인 최신 레시피
+
+const MainNewstRecipes = () => {
   const [recipes, setRecipes] = useState([]);
   const [like, setLike] = useState(false);
 
@@ -16,7 +18,7 @@ const MainHottestRecipes = () => {
 
 
   useEffect(() => {
-    axios.get('/popmain')
+    axios.get('/listmain')
       .then((response) => {
         setRecipes(response.data)
       })
@@ -30,11 +32,11 @@ const MainHottestRecipes = () => {
     }}>
       <div className="mt-16 text-left mb-12" >
         <span className="inline text-4xl text-left w-9/12 ml-6 mr-10 mt-16">
-          인기 레시피
+          최신 레시피
         </span>
         <Link to={'/recipelist'}><button className="inline justify-items-start  rounded-lg text-black">{"더 보기>"}</button></Link>
       </div>
-      <div className=''
+      <div
         style={{
 
           width: "1500px",
@@ -55,7 +57,6 @@ const MainHottestRecipes = () => {
               margin: '1rem',
             }}
           >
-
             <Link to={`/reciperef/${c.rno}`}>
               <img
                 alt="Sample"
@@ -65,13 +66,10 @@ const MainHottestRecipes = () => {
 
             <CardBody
             >
-
-              <CardTitle tag="h5" className='inline'>
-                <Link to={`/reciperef/${c.rno}`}><span className='inline'>{c.title}</span></Link>
-              </CardTitle>
-
-
               <Link to={`/reciperef/${c.rno}`}>
+                <CardTitle tag="h5">
+                  {c.title}
+                </CardTitle>
                 <CardSubtitle
                   className="mb-2 text-muted"
                   tag="h6"
@@ -90,7 +88,8 @@ const MainHottestRecipes = () => {
 
                 {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                 {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
-                <span className='inline items-justify'><BsFillStarFill className='inline fill-yellow-400' /> {c.rating}</span>
+                {/* <span className='inline items-justify'><BsFillStarFill style={{fill:'#fdd835'}}/> <span>{c.rating}</span>{c.rating}</span> */}
+                <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.rating}</span>
               </div>
             </CardBody>
           </Card>
@@ -102,4 +101,4 @@ const MainHottestRecipes = () => {
   );
 }
 
-export default MainHottestRecipes;
+export default MainNewstRecipes;
