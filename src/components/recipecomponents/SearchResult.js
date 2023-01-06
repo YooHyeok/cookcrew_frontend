@@ -71,11 +71,12 @@ function SearchResult() {
             <Link to={`/searchresult/${keyword}`}><Button className='ml-2'>검색</Button></Link>
         </div>
       </div>
-      <section className='body'>
+      <section className=''>
         <div className=''
           style={{
 
-            width: "768px",
+            width: "1356px",
+            margin: "0 auto",
             display: "grid",
             gridTemplateRows: "1fr",
             gridTemplateColumns: "1fr 1fr 1fr 1fr",
@@ -136,7 +137,7 @@ function SearchResult() {
         </div>
       </section>
       <div>
-      {/* {(() => {
+      {(() => {
           const array = [];
           for (let i = pageInfo.startPage; i <= pageInfo.endPage; i++) {
             if (i == pageInfo.curPage) {
@@ -160,7 +161,7 @@ function SearchResult() {
 
           )
           return array;
-        })()} */}
+        })()}
       </div>
     </div>
   );

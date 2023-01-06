@@ -11,12 +11,11 @@ import MainNewstRecipes from "./recipecomponents/MainNewstRecipes";
 function PageHome() {
     return(
         <div className="nc-PageHome relative overflow-hidden">
-            <SectionHero2/>
+            <SectionHero2 />
             {/* <hr className="my-20"/> */}
             <MainNewstRecipes/>
             <HottestRecipes/>
             {/* <MainBestChef/> */}
-            <hr/>
         </div>
     )
 }

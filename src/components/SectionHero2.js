@@ -163,7 +163,7 @@ const SectionHero2 = () => {
                 })}
               </div>
       
-              <Prev
+              {/* <Prev
                 className="absolute left-1 sm:left-5 top-3/4 sm:top-1/2 sm:-translate-y-1/2 z-10 !text-slate-700"
                 btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
                 svgSize="w-6 h-6"
@@ -174,7 +174,7 @@ const SectionHero2 = () => {
                 btnClassName="w-12 h-12 hover:border-slate-400 dark:hover:border-slate-400"
                 svgSize="w-6 h-6"
                 onClickNext={handleClickNext}
-              />
+              /> */}
       
               {/* BG */}
               <div className="absolute inset-0 bg-[#ffffff]">

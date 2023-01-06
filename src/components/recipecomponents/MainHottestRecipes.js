@@ -97,6 +97,9 @@ const MainHottestRecipes = () => {
 
         ))}
       </div>
+      <div style={{height:"105px"}}>
+        
+      </div>
 
     </div>
   );
