@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button
-} from 'reactstrap';
+import {Card, CardImg, CardText, CardBody,
+        CardTitle, CardSubtitle, Button} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
@@ -114,7 +112,7 @@ function MyLikeCardList() {
                   {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                   {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
                   <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.score}</span>
-                  <span className='inline'><LikeButton LikeButton rno={c.rno} isLiked={c.likeValue === 1} className='inline' /></span>
+                  <span className='inline'><LikeButton  LikeButton rno={c.rno} truefalse={c.rno} isLiked={c.likeValue === 1} className='inline' /></span>
 
                 </div>
               </CardBody>

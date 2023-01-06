@@ -15,8 +15,6 @@ const LikeButton = (
   const rno = props.rno;
   // console.log(rno);
 
-  
-
   const submit = (e) => {
     e.preventDefault();
 
@@ -27,8 +25,10 @@ const LikeButton = (
 
     axios.post('/like', formData)
       .then((response) => {
-        // console.log(response.data);
-        alert(response.data);
+        console.log(response.data);
+        if(response.data == "찜 목록에 추가")
+          alert("찜목록에 반영되었습니다.");
+          // document.location.reload();
       })
       .catch((error) => {
         console.log(error);

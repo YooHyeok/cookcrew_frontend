@@ -2,12 +2,11 @@ import { useContext } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { HeaderDropDownContext } from "./Header";
-import { Search, PersonCircle } from 'react-bootstrap-icons';
+import { PersonCircle } from 'react-bootstrap-icons';
 
 export default function HeaderDropDownLogin() {
 
   const context = useContext(HeaderDropDownContext);
-
 
   return (
     <Dropdown id="ok" isOpen={context.dropdownOpenLogin} fade="true" toggle={context.toggleLogin}>

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { HeaderDropDownContext } from "./Header";
-import { Search, PersonCircle } from 'react-bootstrap-icons';
+import { PersonCircle } from 'react-bootstrap-icons';
 
 import { useDispatch, useSelector } from 'react-redux'; // redux state값을 읽어온다 토큰값과 userId값을 가져온다.
 
@@ -29,8 +29,8 @@ export default function HeaderDropDownLogout() {
         <DropdownItem style={{ lineHeight: "25px" }} divider />
         {/* <DropdownItem style={{lineHeight: "25px"}} disabled>Action</DropdownItem> */}
         <Link to={'/mypage'}><DropdownItem style={{ lineHeight: "25px" }} ><b>마이페이지</b></DropdownItem></Link>
-        <Link to={'/mylikelist'}><DropdownItem style={{ lineHeight: "25px" }} ><b>나의 찜목록</b></DropdownItem></Link>
         <Link to={'/todolist'}><DropdownItem style={{ lineHeight: "25px" }} ><b>To Do List</b></DropdownItem></Link>
+        <Link to={'/mylikelist'}><DropdownItem style={{ lineHeight: "25px" }} ><b>나의 찜목록</b></DropdownItem></Link>
         <DropdownItem style={{ lineHeight: "25px" }} divider />
         <Link onClick={logout}><DropdownItem style={{ lineHeight: "25px" }} ><b>로그아웃</b></DropdownItem></Link>
       </DropdownMenu>

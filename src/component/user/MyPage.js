@@ -1,10 +1,9 @@
 import axios from "axios";
-import { useState, useEffect, useRef, useMemo } from "react";
-import { Form, Label, Input, Button, Col, FormGroup, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useState, useEffect } from "react";
+import { Form, Label, Input, Button, Col, FormGroup } from 'reactstrap';
 import './MyPage.css';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux'; // redux state값을 읽어온다. 토큰값과 userId값을 가져온다.
-
 
 export default function MyPage() {
     const divStyle = {
@@ -12,13 +11,12 @@ export default function MyPage() {
         , height: '800px'
         , textAlign: 'center'
         , margin: '100px auto'
-        , marginBottom: '35px'
+        , marginBottom: '74px'
         , padding: '30px'
         , top: '100'
     };
 
     const userId = useSelector((state) => { return state.UserId });
-
 
     const [user, setUser] = useState({});
 
@@ -38,7 +36,6 @@ export default function MyPage() {
     }, [])
 
     return (
-
         <div style={divStyle} className="content-wrap">
             <div><h1><b> My Page</b></h1></div><br />
             <div className="screen-wrap">
@@ -62,6 +59,7 @@ export default function MyPage() {
                 <div className="profile-wrap">
                     <img className="profile" src={src} alt="profile" />
                 </div>
+                <br/>
                 {/* 입력폼 영역 */}
                 <Form style={{ width: "400px", margin: '0px auto' }} >
                     <FormGroup row>

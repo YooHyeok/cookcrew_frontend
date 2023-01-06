@@ -1,4 +1,3 @@
-
 export function hipenToKrfmtDate(hipeDate) {
     let date = new Date(hipeDate);
     let year = date.getFullYear();

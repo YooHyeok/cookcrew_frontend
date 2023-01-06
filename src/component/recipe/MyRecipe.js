@@ -3,10 +3,10 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import {useState} from 'react';
 import {
-    Card, CardImg, CardText, CardBody,
+    Card, CardText, CardBody,
     CardTitle, CardSubtitle, Button
   } from 'reactstrap';
-  import { Link,useParams } from 'react-router-dom';
+  import { Link } from 'react-router-dom';
 import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs';
 import '../../components/recipecomponents/RecipePage.css';

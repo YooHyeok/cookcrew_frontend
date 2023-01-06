@@ -31,7 +31,7 @@ export default function RecipeRef() {
     const [likeModal, setLikeModal] = useState(false);
     const [reportModal, setReportModal] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const [enabled, setEnabled] = useState('');
+    const [enabled, setEnabled] = useState();
 
     const { rNo } = useParams();
 
@@ -42,12 +42,16 @@ export default function RecipeRef() {
 
     
     useEffect(() => {
-        console.log(typeof enabled);
         axios.get(`/rcpref/${rNo}`)
             .then((response) => {
                 const rcp = response.data;
-                setEnabled(rcp.enabled)
-                setRegId(rcp.regId)
+                if(rcp.enabled == false){
+                    setEnabled(false)
+                }
+                else {
+                    setEnabled(true)
+                    setRegId(rcp.regId)
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -220,7 +224,7 @@ export default function RecipeRef() {
                 <br /><br />
             </div>}
             {
-            (typeof enabled == Boolean && enabled == false)
+            (enabled == false)
             && <DeletePage />
             }
         </div>
