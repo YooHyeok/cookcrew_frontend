@@ -6,14 +6,12 @@ import axios from 'axios';
 
 
 const LikeButton = (
-  props, {
-    liked = '',
-    className = "", }) => {
+  props) => {
   const [isLiked, setIsLiked] = useState(props.isLiked);
   const userId = useSelector((state) => { return state.UserId });
   // console.log(userId);
   const rno = props.rno;
-  // console.log(rno);
+  console.log(props);
 
   const submit = (e) => {
     e.preventDefault();
@@ -28,7 +26,8 @@ const LikeButton = (
         console.log(response.data);
         if(response.data == "찜 목록에 추가")
           alert("찜목록에 반영되었습니다.");
-          // document.location.reload();
+          if(props.LikeButton == "likeList")
+            props.method.serverRequest(1);
       })
       .catch((error) => {
         console.log(error);

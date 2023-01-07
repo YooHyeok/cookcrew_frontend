@@ -50,7 +50,6 @@ function MyLikeCardList() {
         console.log(error);
       })
   }
-
   return (
     <div>
       <div className="title">
@@ -113,7 +112,7 @@ function MyLikeCardList() {
                   {/* <IconCheckboxes style={{float:"left"}}onClick={()=>{submit()}}/> */}
                   {/* <LikeButton className='inline items-end h-4'></LikeButton> */}
                   <span className=''><BsFillStarFill className='inline fill-yellow-400' />&nbsp;&nbsp;{c.score}</span>
-                  <span className='inline'><LikeButton  LikeButton rno={c.rno} truefalse={c.rno} isLiked={c.likeValue === 1} className='inline' /></span>
+                  <span className='inline'><LikeButton  LikeButton="likeList" rno={c.rno} truefalse={c.rno} isLiked={c.likeValue === 1} method={{serverRequest : serverRequest.bind(this)}} className='inline' /></span>
 
                 </div>
               </CardBody>
