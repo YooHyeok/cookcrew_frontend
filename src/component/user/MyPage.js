@@ -44,7 +44,7 @@ export default function MyPage() {
                     <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
                     <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
                     {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
-                    <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
+                    {/* <Link to={"/todolist"}><span> 나의 To Do List </span></Link> */}
                 </div>
             </div>
             <hr />

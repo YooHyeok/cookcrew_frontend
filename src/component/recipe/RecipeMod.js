@@ -153,7 +153,12 @@ export default function RecipeMod() {
                     </div>
                 </div>
                 <section>
-                    <input type='reset' className="btn btn-outline-danger" value='돌아가기' />&nbsp;&nbsp;
+                    <button type='button' className="btn btn-outline-danger"
+                        onClick={(e)=>{
+                        e.preventDefault();
+                        // document.location.href=`/reciperef/${rNo}`
+                        window.history.back();
+                        }}>돌아가기</button>&nbsp;&nbsp;
                     <button type="button" className="btn btn-outline-dark" onClick={submit}>저장</button>
                 </section>
                 <br /><br />

@@ -7,7 +7,7 @@ import {BsFillSuitHeartFill} from "react-icons/bs"
 import {RiStarSmileFill} from "react-icons/ri"
 import '../user/MyPage.css';
 
-export default function MyRecipeList() {
+export default function MpMyRecipeList() {
     const divStyle = {
         width: '1200px'
         , height: '800px'
@@ -45,7 +45,7 @@ export default function MyRecipeList() {
                     <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
                     <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
                     {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
-                    <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
+                    {/* <Link to={"/todolist"}><span> 나의 To Do List </span></Link> */}
                 </div>
             </div>
             <hr />

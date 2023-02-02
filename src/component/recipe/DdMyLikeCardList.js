@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'; // redux state값을 읽어온다 토
 
 
 
-function MyLikeCardList() {
+function DdMyLikeCardList() {
   const userId = useSelector((state) => { return state.UserId });
   const [isLikes, setIsLikes] = useState([]);
 
@@ -151,5 +151,5 @@ function MyLikeCardList() {
   );
 }
 
-export default MyLikeCardList;
+export default DdMyLikeCardList;
 

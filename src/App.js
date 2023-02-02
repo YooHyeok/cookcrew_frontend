@@ -21,9 +21,9 @@ import Login from './component/user/Login';
 
 import MyPage from './component/user/MyPage';
 import MyPageMod from './component/user/MyPageMod';
-import MyLikeCardList from './component/recipe/MyLikeCardList';
-import MyRecipeList from './component/recipe/MyRecipeList';
-import MyPageRecipeCardList from './component/recipe/MyPageRecipeCardList';
+import DdMyLikeCardList from './component/recipe/DdMyLikeCardList';
+import MpMyRecipeList from './component/recipe/MpMyRecipeList';
+import MpMyRecipeCardList from './component/recipe/MyPageRecipeCardList';
 import ToDoList from './component/user/ToDoList';
 
 import RecipePage from './components/recipecomponents/RecipePage';
@@ -67,13 +67,13 @@ function App() {
               <Route exact path='/mypage' element={<MyPage />} />
               {/* 마이페이지 수정 */}
               <Route exact path='/mypagemod' element={<MyPageMod />} />
-              {/* 마이페이지 나의 레시피 리스트*/}
-              <Route exact path='/mypagerecipelist' element={<MyPageRecipeCardList />} />
-              {/* 마이페이지 나의 레시피*/}
-              <Route exact path='/myrecipelist' element={<MyRecipeList />} />
+              {/* 드롭다운 나의 레시피 카드 리스트*/}
+              <Route exact path='/mypagerecipelist' element={<MpMyRecipeCardList />} />
+              {/* 마이페이지 나의 레시피 카드 리스트*/}
+              <Route exact path='/myrecipelist' element={<MpMyRecipeList />} />
               {/* 마이페이지 나의 찜목록 카드 */}
-              <Route exact path='/mylikelist' element={<MyLikeCardList />} />
-              <Route exact path='/mylikelist/:page' element={<MyLikeCardList />} />
+              <Route exact path='/mylikelist' element={<DdMyLikeCardList />} />
+              <Route exact path='/mylikelist/:page' element={<DdMyLikeCardList />} />
               {/* 마이페이지 투두리스트 */}
               <Route exact path='/todolist' element={<ToDoList />} />
             </Routes>

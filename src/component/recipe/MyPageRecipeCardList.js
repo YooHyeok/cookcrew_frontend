@@ -9,7 +9,7 @@ import LikeButton from '../../components/recipecomponents/LikeButton';
 import { BsFillStarFill } from 'react-icons/bs'
 import '../../components/recipecomponents/RecipePage.css';
 
-export default function MyPageRecipeCardList() {
+export default function MpMyRecipeCardList() {
     const divStyle = {
         width: '1200px'
         , height: '100%'
@@ -68,7 +68,7 @@ export default function MyPageRecipeCardList() {
                         <Link to={"/myrecipelist"}><span> 나의 레시피 </span></Link>
                         <Link to={"/mypagerecipelist"}><span> 나의 찜목록 </span></Link>
                         {/* <Link to={"/"}><span> 나의 랭킹 </span></Link> */}
-                        <Link to={"/todolist"}><span> 나의 To Do List </span></Link>
+                        {/* <Link to={"/todolist"}><span> 나의 To Do List </span></Link> */}
                     </div>
                 </div>
                 <hr />
