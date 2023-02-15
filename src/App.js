@@ -40,8 +40,6 @@ function App() {
               <Route exact path='/' element={<PageHome />} />
               {/* 식단표 관리 */}
               <Route exact path='/dietScheduler' element={<DietScheduler />} />
-               {/* 전체 레시피 */}
-              <Route exact path='/recipepage' element={<RecipePage />} />
               {/* 전체 레시피 */}
               <Route exact path='/recipepage' element={<RecipePage/>} />
               <Route exact path='/recipepage/:page' element={<RecipePage/>} />
